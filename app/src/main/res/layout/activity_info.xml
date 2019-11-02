@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/smokare2" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/userInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Infomation about user"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"/>
+        <TableRow>
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:gravity="left"
+                android:text="Nickname"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/nicknameInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ex. Yujin" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:gravity="left"
+                android:text="Age"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/ageInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ex. 20" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:gravity="left"
+                android:text="Beginning Year\nof Smoking"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/yearInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ex. 2010" />
+        </TableRow>
+        <TextView
+            android:id="@+id/cigarInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Infomation on usually smoked cigarettes"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"/>
+        <TableRow>
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:gravity="left"
+                android:text="Price (￦)"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/priceInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ex. 5000" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/tar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:gravity="left"
+                android:text="Tar (mg)"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/tarInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ex. 3.0" />
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="SmoKare Start!"
+        android:textSize="20sp"/>
+</LinearLayout>
