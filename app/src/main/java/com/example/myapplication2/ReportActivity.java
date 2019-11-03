@@ -9,32 +9,45 @@ package com.example.myapplication2;
         import androidx.appcompat.app.AppCompatActivity;
 
 public class ReportActivity extends AppCompatActivity{
-    ImageButton b1, b2, b3, b4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        b1 = findViewById(R.id.b1);
-        b2 = findViewById(R.id.b2);
-        b3 = findViewById(R.id.b3);
-        b4 = findViewById(R.id.b4);
-
-        b3.setOnClickListener(new Button.OnClickListener() {
+        ImageButton buttonH = findViewById(R.id.imageButton1) ;
+        buttonH.setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this, ReportActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(ReportActivity.this, HomeActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
-        b4.setOnClickListener(new Button.OnClickListener() {
+
+        ImageButton buttonT = findViewById(R.id.imageButton2) ;
+        buttonT.setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this, UserActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(ReportActivity.this, TimelineActivity.class);
                 startActivity(intent);
-                finish();
+            }
+        });
+
+        ImageButton buttonR = findViewById(R.id.imageButton3) ;
+        buttonR.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReportActivity.this, ReportActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton buttonS = findViewById(R.id.imageButton4) ;
+        buttonS.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReportActivity.this, SettingsActivity.class);
+                startActivity(intent);
             }
         });
     }

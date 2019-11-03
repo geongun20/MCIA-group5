@@ -15,7 +15,7 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-        ImageButton buttonH = findViewById(R.id.imageButton3) ;
+        ImageButton buttonH = findViewById(R.id.imageButton1) ;
         buttonH.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -24,7 +24,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton buttonT = findViewById(R.id.imageButton4) ;
+        ImageButton buttonT = findViewById(R.id.imageButton2) ;
         buttonT.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +33,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton buttonR = findViewById(R.id.imageButton6) ;
+        ImageButton buttonR = findViewById(R.id.imageButton3) ;
         buttonR.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +42,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton buttonS = findViewById(R.id.imageButton7) ;
+        ImageButton buttonS = findViewById(R.id.imageButton4) ;
         buttonS.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {

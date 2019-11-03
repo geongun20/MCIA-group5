@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -32,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonH = findViewById(R.id.button1) ;
+        ImageButton buttonH = findViewById(R.id.imageButton1) ;
         buttonH.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonT = findViewById(R.id.button2) ;
+        ImageButton buttonT = findViewById(R.id.imageButton2) ;
         buttonT.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonR = findViewById(R.id.button3) ;
+        ImageButton buttonR = findViewById(R.id.imageButton3) ;
         buttonR.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonS = findViewById(R.id.button4) ;
+        ImageButton buttonS = findViewById(R.id.imageButton4) ;
         buttonS.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
