@@ -41,12 +41,13 @@
             android:text="This Week\n21"
             android:textSize="25sp" />
         <TextView
+            android:id="@+id/myTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="1h 38m"
-            android:textSize="25sp" />
+
+            android:textSize="22sp" />
     </LinearLayout>
 
 
