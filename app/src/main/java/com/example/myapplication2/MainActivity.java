@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         Handler timer = new Handler();
 
         // populate the layout defined in xml file
-        setContentView(R.layout.activity_report);
+        setContentView(R.layout.activity_welcome);
 
         // get the text view instance
         welcomeImage = (ImageView)findViewById(R.id.welcomeImage);
