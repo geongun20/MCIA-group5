@@ -1,25 +1,27 @@
 package com.example.myapplication2;
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.ImageButton;
+import androidx.appcompat.app.AppCompatActivity;
 
-        import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
-public class ReportActivity extends AppCompatActivity{
+
+public class SettingsActivity extends AppCompatActivity{
+    ImageButton b1, b2, b3, b4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report);
+        setContentView(R.layout.activity_setting);
 
         ImageButton buttonH = findViewById(R.id.imageButton1) ;
         buttonH.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReportActivity.this, HomeActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -28,7 +30,7 @@ public class ReportActivity extends AppCompatActivity{
         buttonT.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReportActivity.this, TimelineActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, TimelineActivity.class);
                 startActivity(intent);
             }
         });
@@ -37,7 +39,7 @@ public class ReportActivity extends AppCompatActivity{
         buttonR.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReportActivity.this, ReportActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, ReportActivity.class);
                 startActivity(intent);
             }
         });
@@ -46,7 +48,7 @@ public class ReportActivity extends AppCompatActivity{
         buttonS.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReportActivity.this, SettingsActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,15 +1,14 @@
 package com.example.myapplication2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-public class WelcomeActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity {
     ImageView welcomeImage;
 
     @Override
@@ -27,7 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // make a intent
-                Intent intent = new Intent(WelcomeActivity.this, InfoActivity.class);
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
                 startActivity(intent);
                 finish();
             }
