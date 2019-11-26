@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,9 +9,9 @@
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="174dp"
         android:layout_marginTop="10dp"
-        app:srcCompat="@drawable/smokare2" />
+        app:srcCompat="@drawable/info" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -38,7 +39,7 @@
                 android:id="@+id/nicknameInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ex. Yujin" />
+                android:hint="ex. Kynugwon" />
         </TableRow>
         <TableRow>
             <TextView
@@ -55,30 +56,35 @@
                 android:id="@+id/ageInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ex. 20" />
+                android:hint="ex. 22" />
         </TableRow>
         <TableRow>
+
             <TextView
                 android:id="@+id/year"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
                 android:gravity="left"
-                android:text="Beginning Year\nof Smoking"
+                android:text="\nBeginning Year\nof Smoking"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/yearInput"
+            <NumberPicker
+                android:id="@+id/picker2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ex. 2010" />
+                android:layout_height="78dp"
+                android:layout_marginRight="2dp"
+                android:backgroundTint="#00FFFFFF"
+                android:solidColor="#00FFFFFF" />
+
+
         </TableRow>
         <TextView
             android:id="@+id/cigarInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Infomation on usually smoked cigarettes"
+            android:text="Information on usually smoked cigarettes"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:textSize="20sp"/>
@@ -97,7 +103,7 @@
                 android:id="@+id/priceInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ex. 5000" />
+                android:hint="ex. 5000" />
         </TableRow>
         <TableRow>
             <TextView
@@ -114,7 +120,7 @@
                 android:id="@+id/tarInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ex. 3.0" />
+                android:hint="ex. 4.8" />
         </TableRow>
     </TableLayout>
     <Button

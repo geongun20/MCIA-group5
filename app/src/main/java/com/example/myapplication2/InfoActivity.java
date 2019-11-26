@@ -1,28 +1,44 @@
 package com.example.myapplication2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.app.Activity;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
+import java.io.FileOutputStream;
 
 public class InfoActivity extends AppCompatActivity {
-    EditText nicknameInput, ageInput, yearInput, priceInput, tarInput;
+    EditText nicknameInput, ageInput, priceInput, tarInput;
+    NumberPicker yearInput;
     Button submitButton;
+    private SharedPreferences info;
+    String nickname;
+    String age, year, price;
+    String tar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
+        final Gloal_Variable global = (Gloal_Variable) getApplication();
+
+        NumberPicker picker = (NumberPicker)findViewById(R.id.picker2);
+        picker.setMaxValue(2019);
+        picker.setMinValue(1919);
+        //picker.setWrapSelectorWheel(false);
+
         nicknameInput = (EditText)findViewById(R.id.nicknameInput);
         ageInput = (EditText)findViewById(R.id.ageInput);
-        yearInput = (EditText)findViewById(R.id.yearInput);
+        yearInput = picker;
         priceInput = (EditText)findViewById(R.id.priceInput);
         tarInput = (EditText)findViewById(R.id.tarInput);
 
@@ -32,13 +48,10 @@ public class InfoActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nickname;
-                int age, year, price;
-                double tar;
 
                 if(nicknameInput.getText().equals("")
                         || ageInput.getText().toString().equals("")
-                        || yearInput.getText().toString().equals("")
+                        || yearInput.toString().equals("")
                         || priceInput.getText().toString().equals("")
                         || tarInput.getText().toString().equals("")) {
                     Toast.makeText(InfoActivity.this,
@@ -46,12 +59,23 @@ public class InfoActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 } else {
                     // all info are submitted
-                    nickname = nicknameInput.getText().toString();
                     try {
-                        age = Integer.parseInt(ageInput.getText().toString());
-                        year = Integer.parseInt(yearInput.getText().toString());
-                        price = Integer.parseInt(priceInput.getText().toString());
-                        tar = Double.parseDouble(tarInput.getText().toString());
+                        info = getSharedPreferences("user_info", MODE_PRIVATE);
+
+                        System.out.println("Success");
+                        nickname = nicknameInput.getText().toString();
+                        age = ageInput.getText().toString();
+                        year = String.valueOf(yearInput.getValue());
+                        price = priceInput.getText().toString();
+                        tar = tarInput.getText().toString();
+                        global.setName(nickname);
+                        global.setAge(age);
+                        global.setYear(year);
+                        global.setPrice(price);
+                        global.setTar(tar);
+
+                        //save();
+
                     } catch(NumberFormatException nfe) {
                         System.out.println("Could not parse " + nfe);
                     }
@@ -66,5 +90,15 @@ public class InfoActivity extends AppCompatActivity {
             }
         });
     }
+
+//    private void save(){
+//        SharedPreferences.Editor editor = info.edit();
+//        editor.putString("name", nickname);
+//        editor.putInt("age", age);
+//        editor.putInt("year", year);
+//        editor.putInt("price", price);
+//        editor.putFloat("tar", tar);
+//        editor.commit();
+//    }
 
 }

@@ -10,8 +10,8 @@
         android:id="@+id/welcomeImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="109dp"
+        android:layout_marginTop="130dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/smokare1" />
+        app:srcCompat="@drawable/welcome_smokare" />
 </androidx.constraintlayout.widget.ConstraintLayout>

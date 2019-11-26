@@ -10,6 +10,8 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.List;
+
 
 public class FragmentA extends Fragment {
 
@@ -17,11 +19,10 @@ public class FragmentA extends Fragment {
         // Required empty public constructor
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Nullable
@@ -30,9 +31,14 @@ public class FragmentA extends Fragment {
         View v = inflater.inflate(R.layout.fragment_a,null);
 //        TextView tv = v.findViewById(R.id.textView1);
         ListView lv = v.findViewById(R.id.listView1);
+        Input test = new Input();
+        test.input("sample_data.txt", getContext());
 
-        String[] data = {"18:32 PM", "14:11 PM", "12:55 PM", "10:40 AM", "10:03 AM", "08:33 AM"};
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, data);
+        List<String> temp = test.data2[test.getMonth()][test.getDay()];
+        System.out.println(temp.size());
+        String[] aaa = temp.toArray(new String[0]);
+
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, aaa);
         lv.setAdapter(adapter);
         return v;
     }
