@@ -17,35 +17,29 @@ import java.util.List;
 
 
 public class Input extends AppCompatActivity {
-    ArrayList<String>[][] data2 = new ArrayList[13][32];
+    ArrayList<String>[][] data = new ArrayList[13][32];
+    private final Calendar today = Calendar.getInstance();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // 코드 계속 ...
         super.onCreate(savedInstanceState);
     }
 
     public void input(String filename, Context context) {
-
-
-        //System.out.println("Successsss");
-
         AssetManager am = null;
         InputStream is = null;
         InputStreamReader isr = null;
         BufferedReader br = null;
         String line = "";
 
-
         try {
             am = context.getResources().getAssets();
             is = am.open("sample_data.txt", Context.MODE_WORLD_READABLE);
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
-            while ((line = br.readLine()) != null) {
-                //System.out.println(line);
 
+            while ((line = br.readLine()) != null) {
                 String[] line2 = line.split("\\.");
                 int year = Integer.parseInt(line2[0]);
                 int month = Integer.parseInt(line2[1]);
@@ -54,10 +48,9 @@ public class Input extends AppCompatActivity {
                 int minute = Integer.parseInt(line2[4]);
                 int second = Integer.parseInt(line2[5]);
 
-                if (data2[month][day] == null)
-                    data2[month][day] = new ArrayList<>();
-                data2[month][day].add(line);
-                //System.out.println("H");
+                if (data[month][day] == null)
+                    data[month][day] = new ArrayList<>();
+                data[month][day].add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,38 +72,35 @@ public class Input extends AppCompatActivity {
     }
 
     public int getMonth() {
-        Calendar today = Calendar.getInstance();
-        return today.get(Calendar.MONTH) + 1;
+        return today.get(Calendar.MONTH) + 1; // 0(January) ~ 11
     }
 
     public int getDay() {
-        Calendar today = Calendar.getInstance();
-        return today.get(Calendar.DATE);
+        return today.get(Calendar.DATE); // 1 ~ 31
+    }
+
+    public int getDayOfWeek() {
+        return today.get(Calendar.DAY_OF_WEEK); // 1(Sunday) ~ 7
     }
 
     public int countToday(){
-        Calendar today = Calendar.getInstance();
         int month = today.get(Calendar.MONTH) + 1;
-        int day = today.get(Calendar.DATE) ;
-        List<String> s = data2[month][day];
-        //System.out.println(data2[month][day].size());
-        return s.size();
+        int day = today.get(Calendar.DATE);
+        List<String> list = data[month][day];
+
+        return list.size();
     }
 
 
     public int countThisWeek(){
-        Calendar today = Calendar.getInstance();
         int month = today.get(Calendar.MONTH) + 1;
         int day = today.get(Calendar.DATE);
-        //System.out.println(day);
         int dayOfWeek = today.get(Calendar.DAY_OF_WEEK);
-        List<String> s = data2[month][day];
-
+        List<String> list = data[month][day];
 
         int sum = 0;
-        System.out.println(dayOfWeek);
-        for(int i = dayOfWeek; i >= 2 ; i--){
-            sum += s.size();
+        for(int i = dayOfWeek; i >= 2 ; i--) {
+            sum += list.size();
             if(day == 1) {
                 month--;
                 day = today.getActualMaximum(Calendar.DATE);
@@ -118,10 +108,9 @@ public class Input extends AppCompatActivity {
             else {
                 day--;
             }
-            s = data2[month][day];
-            System.out.println(sum);
-            System.out.println(day);
+            list = data[month][day];
         }
+
         return sum;
     }
 }

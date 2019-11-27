@@ -25,7 +25,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
-    public void addFragment(Fragment fragment, String title){
+    public void addItem(Fragment fragment, String title){
         fragments.add(fragment);
         titles.add(title);
     }

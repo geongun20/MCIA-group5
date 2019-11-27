@@ -34,7 +34,7 @@ public class FragmentA extends Fragment {
         Input test = new Input();
         test.input("sample_data.txt", getContext());
 
-        List<String> temp = test.data2[test.getMonth()][test.getDay()];
+        List<String> temp = test.data[test.getMonth()][test.getDay()];
         System.out.println(temp.size());
         String[] aaa = temp.toArray(new String[0]);
 
