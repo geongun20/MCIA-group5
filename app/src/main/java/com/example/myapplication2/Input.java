@@ -26,7 +26,7 @@ public class Input extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public void input(String filename, Context context) {
+    public void readFile(String filename, Context context) {
         AssetManager am = null;
         InputStream is = null;
         InputStreamReader isr = null;

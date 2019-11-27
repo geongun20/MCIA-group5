@@ -29,16 +29,15 @@ public class FragmentA extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_a,null);
-//        TextView tv = v.findViewById(R.id.textView1);
+
         ListView lv = v.findViewById(R.id.listView1);
-        Input test = new Input();
-        test.input("sample_data.txt", getContext());
 
-        List<String> temp = test.data[test.getMonth()][test.getDay()];
-        System.out.println(temp.size());
-        String[] aaa = temp.toArray(new String[0]);
+        Input input = new Input();
+        input.readFile("sample_data.txt", getContext());
+        List<String> list = input.data[input.getMonth()][input.getDay()];
+        String[] arr = list.toArray(new String[0]);
 
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, aaa);
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, arr);
         lv.setAdapter(adapter);
         return v;
     }
