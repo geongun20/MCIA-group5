@@ -1,20 +1,24 @@
 package com.example.myapplication2;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -28,27 +32,23 @@ public class Fragment3 extends Fragment {
     BarDataSet dataSet;
     BarData data;
     List<Integer> nums = new ArrayList<>();
-//    Context ct;
+
 
     public Fragment3() {
         // Required empty public constructor
     }
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        ct = context;
-//    }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Input input = new Input();
-//        input.readFile("sample_data.txt", getContext());
-//        nums.add(input.countToday());
-//        nums.add(input.countThisWeek());
+        Input input = new Input();
+        input.readFile("sample_data.txt", getContext());
+        for(int i = 1; i<= 12; i++)
+            for(int j = 1; j<= 31; j++)
+                if(input.getData()[i][j] != null) nums.add(input.getData()[i][j].size());
+
 
 
     }
@@ -83,15 +83,19 @@ public class Fragment3 extends Fragment {
 
         XAxis xAxis = barChart.getXAxis(); // x 축 설정
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x 축 표시에 대한 위치 설정
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
 
         YAxis yAxisLeft = barChart.getAxisLeft(); //Y축의 왼쪽면 설정
-//        yAxisLeft.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); //Y축 텍스트 컬러 설정
-//        yAxisLeft.setGridColor(ContextCompat.getColor(getContext(), R.color.textColor)); // Y축 줄의 컬러 설정
+        yAxisLeft.setTextColor(Color.BLACK);
+        xAxis.setGranularity(1f);
+        xAxis.setGranularityEnabled(true);
 
         YAxis yAxisRight = barChart.getAxisRight(); //Y축의 오른쪽면 설정
         yAxisRight.setEnabled(false);
 
-        barChart.setVisibleXRangeMinimum(60 * 60 * 24 * 1000 * 5); //라인차트에서 최대로 보여질 X축의 데이터 설정
+        barChart.setVisibleXRangeMaximum(7); //라인차트에서 최대로 보여질 X축의 데이터 설정
         barChart.setDescription(null); //차트에서 Description 설정 저는 따로 안했습니다.
 
 //        Legend legend = barChart.getLegend(); //레전드 설정 (차트 밑에 색과 라벨을 나타내는 설정)

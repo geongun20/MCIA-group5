@@ -18,6 +18,7 @@ import java.util.List;
 
 public class Input extends AppCompatActivity {
     private ArrayList<String>[][] data = new ArrayList[13][32];
+    private int[] monthly = new int[12];
     private final Calendar today = Calendar.getInstance();
 
 
@@ -50,7 +51,9 @@ public class Input extends AppCompatActivity {
 
                 if (data[month][day] == null)
                     data[month][day] = new ArrayList<>();
+                if(data[month][0] == null)
                 data[month][day].add(line);
+                monthly[month-1]++;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,6 +73,7 @@ public class Input extends AppCompatActivity {
             }
         }
     }
+
 
     public ArrayList<String>[][] getData() {
         return data;
@@ -96,7 +100,6 @@ public class Input extends AppCompatActivity {
         return list.size();
     }
 
-
     public int countThisWeek(){
         int month = today.get(Calendar.MONTH) + 1;
         int day = today.get(Calendar.DATE);
@@ -117,5 +120,14 @@ public class Input extends AppCompatActivity {
         }
 
         return sum;
+    }
+
+    public List<Integer> countMonthly() {
+
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            list.add(i, monthly[i]);
+        }
+        return list;
     }
 }
