@@ -36,18 +36,11 @@ public class Fragment1 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        nums.add(1);
-        nums.add(2);
-        nums.add(3);
-        nums.add(4);
-        nums.add(5);
-        nums.add(6);
-        nums.add(7);
-        nums.add(8);
-        nums.add(9);
-        nums.add(10);
-        nums.add(11);
-        nums.add(12);
+
+        Input input = new Input();
+        for(int i = 0; i < 12; i++) nums.add(i);
+
+
     }
 
     @Override
@@ -60,9 +53,9 @@ public class Fragment1 extends Fragment {
         return v;
     }
 
-    private void chartInit(View v, List<Integer> valList) {
+    private void chartInit(View view, List<Integer> valList) {
 
-        barChart = v.findViewById(R.id.barChart);
+        barChart = view.findViewById(R.id.barChart);
         barChart.setAutoScaleMinMaxEnabled(true);
 
         entries = new ArrayList<BarEntry>();

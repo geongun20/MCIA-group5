@@ -16,13 +16,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.text.SimpleDateFormat;
 
 public class HomeActivity extends AppCompatActivity  {
 
     private boolean isFragmentA = true;
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 
     TextView t1;
 
@@ -78,13 +76,13 @@ public class HomeActivity extends AppCompatActivity  {
         });
         t1 = findViewById(R.id.myTextView);//shoudbemodified
 
-        Input test = new Input();
-        test.input("sample_data.txt", getApplicationContext());
+        Input input = new Input();
+        input.readFile("sample_data.txt", getApplicationContext());
         TextView today = findViewById(R.id.today);
-        today.setText("Today\n" + String.valueOf(test.countToday()));
+        today.setText("Today\n" + String.valueOf(input.countToday()));
 
         TextView week = findViewById(R.id.this_week);
-        week.setText("This WEEK\n" + String.valueOf(test.countThisWeek()));
+        week.setText("This WEEK\n" + String.valueOf(input.countThisWeek()));
     }
 
 

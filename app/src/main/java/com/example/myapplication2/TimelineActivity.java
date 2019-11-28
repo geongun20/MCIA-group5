@@ -7,6 +7,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
+
 
 public class TimelineActivity extends AppCompatActivity {
 
@@ -14,6 +18,19 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+
+        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
+        adapter.addItem(new Fragment1(), "Monthly");
+        adapter.addItem(new Fragment2(), "Weekly");
+        adapter.addItem(new Fragment3(), "Daily");
+
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+
 
         ImageButton buttonH = findViewById(R.id.imageButton1) ;
         buttonH.setOnClickListener(new Button.OnClickListener() {

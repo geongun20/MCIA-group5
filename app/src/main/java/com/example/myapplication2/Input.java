@@ -17,7 +17,7 @@ import java.util.List;
 
 
 public class Input extends AppCompatActivity {
-    ArrayList<String>[][] data = new ArrayList[13][32];
+    private ArrayList<String>[][] data = new ArrayList[13][32];
     private final Calendar today = Calendar.getInstance();
 
 
@@ -35,7 +35,7 @@ public class Input extends AppCompatActivity {
 
         try {
             am = context.getResources().getAssets();
-            is = am.open("sample_data.txt", Context.MODE_WORLD_READABLE);
+            is = am.open("sample_data.txt");
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
@@ -71,9 +71,14 @@ public class Input extends AppCompatActivity {
         }
     }
 
+    public ArrayList<String>[][] getData() {
+        return data;
+    }
+
     public int getMonth() {
         return today.get(Calendar.MONTH) + 1; // 0(January) ~ 11
     }
+
 
     public int getDay() {
         return today.get(Calendar.DATE); // 1 ~ 31

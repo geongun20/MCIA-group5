@@ -34,7 +34,7 @@ public class FragmentA extends Fragment {
 
         Input input = new Input();
         input.readFile("sample_data.txt", getContext());
-        List<String> list = input.data[input.getMonth()][input.getDay()];
+        List<String> list = input.getData()[input.getMonth()][input.getDay()];
         String[] arr = list.toArray(new String[0]);
 
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, arr);
