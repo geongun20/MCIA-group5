@@ -45,10 +45,10 @@ public class Fragment3 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Input input = new Input();
-        input.readFile("sample_data.txt", getContext());
-        nums.add(input.countToday());
-        nums.add(input.countThisWeek());
+//        Input input = new Input();
+//        input.readFile("sample_data.txt", getContext());
+//        nums.add(input.countToday());
+//        nums.add(input.countThisWeek());
 
 
     }

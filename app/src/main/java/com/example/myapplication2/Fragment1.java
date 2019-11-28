@@ -40,7 +40,6 @@ public class Fragment1 extends Fragment {
         Input input = new Input();
         for(int i = 0; i < 12; i++) nums.add(i);
 
-
     }
 
     @Override

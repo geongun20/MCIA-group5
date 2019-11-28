@@ -41,8 +41,9 @@ public class Fragment2 extends Fragment {
         super.onCreate(savedInstanceState);
 
         Input input = new Input();
-
-        for(int i = 0; i < 7; i++) nums.add(i);
+        input.readFile("sample_data.txt", getContext());
+        nums.add(input.countToday());
+        nums.add(input.countThisWeek());
 
     }
 
