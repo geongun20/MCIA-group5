@@ -2,7 +2,6 @@ package com.example.myapplication2;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -74,21 +71,22 @@ public class Fragment1 extends Fragment {
         data = new BarData(dataSet);
         data.setBarWidth(0.9f);
 
-        XAxis xAxis = barChart.getXAxis(); // x 축 설정
+        XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x 축 표시에 대한 위치 설정
+        xAxis.setLabelCount(5, true); //X축의 데이터를 최대 몇개 까지 나타낼지에 대한 설정 5개 force가 true 이면 반드시 보여줌
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
-//        xAxis.setGranularity(1f);
-//        xAxis.setGranularityEnabled(true);
+        xAxis.setGranularityEnabled(true);
+        //        xAxis.setGranularity(1f);
         String[] values = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
 
 
-        YAxis yAxisLeft = barChart.getAxisLeft(); //Y축의 왼쪽면 설정
+        YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setTextColor(Color.BLACK);
 
-        YAxis yAxisRight = barChart.getAxisRight(); //Y축의 오른쪽면 설정
+        YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
 
 //        Legend legend = barChart.getLegend(); //레전드 설정 (차트 밑에 색과 라벨을 나타내는 설정)

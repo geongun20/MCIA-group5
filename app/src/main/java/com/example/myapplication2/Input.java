@@ -28,6 +28,10 @@ public class Input extends AppCompatActivity {
     }
 
     public void readFile(String filename, Context context) {
+        for(int i = 1; i <= 12; i++)
+            for(int j = 1; j <= 31; j++)
+                data[i][j] = new ArrayList<>();
+
         AssetManager am = null;
         InputStream is = null;
         InputStreamReader isr = null;
@@ -49,10 +53,8 @@ public class Input extends AppCompatActivity {
                 int minute = Integer.parseInt(line2[4]);
                 int second = Integer.parseInt(line2[5]);
 
-                if (data[month][day] == null)
-                    data[month][day] = new ArrayList<>();
-                if(data[month][0] == null)
                 data[month][day].add(line);
+
                 monthly[month-1]++;
             }
         } catch (IOException e) {
@@ -92,7 +94,7 @@ public class Input extends AppCompatActivity {
         return today.get(Calendar.DAY_OF_WEEK); // 1(Sunday) ~ 7
     }
 
-    public int countToday(){
+    public int countToday() {
         int month = today.get(Calendar.MONTH) + 1;
         int day = today.get(Calendar.DATE);
         List<String> list = data[month][day];
@@ -100,7 +102,7 @@ public class Input extends AppCompatActivity {
         return list.size();
     }
 
-    public int countThisWeek(){
+    public int countThisWeek() {
         int month = today.get(Calendar.MONTH) + 1;
         int day = today.get(Calendar.DATE);
         int dayOfWeek = today.get(Calendar.DAY_OF_WEEK);
