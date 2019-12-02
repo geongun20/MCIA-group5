@@ -79,7 +79,6 @@ public class Input extends AppCompatActivity {
         return today.get(Calendar.MONTH) + 1; // 0(January) ~ 11
     }
 
-
     public int getDay() {
         return today.get(Calendar.DATE); // 1 ~ 31
     }
@@ -95,7 +94,6 @@ public class Input extends AppCompatActivity {
 
         return list.size();
     }
-
 
     public int countThisWeek(){
         int month = today.get(Calendar.MONTH) + 1;
@@ -115,7 +113,6 @@ public class Input extends AppCompatActivity {
             }
             list = data[month][day];
         }
-
         return sum;
     }
 }

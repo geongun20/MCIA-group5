@@ -27,28 +27,31 @@
         android:layout_height="wrap_content"
         android:layout_weight="10"
         android:orientation="horizontal">
+
         <TextView
-            android:id = "@+id/today"
-            android:layout_width="match_parent"
+            android:id="@+id/today"
+            android:layout_width="344dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="25sp" />
+
         <TextView
-            android:id = "@+id/this_week"
-            android:layout_width="match_parent"
+            android:id="@+id/this_week"
+            android:layout_width="400dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="25sp" />
+
         <TextView
-            android:id="@+id/myTextView"
+            android:id="@+id/after_last_smoke"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
 
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
 

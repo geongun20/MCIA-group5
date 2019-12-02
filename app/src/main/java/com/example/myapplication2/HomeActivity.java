@@ -3,6 +3,8 @@ package com.example.myapplication2;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,13 +18,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 
 public class HomeActivity extends AppCompatActivity  {
 
+    private static Handler mHandler;
+
     private boolean isFragmentA = true;
-
-
-    TextView t1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +81,64 @@ public class HomeActivity extends AppCompatActivity  {
                 return false;
             }
         });
-        t1 = findViewById(R.id.myTextView);//shoudbemodified
 
         Input input = new Input();
         input.readFile("sample_data.txt", getApplicationContext());
+        List<String> list = input.getData()[input.getMonth()][input.getDay()];
+        final String last_time = list.get(list.size() - 1);
+        System.out.println(last_time);
+
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                try{
+                    Calendar cal = Calendar.getInstance();
+                    Date now = cal.getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+                    Date lsTime = sdf.parse(last_time);
+                    //System.out.println(now);
+                    //System.out.println(lsTime);
+                    long diff = now.getTime() - lsTime.getTime();
+                    long seconds = diff/1000;
+                    long minutes = seconds/60;
+                    long hours = minutes / 60;
+                    long days = hours/24;
+
+                    String strTime = String.format("%d days %d hours \n%d minutes and %d seconds", days, hours % 24, minutes % 60, seconds % 60);
+
+                    TextView last_smoke = findViewById(R.id.after_last_smoke);
+                    last_smoke.setText("From the last smoking...\n" + strTime);
+                } catch (ParseException p){
+                    p.printStackTrace();
+                }
+            }
+        };
+
+        class NewRunnable implements Runnable{
+            @Override
+            public void run(){
+                while(true){
+                    try{
+                        Thread.sleep(1000);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    mHandler.sendEmptyMessage(0);
+                }
+            }
+        }
+
+        NewRunnable nr = new NewRunnable();
+        Thread t = new Thread(nr);
+        t.start();
+
+
         TextView today = findViewById(R.id.today);
         today.setText("Today\n" + String.valueOf(input.countToday()));
 
         TextView week = findViewById(R.id.this_week);
         week.setText("This WEEK\n" + String.valueOf(input.countThisWeek()));
+
     }
 
 
@@ -104,8 +160,5 @@ public class HomeActivity extends AppCompatActivity  {
     protected void onPause() {
         super.onPause();
     }
-
-
-
 
 }
