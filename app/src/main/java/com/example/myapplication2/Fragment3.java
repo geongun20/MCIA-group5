@@ -1,6 +1,5 @@
 package com.example.myapplication2;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,17 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -45,12 +41,9 @@ public class Fragment3 extends Fragment {
 
         Input input = new Input();
         input.readFile("sample_data.txt", getContext());
-        for(int i = 1; i<= 12; i++)
-            for(int j = 1; j<= 31; j++)
-                if(input.getData()[i][j] != null) nums.add(input.getData()[i][j].size());
-
-
-
+        int m = 11; // Timeline에서 받아와야함
+        for(int d = 21; d <= input.getLastDayOfMonth(m); d++)
+                if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
 
@@ -81,31 +74,32 @@ public class Fragment3 extends Fragment {
         data = new BarData(dataSet);
         data.setBarWidth(0.9f);
 
-        XAxis xAxis = barChart.getXAxis(); // x 축 설정
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x 축 표시에 대한 위치 설정
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-
-        YAxis yAxisLeft = barChart.getAxisLeft(); //Y축의 왼쪽면 설정
-        yAxisLeft.setTextColor(Color.BLACK);
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
+        xAxis.setLabelCount(10, true);
+        String[] values = {"21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
-        YAxis yAxisRight = barChart.getAxisRight(); //Y축의 오른쪽면 설정
+        YAxis yAxisLeft = barChart.getAxisLeft();
+        yAxisLeft.setTextColor(Color.BLACK);
+
+        YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
 
-        barChart.setVisibleXRangeMaximum(7); //라인차트에서 최대로 보여질 X축의 데이터 설정
-        barChart.setDescription(null); //차트에서 Description 설정 저는 따로 안했습니다.
 
-//        Legend legend = barChart.getLegend(); //레전드 설정 (차트 밑에 색과 라벨을 나타내는 설정)
-//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);//하단 왼쪽에 설정
-//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // 레전드 컬러 설정
+//        Legend legend = barChart.getLegend();
+//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
 
+        barChart.setVisibleXRangeMinimum(10);
+        barChart.setDescription(null);
+        barChart.setFitBars(true);
         barChart.setData(data);
-        barChart.setFitBars(true); // make the x-axis fit exactly all bars
-        barChart.invalidate(); // refresh
-
+        barChart.invalidate();
     }
 
     public void chartUpdate() {

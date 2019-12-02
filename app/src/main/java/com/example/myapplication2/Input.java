@@ -20,6 +20,8 @@ public class Input extends AppCompatActivity {
     private ArrayList<String>[][] data = new ArrayList[13][32];
     private int[] monthly = new int[12];
     private final Calendar today = Calendar.getInstance();
+    private int[] lastDayOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
 
 
     @Override
@@ -28,9 +30,9 @@ public class Input extends AppCompatActivity {
     }
 
     public void readFile(String filename, Context context) {
-        for(int i = 1; i <= 12; i++)
-            for(int j = 1; j <= 31; j++)
-                data[i][j] = new ArrayList<>();
+        for(int m = 1; m <= 12; m++)
+            for(int d = 1; d <= lastDayOfMonth[m]; d++)
+                data[m][d] = new ArrayList<>();
 
         AssetManager am = null;
         InputStream is = null;
@@ -93,6 +95,10 @@ public class Input extends AppCompatActivity {
         return today.get(Calendar.DAY_OF_WEEK); // 1(Sunday) ~ 7
     }
 
+    public int getLastDayOfMonth(int m) {
+        return lastDayOfMonth[m];
+    }
+
     public int countToday() {
         int month = today.get(Calendar.MONTH) + 1;
         int day = today.get(Calendar.DATE);
@@ -101,26 +107,22 @@ public class Input extends AppCompatActivity {
         return list.size();
     }
 
-<<<<<<< HEAD
     public int countThisWeek(){
-=======
-    public int countThisWeek() {
->>>>>>> a40a6e92ffab6ec4caa4fb77e5e2ce058467b979
+
         int month = today.get(Calendar.MONTH) + 1;
         int day = today.get(Calendar.DATE);
         int dayOfWeek = today.get(Calendar.DAY_OF_WEEK);
         List<String> list = data[month][day];
 
         int sum = 0;
-        for(int i = dayOfWeek; i >= 2 ; i--) {
+        for(int i = dayOfWeek; i >= 1 ; i--) {
             sum += list.size();
             if(day == 1) {
                 month--;
                 day = today.getActualMaximum(Calendar.DATE);
             }
-            else {
-                day--;
-            }
+            else day--;
+
             list = data[month][day];
         }
         return sum;

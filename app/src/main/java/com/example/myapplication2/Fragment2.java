@@ -1,7 +1,5 @@
 package com.example.myapplication2;
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,9 +41,9 @@ public class Fragment2 extends Fragment {
 
         Input input = new Input();
         input.readFile("sample_data.txt", getContext());
-        nums.add(input.countToday());
-        nums.add(input.countThisWeek());
-
+        int m = 11; // Timeline에서 받아와야함
+        for(int d = 11; d <= 20; d++)
+            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
     @Override
@@ -75,26 +73,29 @@ public class Fragment2 extends Fragment {
         data = new BarData(dataSet);
         data.setBarWidth(0.9f);
 
-        XAxis xAxis = barChart.getXAxis(); // x 축 설정
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x 축 표시에 대한 위치 설정
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setLabelCount(10, true);
+        String[] values = {"11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
-        YAxis yAxisLeft = barChart.getAxisLeft(); //Y축의 왼쪽면 설정
+        YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setTextColor(Color.BLACK);
 
-        YAxis yAxisRight = barChart.getAxisRight(); //Y축의 오른쪽면 설정
+        YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
 
-        barChart.setVisibleXRangeMinimum(60 * 60 * 24 * 1000 * 5); //라인차트에서 최대로 보여질 X축의 데이터 설정
-        barChart.setDescription(null); //차트에서 Description 설정 저는 따로 안했습니다.
 
-//        Legend legend = barChart.getLegend(); //레전드 설정 (차트 밑에 색과 라벨을 나타내는 설정)
-//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);//하단 왼쪽에 설정
-//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // 레전드 컬러 설정
+//        Legend legend = barChart.getLegend();
+//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
 
+        barChart.setVisibleXRangeMinimum(10);
+        barChart.setDescription(null);
+        barChart.setFitBars(true);
         barChart.setData(data);
-        barChart.setFitBars(true); // make the x-axis fit exactly all bars
-        barChart.invalidate(); // refresh
-
+        barChart.invalidate();
     }
 
     public void chartUpdate() {

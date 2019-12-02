@@ -11,6 +11,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+/**
+ * Timeline 안에
+ * 1. 년월 selector: 고르면 변수에 값 할당
+ * 2. 이번 달 쓴 돈: 1의 변수로부터 몇 월인지 받아옴.
+ * 3. 이번 달 그래프: 1의 변수로부터 몇 월인지 받아옴. viewpager fragment 3개(하나 당 열흘). 각 fragment 안에 막대그래프(막대 하나가 하루).
+ */
 
 public class TimelineActivity extends AppCompatActivity {
 
@@ -19,11 +25,10 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
-        adapter.addItem(new Fragment1(), "Monthly");
-        adapter.addItem(new Fragment2(), "Weekly");
-        adapter.addItem(new Fragment3(), "Daily");
+        adapter.addItem(new Fragment1(), ".01 ~ .10");
+        adapter.addItem(new Fragment2(), ".11 ~ .20");
+        adapter.addItem(new Fragment3(), ".21 ~");
 
         ViewPager viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
