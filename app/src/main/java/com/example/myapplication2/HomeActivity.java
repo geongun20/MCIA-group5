@@ -104,10 +104,16 @@ public class HomeActivity extends AppCompatActivity  {
                     long hours = minutes / 60;
                     long days = hours/24;
 
-                    String strTime = String.format("%d days %d hours \n%d minutes and %d seconds", days, hours % 24, minutes % 60, seconds % 60);
+                    String strTime = "";
+                    if(days == 0)
+                        strTime = String.format("%dh %dm %ds", hours % 24, minutes % 60, seconds % 60);
+                    else if(days == 1)
+                        strTime = String.format("%d day\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
+                    else
+                        strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
 
                     TextView last_smoke = findViewById(R.id.after_last_smoke);
-                    last_smoke.setText("From the last smoking...\n" + strTime);
+                    last_smoke.setText("From LAST Smoking\n" + strTime);
                 } catch (ParseException p){
                     p.printStackTrace();
                 }
@@ -134,10 +140,10 @@ public class HomeActivity extends AppCompatActivity  {
 
 
         TextView today = findViewById(R.id.today);
-        today.setText("Today\n" + String.valueOf(input.countToday()));
+        today.setText("TODAY\n" + String.valueOf(input.countToday()));
 
         TextView week = findViewById(R.id.this_week);
-        week.setText("This WEEK\n" + String.valueOf(input.countThisWeek()));
+        week.setText("THIS WEEK\n" + String.valueOf(input.countThisWeek()));
 
     }
 
