@@ -1,5 +1,6 @@
 package com.example.myapplication2;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,8 @@ public class Fragment1 extends Fragment {
         super.onCreate(savedInstanceState);
 
         Input input = new Input();
-        for(int i = 0; i < 12; i++) nums.add(i);
+        input.readFile("sample_data.txt", getContext());
+        nums = input.countMonthly();
 
     }
 
@@ -69,26 +71,36 @@ public class Fragment1 extends Fragment {
         data = new BarData(dataSet);
         data.setBarWidth(0.9f);
 
-        XAxis xAxis = barChart.getXAxis(); // x 축 설정
+        XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x 축 표시에 대한 위치 설정
+        xAxis.setLabelCount(5, true); //X축의 데이터를 최대 몇개 까지 나타낼지에 대한 설정 5개 force가 true 이면 반드시 보여줌
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularityEnabled(true);
+        //        xAxis.setGranularity(1f);
+        String[] values = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
-        YAxis yAxisLeft = barChart.getAxisLeft(); //Y축의 왼쪽면 설정
-//        yAxisLeft.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); //Y축 텍스트 컬러 설정
-//        yAxisLeft.setGridColor(ContextCompat.getColor(getContext(), R.color.textColor)); // Y축 줄의 컬러 설정
 
-        YAxis yAxisRight = barChart.getAxisRight(); //Y축의 오른쪽면 설정
+
+        YAxis yAxisLeft = barChart.getAxisLeft();
+        yAxisLeft.setTextColor(Color.BLACK);
+
+        YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
-
-        barChart.setVisibleXRangeMinimum(60 * 60 * 24 * 1000 * 5); //라인차트에서 최대로 보여질 X축의 데이터 설정
-        barChart.setDescription(null); //차트에서 Description 설정 저는 따로 안했습니다.
 
 //        Legend legend = barChart.getLegend(); //레전드 설정 (차트 밑에 색과 라벨을 나타내는 설정)
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);//하단 왼쪽에 설정
 //        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // 레전드 컬러 설정
 
-        barChart.setData(data);
+        barChart.setVisibleXRangeMinimum(60 * 60 * 24 * 1000 * 5); //라인차트에서 최대로 보여질 X축의 데이터 설정
+        barChart.setDescription(null); //차트에서 Description 설정 저는 따로 안했습니다.
         barChart.setFitBars(true); // make the x-axis fit exactly all bars
+        barChart.setData(data);
         barChart.invalidate(); // refresh
+
+
+
 
     }
 

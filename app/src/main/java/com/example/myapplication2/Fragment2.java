@@ -2,6 +2,7 @@ package com.example.myapplication2;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,8 +79,7 @@ public class Fragment2 extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x 축 표시에 대한 위치 설정
 
         YAxis yAxisLeft = barChart.getAxisLeft(); //Y축의 왼쪽면 설정
-//        yAxisLeft.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); //Y축 텍스트 컬러 설정
-//        yAxisLeft.setGridColor(ContextCompat.getColor(getContext(), R.color.textColor)); // Y축 줄의 컬러 설정
+        yAxisLeft.setTextColor(Color.BLACK);
 
         YAxis yAxisRight = barChart.getAxisRight(); //Y축의 오른쪽면 설정
         yAxisRight.setEnabled(false);
