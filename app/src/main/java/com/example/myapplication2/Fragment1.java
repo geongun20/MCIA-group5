@@ -41,7 +41,7 @@ public class Fragment1 extends Fragment {
         Input input = new Input();
         input.readFile("sample_data.txt", getContext());
         int m = 11; // Timeline에서 받아와야함
-        for(int d = 1; d <= 10; d++)
+        for(int d = 1; d <= 7; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
@@ -79,7 +79,7 @@ public class Fragment1 extends Fragment {
         xAxis.setGranularityEnabled(true);
         //        xAxis.setGranularity(1f);
         xAxis.setLabelCount(10, true); // x축 레이블을 최대 몇 개 보여줄 지. force가 true이면 설정개수만큼 반드시 보여줌
-        String[] values = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        String[] values = {"1", "2", "3", "4", "5", "6", "7"};
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
@@ -92,7 +92,8 @@ public class Fragment1 extends Fragment {
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);//하단 왼쪽에 설정
 //        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // 레전드 컬러 설정
 
-        barChart.setVisibleXRangeMinimum(10); // 최대로 보여질 x축의 데이터 설정
+        barChart.setVisibleXRangeMinimum(7); // 최소로 보여질 x축의 데이터 설정
+        barChart.setVisibleXRangeMaximum(7); // 최대로 보여질 x축의 데이터 설정
         barChart.setDescription(null);
         barChart.setFitBars(true); // make the x-axis fit exactly all bars
         barChart.setData(data);
