@@ -83,8 +83,14 @@ public class Fragment5 extends Fragment {
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(10, true);
-        String[] values = {"29", Integer.toString(lastDay)};
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
+        String[] values30 = {"29", "30"};
+        String[] values31 = {"29", "30", "31"};
+
+        if(lastDay == 30)
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(values30));
+        else if(lastDay == 31)
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(values31));
+
 
         YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setTextColor(Color.BLACK);
@@ -92,12 +98,12 @@ public class Fragment5 extends Fragment {
         YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
 
-
 //        Legend legend = barChart.getLegend();
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
 //        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
 
-        barChart.setVisibleXRangeMinimum(10);
+        barChart.setVisibleXRangeMinimum(7);
+        barChart.setVisibleXRangeMaximum(7);
         barChart.setDescription(null);
         barChart.setFitBars(true);
         barChart.setData(data);

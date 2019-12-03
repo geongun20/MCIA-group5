@@ -92,7 +92,8 @@ public class Fragment1 extends Fragment {
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);//하단 왼쪽에 설정
 //        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // 레전드 컬러 설정
 
-        barChart.setVisibleXRangeMinimum(10); // 최대로 보여질 x축의 데이터 설정
+        barChart.setVisibleXRangeMinimum(7); // 최소로 보여질 x축의 데이터 설정
+        barChart.setVisibleXRangeMaximum(7); // 최대로 보여질 x축의 데이터 설정
         barChart.setDescription(null);
         barChart.setFitBars(true); // make the x-axis fit exactly all bars
         barChart.setData(data);

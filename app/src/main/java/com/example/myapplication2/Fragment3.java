@@ -95,7 +95,8 @@ public class Fragment3 extends Fragment {
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
 //        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
 
-        barChart.setVisibleXRangeMinimum(10);
+        barChart.setVisibleXRangeMinimum(7);
+        barChart.setVisibleXRangeMaximum(7);
         barChart.setDescription(null);
         barChart.setFitBars(true);
         barChart.setData(data);
