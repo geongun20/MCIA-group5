@@ -3,6 +3,7 @@ package com.example.myapplication2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.NumberPicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,5 +67,24 @@ public class TimelineActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        final NumberPicker monthPicker;
+        monthPicker = (NumberPicker) findViewById(R.id.monthPicker1);
+        final String months[] = {"2019.12(DEC)", "2019.11(NOV)", "2019.10(OCT)", "2019.09(SEP)", "2019.08(AUG)", "2019.07(JUL)", "2019.06(JUN)"};
+
+        monthPicker.setMinValue(0);
+        monthPicker.setMaxValue(months.length -1);
+        monthPicker.setDisplayedValues(months);
+        monthPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+
+
+//        NumberPicker.OnValueChangeListener myValChangedListener = new NumberPicker.OnValueChangeListener() {
+//            @Override
+//            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+//            }
+//        };
+//
+//        monthPicker.setOnValueChangedListener(myValChangedListener);
     }
 }
