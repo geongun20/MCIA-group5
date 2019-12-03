@@ -21,18 +21,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Fragment1 extends Fragment {
+public class Fragment5 extends Fragment {
 
     BarChart barChart;
     List<BarEntry> entries;
     BarDataSet dataSet;
     BarData data;
     List<Integer> nums = new ArrayList<>();
+    private static int lastDay;
 
 
-    public Fragment1() {
+    public Fragment5() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,14 +43,16 @@ public class Fragment1 extends Fragment {
         Input input = new Input();
         input.readFile("sample_data.txt", getContext());
         int m = 11; // Timeline에서 받아와야함
-        for(int d = 1; d <= 7; d++)
+        lastDay = input.getLastDayOfMonth(m);
+        for(int d = 29; d <= lastDay; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_1,null);
+        View v = inflater.inflate(R.layout.fragment_3,null);
 
         chartInit(v, nums);
 
@@ -73,13 +77,13 @@ public class Fragment1 extends Fragment {
         data.setBarWidth(0.9f);
 
         XAxis xAxis = barChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x축 표시에 대한 위치 설정
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
-        //        xAxis.setGranularity(1f);
-        xAxis.setLabelCount(10, true); // x축 레이블을 최대 몇 개 보여줄 지. force가 true이면 설정개수만큼 반드시 보여줌
-        String[] values = {"1", "2", "3", "4", "5", "6", "7"};
+        xAxis.setLabelCount(10, true);
+        String[] values = {"29", Integer.toString(lastDay)};
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
@@ -88,15 +92,16 @@ public class Fragment1 extends Fragment {
         YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
 
-//        Legend legend = barChart.getLegend(); //레전드 설정 (차트 밑에 색과 라벨을 나타내는 설정)
-//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);//하단 왼쪽에 설정
-//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // 레전드 컬러 설정
 
-        barChart.setVisibleXRangeMinimum(10); // 최대로 보여질 x축의 데이터 설정
+//        Legend legend = barChart.getLegend();
+//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+
+        barChart.setVisibleXRangeMinimum(10);
         barChart.setDescription(null);
-        barChart.setFitBars(true); // make the x-axis fit exactly all bars
+        barChart.setFitBars(true);
         barChart.setData(data);
-        barChart.invalidate(); // refresh
+        barChart.invalidate();
     }
 
     public void chartUpdate() {

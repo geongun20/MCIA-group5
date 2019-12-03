@@ -128,6 +128,29 @@ public class Input extends AppCompatActivity {
         return sum;
     }
 
+    public int countThisMonth(){
+
+        int month = today.get(Calendar.MONTH) + 1;
+        int day = today.get(Calendar.DATE);
+        int dayOfWeek = today.get(Calendar.DAY_OF_WEEK);
+        List<String> list = data[month][day];
+
+        int sum = 0;
+        for(int i = dayOfWeek; i >= 1 ; i--) {
+            sum += list.size();
+            if(day == 1) {
+                month--;
+                day = today.getActualMaximum(Calendar.DATE);
+            }
+            else day--;
+
+            list = data[month][day];
+        }
+        return sum;
+    }
+
+
+
     public List<Integer> countMonthly() {
 
         List<Integer> list = new ArrayList<>();

@@ -42,7 +42,7 @@ public class Fragment3 extends Fragment {
         Input input = new Input();
         input.readFile("sample_data.txt", getContext());
         int m = 11; // Timeline에서 받아와야함
-        for(int d = 21; d <= input.getLastDayOfMonth(m); d++)
+        for(int d = 15; d <= 21; d++)
                 if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
@@ -81,7 +81,7 @@ public class Fragment3 extends Fragment {
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(10, true);
-        String[] values = {"21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
+        String[] values = {"15", "16", "17", "18", "19", "20", "21"}; // "22", "23", "24", "25", "26", "27", "28", "29", "30"
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();

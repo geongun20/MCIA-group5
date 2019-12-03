@@ -42,7 +42,7 @@ public class Fragment2 extends Fragment {
         Input input = new Input();
         input.readFile("sample_data.txt", getContext());
         int m = 11; // Timeline에서 받아와야함
-        for(int d = 11; d <= 20; d++)
+        for(int d = 8; d <= 14; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
@@ -77,7 +77,7 @@ public class Fragment2 extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setLabelCount(10, true);
-        String[] values = {"11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        String[] values = {"8", "9", "10", "11", "12", "13", "14"};
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
