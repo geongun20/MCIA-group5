@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="194dp"
         android:layout_weight="2"
         android:orientation="vertical">
 
@@ -41,15 +41,25 @@
             android:text="$719"
             android:textColor="@android:color/black"
             android:textSize="30sp" />
+
+        <NumberPicker
+            android:id="@+id/monthPicker1"
+            android:layout_width="192dp"
+            android:layout_height="125dp"
+            android:layout_marginRight="2dp"
+            android:backgroundTint="#00FFFFFF"
+            android:orientation="vertical"
+            android:solidColor="#00FFFFFF"
+            android:theme="@style/monthPickerCustomSize" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        android:layout_height="256dp"
         android:layout_weight="5"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="20dp">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
