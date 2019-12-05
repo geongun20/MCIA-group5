@@ -26,7 +26,7 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
+        
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
         adapter.addItem(new Fragment1(), "WEEK 1");
         adapter.addItem(new Fragment2(), "WEEK 2");
