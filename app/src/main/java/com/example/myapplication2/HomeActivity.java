@@ -22,7 +22,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 
 public class HomeActivity extends AppCompatActivity  {
@@ -84,9 +83,8 @@ public class HomeActivity extends AppCompatActivity  {
 
         Input input = new Input();
         input.readFile("sample_data.txt", getApplicationContext());
-        List<String> list = input.getData()[input.getMonth()][input.getDay()];
-        final String last_time = list.get(list.size() - 1);
-        System.out.println(last_time);
+
+        final String lastTime = input.getLast();
 
         mHandler = new Handler(){
             @Override
@@ -95,9 +93,8 @@ public class HomeActivity extends AppCompatActivity  {
                     Calendar cal = Calendar.getInstance();
                     Date now = cal.getTime();
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-                    Date lsTime = sdf.parse(last_time);
-                    //System.out.println(now);
-                    //System.out.println(lsTime);
+                    Date lsTime = sdf.parse(lastTime);
+
                     long diff = now.getTime() - lsTime.getTime();
                     long seconds = diff/1000;
                     long minutes = seconds/60;
@@ -112,8 +109,8 @@ public class HomeActivity extends AppCompatActivity  {
                     else
                         strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
 
-                    TextView last_smoke = findViewById(R.id.after_last_smoke);
-                    last_smoke.setText("From LAST Smoking\n" + strTime);
+                    TextView fromLast = findViewById(R.id.after_last_smoke);
+                    fromLast.setText("From LAST Smoking\n" + strTime);
                 } catch (ParseException p){
                     p.printStackTrace();
                 }

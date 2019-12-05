@@ -22,6 +22,7 @@ public class Input extends AppCompatActivity {
     private final Calendar today = Calendar.getInstance();
     private int[] lastDayOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
+    private String lastSmoke;
 
 
     @Override
@@ -58,6 +59,8 @@ public class Input extends AppCompatActivity {
                 data[month][day].add(line);
 
                 monthly[month-1]++;
+
+                lastSmoke = line;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,6 +100,10 @@ public class Input extends AppCompatActivity {
 
     public int getLastDayOfMonth(int m) {
         return lastDayOfMonth[m];
+    }
+
+    public String getLast() {
+        return lastSmoke;
     }
 
     public int countToday() {
