@@ -1,4 +1,4 @@
-package com.example.myapplications2;
+package com.example.smokare;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Fragment1 extends Fragment {
+public class Fragment4 extends Fragment {
 
     BarChart barChart;
     List<BarEntry> entries;
@@ -31,48 +31,39 @@ public class Fragment1 extends Fragment {
     List<Integer> nums = new ArrayList<>();
 
 
-
-    public Fragment1() {
+    public Fragment4() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         input.readFile();
-
-        System.out.println("#####onCreate()#####");
-
-
         int m = TimelineActivity.pickedMonth;
-        for(int d = 1; d <= 7; d++)
+        for(int d = 22; d <= 28; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        System.out.println("#####onCreateView()#####");
+        View v = inflater.inflate(R.layout.fragment_4,null);
 
         int m = TimelineActivity.pickedMonth;
         nums.clear();
-        for(int d = 1; d <= 7; d++)
+        for(int d = 22; d <= 28; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
 
-        View v = inflater.inflate(R.layout.fragment_1,null);
         chartInit(v, nums);
         return v;
     }
 
     private void chartInit(View view, List<Integer> valList) {
-        System.out.println("#####charInit()#####");
 
         barChart = view.findViewById(R.id.barChart);
         barChart.setAutoScaleMinMaxEnabled(true);
-//        barChart.invalidate();
-//        barChart.clear();
 
         entries = new ArrayList<BarEntry>();
         for(int i = 0; i < valList.size(); i++)
@@ -87,13 +78,13 @@ public class Fragment1 extends Fragment {
         data.setBarWidth(0.9f);
 
         XAxis xAxis = barChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x축 표시에 대한 위치 설정
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
-        //        xAxis.setGranularity(1f);
-        xAxis.setLabelCount(10, true); // x축 레이블을 최대 몇 개 보여줄 지. force가 true이면 설정개수만큼 반드시 보여줌
-        String[] values = {"1", "2", "3", "4", "5", "6", "7"};
+        xAxis.setLabelCount(10, true);
+        String[] values = {"22", "23", "24", "25", "26", "27", "28"};
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
@@ -102,16 +93,17 @@ public class Fragment1 extends Fragment {
         YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
 
-//        Legend legend = barChart.getLegend(); //레전드 설정 (차트 밑에 색과 라벨을 나타내는 설정)
-//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);//하단 왼쪽에 설정
-//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // 레전드 컬러 설정
 
-        barChart.setVisibleXRangeMinimum(7); // 최소로 보여질 x축의 데이터 설정
-        barChart.setVisibleXRangeMaximum(7); // 최대로 보여질 x축의 데이터 설정
+//        Legend legend = barChart.getLegend();
+//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+
+        barChart.setVisibleXRangeMinimum(7);
+        barChart.setVisibleXRangeMaximum(7);
         barChart.setDescription(null);
-        barChart.setFitBars(true); // make the x-axis fit exactly all bars
+        barChart.setFitBars(true);
         barChart.setData(data);
-        barChart.invalidate(); // refresh
+        barChart.invalidate();
     }
 
     public void chartUpdate() {

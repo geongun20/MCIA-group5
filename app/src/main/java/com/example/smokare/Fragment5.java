@@ -1,4 +1,4 @@
-package com.example.myapplications2;
+package com.example.smokare;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Fragment4 extends Fragment {
+public class Fragment5 extends Fragment {
 
     BarChart barChart;
     List<BarEntry> entries;
@@ -29,9 +29,10 @@ public class Fragment4 extends Fragment {
     BarData data;
     Input input = new Input();
     List<Integer> nums = new ArrayList<>();
+    private static int lastDay;
 
 
-    public Fragment4() {
+    public Fragment5() {
         // Required empty public constructor
     }
 
@@ -41,19 +42,21 @@ public class Fragment4 extends Fragment {
         super.onCreate(savedInstanceState);
 
         input.readFile();
+
         int m = TimelineActivity.pickedMonth;
-        for(int d = 22; d <= 28; d++)
+        lastDay = input.getLastDateOfMonth(m);
+        for(int d = 29; d <= input.getLastDateOfMonth(m); d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_4,null);
+        View v = inflater.inflate(R.layout.fragment_5,null);
 
         int m = TimelineActivity.pickedMonth;
         nums.clear();
-        for(int d = 22; d <= 28; d++)
+        for(int d = 29; d <= input.getLastDateOfMonth(m); d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
 
         chartInit(v, nums);
@@ -84,15 +87,20 @@ public class Fragment4 extends Fragment {
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(10, true);
-        String[] values = {"22", "23", "24", "25", "26", "27", "28"};
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
+        String[] values30 = {"29", "30"};
+        String[] values31 = {"29", "30", "31"};
+
+        if(lastDay == 30)
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(values30));
+        else if(lastDay == 31)
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(values31));
+
 
         YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setTextColor(Color.BLACK);
 
         YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
-
 
 //        Legend legend = barChart.getLegend();
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);

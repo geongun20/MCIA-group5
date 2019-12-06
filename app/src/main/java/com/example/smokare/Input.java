@@ -1,4 +1,4 @@
-package com.example.myapplications2;
+package com.example.smokare;
 
 
 import android.os.Bundle;

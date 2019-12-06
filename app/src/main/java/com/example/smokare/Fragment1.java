@@ -1,4 +1,4 @@
-package com.example.myapplications2;
+package com.example.smokare;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Fragment5 extends Fragment {
+public class Fragment1 extends Fragment {
 
     BarChart barChart;
     List<BarEntry> entries;
@@ -29,13 +29,12 @@ public class Fragment5 extends Fragment {
     BarData data;
     Input input = new Input();
     List<Integer> nums = new ArrayList<>();
-    private static int lastDay;
 
 
-    public Fragment5() {
+
+    public Fragment1() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,30 +42,37 @@ public class Fragment5 extends Fragment {
 
         input.readFile();
 
+        System.out.println("#####onCreate()#####");
+
+
         int m = TimelineActivity.pickedMonth;
-        lastDay = input.getLastDateOfMonth(m);
-        for(int d = 29; d <= input.getLastDateOfMonth(m); d++)
+        for(int d = 1; d <= 7; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_5,null);
+
+        System.out.println("#####onCreateView()#####");
 
         int m = TimelineActivity.pickedMonth;
         nums.clear();
-        for(int d = 29; d <= input.getLastDateOfMonth(m); d++)
+        for(int d = 1; d <= 7; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
 
+        View v = inflater.inflate(R.layout.fragment_1,null);
         chartInit(v, nums);
         return v;
     }
 
     private void chartInit(View view, List<Integer> valList) {
+        System.out.println("#####charInit()#####");
 
         barChart = view.findViewById(R.id.barChart);
         barChart.setAutoScaleMinMaxEnabled(true);
+//        barChart.invalidate();
+//        barChart.clear();
 
         entries = new ArrayList<BarEntry>();
         for(int i = 0; i < valList.size(); i++)
@@ -81,20 +87,14 @@ public class Fragment5 extends Fragment {
         data.setBarWidth(0.9f);
 
         XAxis xAxis = barChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x축 표시에 대한 위치 설정
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(10, true);
-        String[] values30 = {"29", "30"};
-        String[] values31 = {"29", "30", "31"};
-
-        if(lastDay == 30)
-            xAxis.setValueFormatter(new MyXAxisValueFormatter(values30));
-        else if(lastDay == 31)
-            xAxis.setValueFormatter(new MyXAxisValueFormatter(values31));
-
+        //        xAxis.setGranularity(1f);
+        xAxis.setLabelCount(10, true); // x축 레이블을 최대 몇 개 보여줄 지. force가 true이면 설정개수만큼 반드시 보여줌
+        String[] values = {"1", "2", "3", "4", "5", "6", "7"};
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setTextColor(Color.BLACK);
@@ -102,16 +102,16 @@ public class Fragment5 extends Fragment {
         YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
 
-//        Legend legend = barChart.getLegend();
-//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+//        Legend legend = barChart.getLegend(); //레전드 설정 (차트 밑에 색과 라벨을 나타내는 설정)
+//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);//하단 왼쪽에 설정
+//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // 레전드 컬러 설정
 
-        barChart.setVisibleXRangeMinimum(7);
-        barChart.setVisibleXRangeMaximum(7);
+        barChart.setVisibleXRangeMinimum(7); // 최소로 보여질 x축의 데이터 설정
+        barChart.setVisibleXRangeMaximum(7); // 최대로 보여질 x축의 데이터 설정
         barChart.setDescription(null);
-        barChart.setFitBars(true);
+        barChart.setFitBars(true); // make the x-axis fit exactly all bars
         barChart.setData(data);
-        barChart.invalidate();
+        barChart.invalidate(); // refresh
     }
 
     public void chartUpdate() {
