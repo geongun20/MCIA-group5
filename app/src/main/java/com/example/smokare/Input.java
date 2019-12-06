@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,27 +25,30 @@ public class Input extends AppCompatActivity {
     private int[] lastDayOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
     private String lastSmoke;
+    private File dir = null ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dir = getExternalFilesDir(null);
     }
 
-    public void readFile(String filename, Context context) {
+    public void readFile() {
         for(int m = 1; m <= 12; m++)
             for(int d = 1; d <= lastDayOfMonth[m]; d++)
                 data[m][d] = new ArrayList<>();
 
-        AssetManager am = null;
+        //AssetManager am = null;
         InputStream is = null;
         InputStreamReader isr = null;
         BufferedReader br = null;
         String line = "";
 
         try {
-            am = context.getResources().getAssets();
-            is = am.open("sample_data.txt");
+            //am = context.getResources().getAssets();
+            //is = am.open("sample_data.txt");
+            is = new FileInputStream(dir+"/testfolder/output.txt");
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 

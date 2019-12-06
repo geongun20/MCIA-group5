@@ -1,7 +1,8 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -28,13 +29,10 @@ public class getDataService extends Service implements DataClient.OnDataChangedL
 
     FileOutputStream fos;
 
-    public getDataService() {
-    }
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
 
     private static final String COUNT_KEY = "com.example.key.count";
@@ -76,7 +74,7 @@ public class getDataService extends Service implements DataClient.OnDataChangedL
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startID){
-
+        Log.d("debug","debug");
         File dir = new File(getExternalFilesDir(null)+"/testfolder/");
         System.out.println("debug1:"+getExternalFilesDir(null));
         if (!dir.exists())
@@ -112,7 +110,7 @@ public class getDataService extends Service implements DataClient.OnDataChangedL
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
-        System.out.println("debug");
+        Log.d("debug","debug2");
         for (DataEvent event : dataEvents) {
             if (event.getType() == DataEvent.TYPE_CHANGED) {
                 // DataItem changed

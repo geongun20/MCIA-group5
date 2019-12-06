@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Fragment3 extends Fragment {
+public class Fragment4 extends Fragment {
 
     BarChart barChart;
     List<BarEntry> entries;
@@ -30,7 +30,7 @@ public class Fragment3 extends Fragment {
     List<Integer> nums = new ArrayList<>();
 
 
-    public Fragment3() {
+    public Fragment4() {
         // Required empty public constructor
     }
 
@@ -40,10 +40,10 @@ public class Fragment3 extends Fragment {
         super.onCreate(savedInstanceState);
 
         Input input = new Input();
-        input.readFile("sample_data.txt", getContext());
+        input.readFile();
         int m = 11; // Timeline에서 받아와야함
-        for(int d = 15; d <= 21; d++)
-                if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
+        for(int d = 22; d <= 28; d++)
+            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
 
@@ -81,7 +81,7 @@ public class Fragment3 extends Fragment {
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(10, true);
-        String[] values = {"15", "16", "17", "18", "19", "20", "21"}; // "22", "23", "24", "25", "26", "27", "28", "29", "30"
+        String[] values = {"22", "23", "24", "25", "26", "27", "28"};
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();

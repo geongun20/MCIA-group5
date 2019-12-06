@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
