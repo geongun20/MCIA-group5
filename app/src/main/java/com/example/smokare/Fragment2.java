@@ -27,7 +27,8 @@ public class Fragment2 extends Fragment {
     List<BarEntry> entries;
     BarDataSet dataSet;
     BarData data;
-    Input input = new Input();
+
+    Input input;
     List<Integer> nums = new ArrayList<>();
     List<String> labels = new ArrayList<>();
 
@@ -41,6 +42,7 @@ public class Fragment2 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        input = new Input();
         input.readFile();
 //        input.readFile2("sample_data.txt", getContext());
 
@@ -60,7 +62,6 @@ public class Fragment2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_2,null);
 
         nums.clear();
@@ -102,7 +103,7 @@ public class Fragment2 extends Fragment {
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
-        xAxis.setLabelCount(7, true);
+        xAxis.setLabelCount(8, true);
         String[] labels2 = labels.toArray(new String[labels.size()]);
         xAxis.setValueFormatter(new MyXAxisValueFormatter(labels2));
 
@@ -117,8 +118,8 @@ public class Fragment2 extends Fragment {
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
 //        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
 
-        barChart.setVisibleXRangeMinimum(7);
-        barChart.setVisibleXRangeMaximum(7);
+        barChart.setVisibleXRangeMinimum(8);
+        barChart.setVisibleXRangeMaximum(8);
         barChart.setDescription(null);
         barChart.setFitBars(true);
         barChart.setData(data);

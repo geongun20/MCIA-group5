@@ -24,15 +24,30 @@ import com.google.android.material.tabs.TabLayout;
  */
 
 public class TimelineActivity extends AppCompatActivity {
-    static int pickedMonth = 0;
     NumberPicker monthPicker;
-    final String months[] = {"DEC 2019", "NOV 2019", "OCT 2019", "SEP 2019", "AUG 2019", "JUL 2019", "JUN 2019"};
+    TextView tv1;
+    TextView tv2;
+    TextView tv3;
+    ViewPager viewPager;
+    TabLayout tabLayout;
+
+    Input input;
+    Global_Variable global;
+
+    static int pickedMonth = 0;
+    final String months[] = {"DEC 2019", "NOV 2019", "OCT 2019", "SEP 2019", "AUG 2019", "JUL 2019", "JUN 2019", "MAY 2019", "APR 2019", "MAR 2019", "FEB 2019", "JAN 2019"};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        input = new Input();
+        input.readFile();
+//        input.readFile2("sample_data.txt", getApplicationContext());
+
+        global = (Global_Variable) getApplication();
 
         monthPicker = findViewById(R.id.monthPicker1);
         monthPicker.setMinValue(0);
@@ -41,27 +56,48 @@ public class TimelineActivity extends AppCompatActivity {
         monthPicker.setWrapSelectorWheel(false);
         monthPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
+        pickedMonth = input.getMonthOfToday();
+
+        tv1 = findViewById(R.id.textView9);
+        tv1.setText("" + months[12 - pickedMonth]);
+        tv2 = findViewById(R.id.textView10);
+        tv2.setText("Total cigarettes: " + input.countMonth(pickedMonth));
+        tv3 = findViewById(R.id.textView11);
+        tv3.setText("Total money spent: " + Integer.parseInt(global.getPrice()) / 20 * input.countMonth(pickedMonth) + " KRW");
+
+        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
+        if(pickedMonth == 3 || pickedMonth == 6) {
+            adapter.addItem(new Fragment1(), "WEEK 1");
+            adapter.addItem(new Fragment2(), "WEEK 2");
+            adapter.addItem(new Fragment3(), "WEEK 3");
+            adapter.addItem(new Fragment4(), "WEEK 4");
+            adapter.addItem(new Fragment5(), "WEEK 5");
+            adapter.addItem(new Fragment6(), "WEEK 6");
+        }
+        else {
+            adapter.addItem(new Fragment1(), "WEEK 1");
+            adapter.addItem(new Fragment2(), "WEEK 2");
+            adapter.addItem(new Fragment3(), "WEEK 3");
+            adapter.addItem(new Fragment4(), "WEEK 4");
+            adapter.addItem(new Fragment5(), "WEEK 5");
+        }
+
+        viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(adapter);
+
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+
+
         Button confirmButton = findViewById(R.id.button1);
         confirmButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Input input = new Input();
-                input.readFile();
-//                input.readFile2("sample_data.txt", getApplicationContext());
-
-                final Global_Variable global = (Global_Variable) getApplication();
-
                 pickedMonth = 12 - monthPicker.getValue();
 
-                TextView tv1 = findViewById(R.id.textView9);
-                tv1.setText("THIS MONTH: " + months[monthPicker.getValue()]);
-
-                TextView tv2 = findViewById(R.id.textView10);
+                tv1.setText("" + months[monthPicker.getValue()]);
                 tv2.setText("Total cigarettes: " + input.countMonth(pickedMonth));
-
-                TextView tv3 = findViewById(R.id.textView11);
                 tv3.setText("Total money spent: " + Integer.parseInt(global.getPrice()) / 20 * input.countMonth(pickedMonth) + " KRW");
-
 
                 MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
                 if(pickedMonth == 3 || pickedMonth == 6) {
@@ -80,10 +116,8 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.addItem(new Fragment5(), "WEEK 5");
                 }
 
-                ViewPager viewPager = findViewById(R.id.viewPager);
                 viewPager.setAdapter(adapter);
 
-                TabLayout tabLayout = findViewById(R.id.tabLayout);
                 tabLayout.setupWithViewPager(viewPager);
             }
         });

@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingTop="20dp"
+            android:text="THIS MONTH:"
             android:textColor="@android:color/black"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -28,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingLeft="20dp"
+            android:text="Total cigarettes:"
             android:textColor="@android:color/black"
             android:textSize="25sp" />
 
@@ -36,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
+            android:text="Total money spent:"
             android:textColor="@android:color/black"
             android:textSize="25sp" />
 

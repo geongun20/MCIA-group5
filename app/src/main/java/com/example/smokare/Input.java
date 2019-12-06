@@ -40,17 +40,13 @@ public class Input extends AppCompatActivity {
             for(int d = 1; d <= lastDateOfMonth[m]; d++)
                 data[m][d] = new ArrayList<>();
 
-
-        //AssetManager am = null;
         InputStream is = null;
         InputStreamReader isr = null;
         BufferedReader br = null;
         String line = "";
 
         try {
-            //am = context.getResources().getAssets();
-            //is = am.open("sample_data.txt");
-            is = new FileInputStream(dir+"/testfolder/output.txt");
+            is = new FileInputStream(dir + "/testfolder/output.txt");
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
