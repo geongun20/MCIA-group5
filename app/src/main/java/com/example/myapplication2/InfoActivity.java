@@ -3,6 +3,7 @@ package com.example.myapplication2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +26,7 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        final Gloal_Variable global = (Gloal_Variable) getApplication();
+        final Global_Variable global = (Global_Variable) getApplication();
 
         NumberPicker picker = (NumberPicker)findViewById(R.id.picker2);
         picker.setMaxValue(2019);
@@ -50,14 +51,16 @@ public class InfoActivity extends AppCompatActivity {
                         || yearInput.toString().equals("")
                         || priceInput.getText().toString().equals("")
                         || tarInput.getText().toString().equals("")) {
-                    Toast.makeText(InfoActivity.this, "please enter all info", Toast.LENGTH_LONG).show();
+                        Toast toast = Toast.makeText(InfoActivity.this, "Please enter all INFO", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
                 }
                 else {
                     // all info are submitted
                     try {
                         info = getSharedPreferences("user_info", MODE_PRIVATE);
 
-                        System.out.println("Success");
+                        //System.out.println("Success");
                         nickname = nicknameInput.getText().toString();
                         age = ageInput.getText().toString();
                         year = String.valueOf(yearInput.getValue());
@@ -76,12 +79,10 @@ public class InfoActivity extends AppCompatActivity {
                     }
 
                     // TODO save user info in application
+                    Intent intent = new Intent(InfoActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-
-                // TODO go next activity
-                Intent intent = new Intent(InfoActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
     }

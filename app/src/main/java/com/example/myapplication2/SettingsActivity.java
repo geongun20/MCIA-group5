@@ -19,11 +19,41 @@ public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences info;
     private TextView textUserName, textUserAge, textUserYear, textUserPrice, textUserTar;
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_menu1: {
+                    Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    return false;
+                }
+                case R.id.navigation_menu2: {
+                    Intent intent = new Intent(SettingsActivity.this, TimelineActivity.class);
+                    startActivity(intent);
+                    return false;
+                }
+                case R.id.navigation_menu3: {
+                    Intent intent = new Intent(SettingsActivity.this, ReportActivity.class);
+                    startActivity(intent);
+                    return false;
+                }
+                case R.id.navigation_menu4: {
+                    Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                    return false;
+                }
+            }
+            return true;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Gloal_Variable global = (Gloal_Variable) getApplication();
+
+        Global_Variable global = (Global_Variable) getApplication();
 
 
         info = getSharedPreferences("user_info", MODE_PRIVATE);
@@ -46,37 +76,38 @@ public class SettingsActivity extends AppCompatActivity {
         textUserPrice.setText("The price of cigarette : " +price);
         textUserTar.setText("The tar of user's cigarette : " +tar);
 
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.navigation_menu1: {
-                        Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.navigation_menu2: {
-                        Intent intent = new Intent(SettingsActivity.this, TimelineActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.navigation_menu3: {
-                        Intent intent = new Intent(SettingsActivity.this, ReportActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.navigation_menu4: {
-                        Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                }
-
-                return true;
-            }
-        });
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigationView);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(3).setChecked(true);
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//                switch (menuItem.getItemId()) {
+//                    case R.id.navigation_menu1: {
+//                        Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    }
+//                    case R.id.navigation_menu2: {
+//                        Intent intent = new Intent(SettingsActivity.this, TimelineActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    }
+//                    case R.id.navigation_menu3: {
+//                        Intent intent = new Intent(SettingsActivity.this, ReportActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    }
+//                    case R.id.navigation_menu4: {
+//                        Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    }
+//                }
+//                return true;
+//            }
+//        });
     }
 
 //    private void load(){
