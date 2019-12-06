@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.smokare.R;
 
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class FragmentA extends Fragment {
 
         Input input = new Input();
         input.readFile("sample_data.txt", getContext());
-        List<String> list = input.getData()[input.getMonth()][input.getDay()];
+        List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
         String[] arr = list.toArray(new String[0]);
 
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, arr);

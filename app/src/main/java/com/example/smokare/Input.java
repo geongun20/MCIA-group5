@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 
 import android.content.Context;
@@ -18,11 +18,11 @@ import java.util.List;
 
 public class Input extends AppCompatActivity {
     private ArrayList<String>[][] data = new ArrayList[13][32];
-    private int[] monthly = new int[12];
     private final Calendar today = Calendar.getInstance();
+    private String lastSmoke;
     private int[] lastDateOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
-    private String lastSmoke;
+    private int[] monthly = new int[12];
 
 
     @Override
@@ -86,23 +86,32 @@ public class Input extends AppCompatActivity {
         return data;
     }
 
-    public int getMonth() {
+    public int getMonthOfToday() {
         return today.get(Calendar.MONTH) + 1; // 0(January) ~ 11
     }
 
-    public int getDate() {
+    public int getDateOfToday() {
         return today.get(Calendar.DATE); // 1 ~ 31
     }
 
-    public int getDay() {
+    public int getDayOfToday() {
         return today.get(Calendar.DAY_OF_WEEK); // 1(Sunday) ~ 7
+    }
+
+    public int getFirstDayOfMonth(int m) {
+        Calendar myCal = Calendar.getInstance();
+        myCal.set(Calendar.YEAR, 2019);
+        myCal.set(Calendar.MONTH, m-1);
+        myCal.set(Calendar.DATE, 1);
+        return myCal.get(Calendar.DAY_OF_WEEK);
     }
 
     public int getLastDateOfMonth(int m) {
         return lastDateOfMonth[m];
     }
 
-    public String getLast() {
+
+    public String getLastSmoke() {
         return lastSmoke;
     }
 
@@ -115,7 +124,6 @@ public class Input extends AppCompatActivity {
     }
 
     public int countThisWeek(){
-
         int month = today.get(Calendar.MONTH) + 1;
         int date = today.get(Calendar.DATE);
         int day = today.get(Calendar.DAY_OF_WEEK);
@@ -135,23 +143,10 @@ public class Input extends AppCompatActivity {
         return sum;
     }
 
-    public int countThisMonth(){
-
-        int month = today.get(Calendar.MONTH) + 1;
-        int date = today.get(Calendar.DATE);
-        int day = today.get(Calendar.DAY_OF_WEEK);
-        List<String> list = data[month][date];
-
+    public int countMonth(int m){
         int sum = 0;
-        for(int i = day; i >= 1 ; i--) {
-            sum += list.size();
-            if(date == 1) {
-                month--;
-                date = today.getActualMaximum(Calendar.DATE);
-            }
-            else date--;
-
-            list = data[month][date];
+        for(int i = 1; i <= getLastDateOfMonth(m); i++) {
+            sum += data[m][i].size();
         }
         return sum;
     }

@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.smokare.R;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -117,12 +117,12 @@ public class ReportActivity extends AppCompatActivity{
 
         Input input = new Input();
         input.readFile("sample_data.txt", getApplicationContext());
-        List<String> list = input.getData()[input.getMonth()][input.getDay()];
+        List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
         TextView life_extension = findViewById(R.id.report_text_2_2);
         DecimalFormat form = new DecimalFormat("#.#");
         life_extension.setText(String.format("You could live %s more minutes", (form.format((double)(14-input.countToday())*(13.8)))));
 
-        Gloal_Variable global = (Gloal_Variable) getApplication();
+        Global_Variable global = (Global_Variable) getApplication();
         TextView save_price = findViewById(R.id.report_text_3_2);
         save_price.setText(String.format("%d won", (14-input.countToday())*Integer.parseInt(global.getPrice())));
 

@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.smokare.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.ParseException;
@@ -83,7 +84,7 @@ public class HomeActivity extends AppCompatActivity  {
         Input input = new Input();
         input.readFile("sample_data.txt", getApplicationContext());
 
-        final String lastTime = input.getLast();
+        final String lastTime = input.getLastSmoke();
 
         mHandler = new Handler(){
             @Override

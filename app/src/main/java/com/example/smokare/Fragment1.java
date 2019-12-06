@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,7 +29,7 @@ public class Fragment1 extends Fragment {
     BarData data;
     Input input = new Input();
     List<Integer> nums = new ArrayList<>();
-
+    List<String> labels = new ArrayList<>();
 
 
     public Fragment1() {
@@ -45,8 +45,40 @@ public class Fragment1 extends Fragment {
         input.readFile("sample_data.txt", getContext());
 
         int m = TimelineActivity.pickedMonth;
-        for(int d = 1; d <= 7; d++)
-            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
+        int firstDay = input.getFirstDayOfMonth(m);
+        if(firstDay >= 1) {
+            for (int i = 0; i < firstDay - 1; i++) { nums.add(0); labels.add(" "); }
+            for (int d = 1; d <= 8 - firstDay; d++) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+        }
+        else {
+            for (int d = 1; d <= 8 - firstDay; d++) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+        }
+
+        /**
+         * day = 1
+         * d = [1](0개 +)1~7 ... [5]29~말일(+ 35-말일개)
+         *
+         * day = 2
+         * d = [1](1개 +)1~6 ... [5]28~말일(+ 36-말일개)
+         *
+         * day = 3
+         * d = [1](2개 +)1~5 ... [5]27~말일(+ 37-말일개)
+         *
+         * day = 4
+         * d = [1](3개 +)1~4 ... [5]26~말일(+ 38-말일개)
+         *
+         * day = 5
+         * d = [1](4개 +)1~3 ... [5]25~말일(+ 39-말일개)
+         *
+         * day = 6 & 말일 = 30
+         * d = [1](5개 +)1~2 ... [5]24~30(+ 0개)
+         *
+         * day = 6 & 말일 = 31
+         * d = [1](5개 +)1~2 ... [5]24~30(+ 0개), [6]31(+ 6개)
+         *
+         * day = 7
+         * d = [1](6개 +)1~1 ... [5]23~29(+ 0개), [6]~말일(+ 36-말일개)
+         */
     }
 
     @Override
@@ -55,18 +87,28 @@ public class Fragment1 extends Fragment {
 
         System.out.println("#####onCreateView()#####");
 
-        int m = TimelineActivity.pickedMonth;
         nums.clear();
-        for(int d = 1; d <= 7; d++)
-            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
+        labels.clear();
+
+        int m = TimelineActivity.pickedMonth;
+        int firstDay = input.getFirstDayOfMonth(m);
+        if(firstDay >= 1) {
+            for (int i = 0; i < firstDay - 1; i++) { nums.add(0); labels.add(" "); }
+            for (int d = 1; d <= 8 - firstDay; d++) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+        }
+        else {
+            for (int d = 1; d <= 8 - firstDay; d++) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+        }
 
         View v = inflater.inflate(R.layout.fragment_1,null);
-        chartInit(v, nums);
+        chartInit(v);
         return v;
     }
 
-    private void chartInit(View view, List<Integer> valList) {
+    private void chartInit(View view) {
         System.out.println("#####charInit()#####");
+        System.out.println(nums);
+        System.out.println(labels);
 
         barChart = view.findViewById(R.id.barChart);
         barChart.setAutoScaleMinMaxEnabled(true);
@@ -74,10 +116,10 @@ public class Fragment1 extends Fragment {
 //        barChart.clear();
 
         entries = new ArrayList<BarEntry>();
-        for(int i = 0; i < valList.size(); i++)
-            entries.add(new BarEntry(i, valList.get(i)));
+        for(int i = 0; i < nums.size(); i++)
+            entries.add(new BarEntry(i, nums.get(i)));
 
-        dataSet = new BarDataSet(entries, "number of cigarettes");
+        dataSet = new BarDataSet(entries, "Number of cigarettes (SUN - SAT)");
         dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setDrawValues(true);
@@ -90,10 +132,10 @@ public class Fragment1 extends Fragment {
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularityEnabled(true);
-        //        xAxis.setGranularity(1f);
-        xAxis.setLabelCount(10, true); // x축 레이블을 최대 몇 개 보여줄 지. force가 true이면 설정개수만큼 반드시 보여줌
-        String[] values = {"1", "2", "3", "4", "5", "6", "7"};
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
+//        xAxis.setGranularity(1f);
+        xAxis.setLabelCount(7, true); // x축 레이블을 최대 몇 개 보여줄 지. force가 true이면 설정개수만큼 반드시 보여줌
+        String[] labels2 = labels.toArray(new String[labels.size()]);
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(labels2));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setTextColor(Color.BLACK);

@@ -1,8 +1,8 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.app.Application;
 
-public class Gloal_Variable extends Application {
+public class Global_Variable extends Application {
     private String name;
     private String age, year, price;
     private String tar;

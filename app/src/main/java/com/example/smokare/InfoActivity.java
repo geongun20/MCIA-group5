@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,7 +25,7 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        final Gloal_Variable global = (Gloal_Variable) getApplication();
+        final Global_Variable global = (Global_Variable) getApplication();
 
         NumberPicker picker = (NumberPicker)findViewById(R.id.picker2);
         picker.setMaxValue(2019);

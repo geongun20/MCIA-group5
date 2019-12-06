@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,14 +19,14 @@ import com.google.android.material.tabs.TabLayout;
  * Timeline 안에
  * 1. 년월 selector: 고르면 변수에 값 할당.
  * 2. 이번 달 총 개수 & 쓴 돈
- * 3. 이번 달 그래프: viewpager fragment 5개(1~7, 8~14, 15~21, 22~28, 29~말일). 각 fragment 안에 막대그래프(막대 하나가 하루).
+ * 3. 이번 달 그래프: viewpager fragment 5~6개(주별로). 각 fragment 안에 막대그래프(막대 하나가 하루).
  * 4. 이번 달 요일별 개수
  */
 
 public class TimelineActivity extends AppCompatActivity {
     static int pickedMonth = 0;
-    static String s = "init";
     NumberPicker monthPicker;
+    final String months[] = {"DEC 2019", "NOV 2019", "OCT 2019", "SEP 2019", "AUG 2019", "JUL 2019", "JUN 2019"};
 
 
     @Override
@@ -34,35 +34,33 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-        System.out.println("Timeline onCreate()");
-
         monthPicker = findViewById(R.id.monthPicker1);
-        final String months[] = {"2019.12(DEC)", "2019.11(NOV)", "2019.10(OCT)", "2019.09(SEP)", "2019.08(AUG)", "2019.07(JUL)", "2019.06(JUN)"};
-
         monthPicker.setMinValue(0);
         monthPicker.setMaxValue(months.length -1);
-        monthPicker.setWrapSelectorWheel(false);
         monthPicker.setDisplayedValues(months);
+        monthPicker.setWrapSelectorWheel(false);
         monthPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-//        monthPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-//            @Override
-//            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-//                s = newVal+"";
-//            }
-//        });
 
 
         Button confirmButton = findViewById(R.id.button1);
         confirmButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                s = String.valueOf(monthPicker.getValue());
+                final Input input = new Input();
+                input.readFile("sample_data.txt", getApplicationContext());
+
+                final Global_Variable global = (Global_Variable) getApplication();
+
                 pickedMonth = 12 - monthPicker.getValue();
 
-                System.out.println("inside of onClick() " + pickedMonth);
+                TextView tv1 = findViewById(R.id.textView9);
+                tv1.setText("THIS MONTH: " + months[monthPicker.getValue()]);
 
-                TextView temp = findViewById(R.id.textView10);
-                temp.setText(pickedMonth + "");
+                TextView tv2 = findViewById(R.id.textView10);
+                tv2.setText("Total cigarettes: " + input.countMonth(pickedMonth));
+
+                TextView tv3 = findViewById(R.id.textView11);
+//                tv3.setText("Total money spent: " + Integer.parseInt(global.getPrice()) / 20 * input.countMonth(pickedMonth) + " KRW");
 
                 MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
                 if(pickedMonth == 3 || pickedMonth == 6) {
@@ -71,6 +69,7 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.addItem(new Fragment3(), "WEEK 3");
                     adapter.addItem(new Fragment4(), "WEEK 4");
                     adapter.addItem(new Fragment5(), "WEEK 5");
+                    adapter.addItem(new Fragment6(), "WEEK 6");
                 }
                 else {
                     adapter.addItem(new Fragment1(), "WEEK 1");
@@ -78,7 +77,6 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.addItem(new Fragment3(), "WEEK 3");
                     adapter.addItem(new Fragment4(), "WEEK 4");
                     adapter.addItem(new Fragment5(), "WEEK 5");
-//                    adapter.addItem(new Fragment6(), "WEEK 6");
                 }
 
                 ViewPager viewPager = findViewById(R.id.viewPager);
