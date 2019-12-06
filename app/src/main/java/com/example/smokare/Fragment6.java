@@ -67,31 +67,12 @@ public class Fragment6 extends Fragment {
                 labels.add(" ");
             }
         }
-        /**
-         * day = 1
-         * d = [1](0개 +)1~7 ... [5]29~말일(+ 35-말일개)
-         *
-         * day = 2
-         * d = [1](1개 +)1~6 ... [5]28~말일(+ 36-말일개)
-         *
-         * day = 3
-         * d = [1](2개 +)1~5 ... [5]27~말일(+ 37-말일개)
-         *
-         * day = 4
-         * d = [1](3개 +)1~4 ... [5]26~말일(+ 38-말일개)
-         *
-         * day = 5
-         * d = [1](4개 +)1~3 ... [5]25~말일(+ 39-말일개)
-         *
-         * day = 6 & 말일 = 30
-         * d = [1](5개 +)1~2 ... [5]24~30(+ 0개)
-         *
-         * day = 6 & 말일 = 31
-         * d = [1](5개 +)1~2 ... [5]24~30(+ 0개), [6]31(+ 6개)
-         *
-         * day = 7
-         * d = [1](6개 +)1~1 ... [5]23~29(+ 0개), [6]30~말일(+ 36-말일개)
-         */
+
+        int total = 0;
+        for(int i = 0; i < 7; i++)
+            total += nums.get(i);
+        nums.add(total);
+        labels.add("Total");
     }
 
     @Override
@@ -125,6 +106,12 @@ public class Fragment6 extends Fragment {
                 labels.add(" ");
             }
         }
+
+        int total = 0;
+        for(int i = 0; i < 7; i++)
+            total += nums.get(i);
+        nums.add(total);
+        labels.add("Total");
 
         chartInit(v);
         return v;

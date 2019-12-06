@@ -48,12 +48,27 @@ public class Fragment1 extends Fragment {
         int m = TimelineActivity.pickedMonth;
         int firstDay = input.getFirstDayOfMonth(m);
         if(firstDay >= 1) {
-            for (int i = 0; i < firstDay - 1; i++) { nums.add(0); labels.add(" "); }
-            for (int d = 1; d <= 8 - firstDay; d++) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+            for (int i = 0; i < firstDay - 1; i++) {
+                nums.add(0);
+                labels.add(" ");
+            }
+            for (int d = 1; d <= 8 - firstDay; d++) {
+                nums.add(input.getData()[m][d].size());
+                labels.add(d+"");
+            }
         }
         else {
-            for (int d = 1; d <= 8 - firstDay; d++) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+            for (int d = 1; d <= 8 - firstDay; d++) {
+                nums.add(input.getData()[m][d].size());
+                labels.add(d+"");
+            }
         }
+
+        int total = 0;
+        for(int i = 0; i < 7; i++)
+            total += nums.get(i);
+        nums.add(total);
+        labels.add("Total");
 
         /**
          * day = 1
@@ -85,6 +100,7 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_1,null);
 
         System.out.println("#####onCreateView()#####");
 
@@ -94,14 +110,28 @@ public class Fragment1 extends Fragment {
         int m = TimelineActivity.pickedMonth;
         int firstDay = input.getFirstDayOfMonth(m);
         if(firstDay >= 1) {
-            for (int i = 0; i < firstDay - 1; i++) { nums.add(0); labels.add(" "); }
-            for (int d = 1; d <= 8 - firstDay; d++) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+            for (int i = 0; i < firstDay - 1; i++) {
+                nums.add(0);
+                labels.add(" ");
+            }
+            for (int d = 1; d <= 8 - firstDay; d++) {
+                nums.add(input.getData()[m][d].size());
+                labels.add(d+"");
+            }
         }
         else {
-            for (int d = 1; d <= 8 - firstDay; d++) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+            for (int d = 1; d <= 8 - firstDay; d++) {
+                nums.add(input.getData()[m][d].size());
+                labels.add(d+"");
+            }
         }
 
-        View v = inflater.inflate(R.layout.fragment_1,null);
+        int total = 0;
+        for(int i = 0; i < 7; i++)
+            total += nums.get(i);
+        nums.add(total);
+        labels.add("Total");
+
         chartInit(v);
         return v;
     }
@@ -113,8 +143,6 @@ public class Fragment1 extends Fragment {
 
         barChart = view.findViewById(R.id.barChart);
         barChart.setAutoScaleMinMaxEnabled(true);
-//        barChart.invalidate();
-//        barChart.clear();
 
         entries = new ArrayList<BarEntry>();
         for(int i = 0; i < nums.size(); i++)

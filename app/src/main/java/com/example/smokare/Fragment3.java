@@ -47,8 +47,16 @@ public class Fragment3 extends Fragment {
 
         int m = TimelineActivity.pickedMonth;
         int firstDay = input.getFirstDayOfMonth(m);
-        for(int d = 16-firstDay; d <= 22-firstDay; d++)
-            if(input.getData()[m][d] != null) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+        for(int d = 16-firstDay; d <= 22-firstDay; d++) {
+            nums.add(input.getData()[m][d].size());
+            labels.add(d+"");
+        }
+
+        int total = 0;
+        for(int i = 0; i < 7; i++)
+            total += nums.get(i);
+        nums.add(total);
+        labels.add("Total");
     }
 
     @Override
@@ -61,8 +69,16 @@ public class Fragment3 extends Fragment {
 
         int m = TimelineActivity.pickedMonth;
         int firstDay = input.getFirstDayOfMonth(m);
-        for(int d = 16-firstDay; d <= 22-firstDay; d++)
-            if(input.getData()[m][d] != null) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+        for(int d = 16-firstDay; d <= 22-firstDay; d++) {
+            nums.add(input.getData()[m][d].size());
+            labels.add(d+"");
+        }
+
+        int total = 0;
+        for(int i = 0; i < 7; i++)
+            total += nums.get(i);
+        nums.add(total);
+        labels.add("Total");
 
         chartInit(v);
         return v;

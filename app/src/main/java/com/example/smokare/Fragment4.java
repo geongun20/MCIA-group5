@@ -51,6 +51,12 @@ public class Fragment4 extends Fragment {
             nums.add(input.getData()[m][d].size());
             labels.add(d+"");
         }
+
+        int total = 0;
+        for(int i = 0; i < 7; i++)
+            total += nums.get(i);
+        nums.add(total);
+        labels.add("Total");
     }
 
     @Override
@@ -67,6 +73,12 @@ public class Fragment4 extends Fragment {
             nums.add(input.getData()[m][d].size());
             labels.add(d+"");
         }
+
+        int total = 0;
+        for(int i = 0; i < 7; i++)
+            total += nums.get(i);
+        nums.add(total);
+        labels.add("Total");
 
         chartInit(v);
         return v;

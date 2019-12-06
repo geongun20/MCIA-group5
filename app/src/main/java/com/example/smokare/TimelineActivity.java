@@ -89,7 +89,6 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
 
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
