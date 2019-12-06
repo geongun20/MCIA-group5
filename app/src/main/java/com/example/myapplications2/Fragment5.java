@@ -42,9 +42,9 @@ public class Fragment5 extends Fragment {
         super.onCreate(savedInstanceState);
 
         input.readFile();
-        lastDay = input.getLastDayOfMonth(m);
 
         int m = TimelineActivity.pickedMonth;
+        lastDay = input.getLastDateOfMonth(m);
         for(int d = 29; d <= input.getLastDateOfMonth(m); d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
