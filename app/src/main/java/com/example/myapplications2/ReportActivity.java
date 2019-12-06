@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplications2;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -56,7 +56,7 @@ public class ReportActivity extends AppCompatActivity{
         });
 
         Input input = new Input();
-        input.readFile("sample_data.txt", getApplicationContext());
+        input.readFile();
         List<String> list = input.getData()[input.getMonth()][input.getDay()];
 
         TextView report_main = findViewById(R.id.report_main_text);

@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplications2;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Fragment2 extends Fragment {
+public class Fragment4 extends Fragment {
 
     BarChart barChart;
     List<BarEntry> entries;
@@ -30,7 +30,7 @@ public class Fragment2 extends Fragment {
     List<Integer> nums = new ArrayList<>();
 
 
-    public Fragment2() {
+    public Fragment4() {
         // Required empty public constructor
     }
 
@@ -40,16 +40,17 @@ public class Fragment2 extends Fragment {
         super.onCreate(savedInstanceState);
 
         Input input = new Input();
-        input.readFile("sample_data.txt", getContext());
+        input.readFile();
         int m = 11; // Timeline에서 받아와야함
-        for(int d = 8; d <= 14; d++)
+        for(int d = 22; d <= 28; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_2,null);
+        View v = inflater.inflate(R.layout.fragment_3,null);
 
         chartInit(v, nums);
 
@@ -75,9 +76,12 @@ public class Fragment2 extends Fragment {
 
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(10, true);
-        String[] values = {"8", "9", "10", "11", "12", "13", "14"};
+        String[] values = {"22", "23", "24", "25", "26", "27", "28"};
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
@@ -102,10 +106,6 @@ public class Fragment2 extends Fragment {
     public void chartUpdate() {
         return;
     }
-
-
-
-
 
 
 

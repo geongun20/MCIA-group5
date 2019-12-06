@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplications2;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
