@@ -20,7 +20,7 @@ public class Input extends AppCompatActivity {
     private ArrayList<String>[][] data = new ArrayList[13][32];
     private int[] monthly = new int[12];
     private final Calendar today = Calendar.getInstance();
-    private int[] lastDayOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private int[] lastDateOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
     private String lastSmoke;
     private File dir = null ;
@@ -34,7 +34,7 @@ public class Input extends AppCompatActivity {
 
     public void readFile() {
         for(int m = 1; m <= 12; m++)
-            for(int d = 1; d <= lastDayOfMonth[m]; d++)
+            for(int d = 1; d <= lastDateOfMonth[m]; d++)
                 data[m][d] = new ArrayList<>();
 
         //AssetManager am = null;
@@ -54,12 +54,12 @@ public class Input extends AppCompatActivity {
                 String[] line2 = line.split("\\.");
                 int year = Integer.parseInt(line2[0]);
                 int month = Integer.parseInt(line2[1]);
-                int day = Integer.parseInt(line2[2]);
+                int date = Integer.parseInt(line2[2]);
                 int hour = Integer.parseInt(line2[3]);
                 int minute = Integer.parseInt(line2[4]);
                 int second = Integer.parseInt(line2[5]);
 
-                data[month][day].add(line);
+                data[month][date].add(line);
 
                 monthly[month-1]++;
 
@@ -93,16 +93,16 @@ public class Input extends AppCompatActivity {
         return today.get(Calendar.MONTH) + 1; // 0(January) ~ 11
     }
 
-    public int getDay() {
+    public int getDate() {
         return today.get(Calendar.DATE); // 1 ~ 31
     }
 
-    public int getDayOfWeek() {
+    public int getDay() {
         return today.get(Calendar.DAY_OF_WEEK); // 1(Sunday) ~ 7
     }
 
-    public int getLastDayOfMonth(int m) {
-        return lastDayOfMonth[m];
+    public int getLastDateOfMonth(int m) {
+        return lastDateOfMonth[m];
     }
 
     public String getLast() {
@@ -111,8 +111,8 @@ public class Input extends AppCompatActivity {
 
     public int countToday() {
         int month = today.get(Calendar.MONTH) + 1;
-        int day = today.get(Calendar.DATE);
-        List<String> list = data[month][day];
+        int date = today.get(Calendar.DATE);
+        List<String> list = data[month][date];
 
         return list.size();
     }
@@ -120,20 +120,20 @@ public class Input extends AppCompatActivity {
     public int countThisWeek(){
 
         int month = today.get(Calendar.MONTH) + 1;
-        int day = today.get(Calendar.DATE);
-        int dayOfWeek = today.get(Calendar.DAY_OF_WEEK);
-        List<String> list = data[month][day];
+        int date = today.get(Calendar.DATE);
+        int day = today.get(Calendar.DAY_OF_WEEK);
+        List<String> list = data[month][date];
 
         int sum = 0;
-        for(int i = dayOfWeek; i >= 1 ; i--) {
+        for(int i = day; i >= 1 ; i--) {
             sum += list.size();
-            if(day == 1) {
+            if(date == 1) {
                 month--;
-                day = today.getActualMaximum(Calendar.DATE);
+                date = today.getActualMaximum(Calendar.DATE);
             }
-            else day--;
+            else date--;
 
-            list = data[month][day];
+            list = data[month][date];
         }
         return sum;
     }
@@ -141,20 +141,20 @@ public class Input extends AppCompatActivity {
     public int countThisMonth(){
 
         int month = today.get(Calendar.MONTH) + 1;
-        int day = today.get(Calendar.DATE);
-        int dayOfWeek = today.get(Calendar.DAY_OF_WEEK);
-        List<String> list = data[month][day];
+        int date = today.get(Calendar.DATE);
+        int day = today.get(Calendar.DAY_OF_WEEK);
+        List<String> list = data[month][date];
 
         int sum = 0;
-        for(int i = dayOfWeek; i >= 1 ; i--) {
+        for(int i = day; i >= 1 ; i--) {
             sum += list.size();
-            if(day == 1) {
+            if(date == 1) {
                 month--;
-                day = today.getActualMaximum(Calendar.DATE);
+                date = today.getActualMaximum(Calendar.DATE);
             }
-            else day--;
+            else date--;
 
-            list = data[month][day];
+            list = data[month][date];
         }
         return sum;
     }

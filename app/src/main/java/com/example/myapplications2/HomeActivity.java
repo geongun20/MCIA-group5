@@ -40,6 +40,7 @@ public class HomeActivity extends AppCompatActivity  {
 
         setContentView(R.layout.activity_home);
 
+        System.out.println("Home onCreate()");
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -152,8 +153,6 @@ public class HomeActivity extends AppCompatActivity  {
 
         TextView week = findViewById(R.id.this_week);
         week.setText("THIS WEEK\n" + String.valueOf(input.countThisWeek()));
-
-
     }
 
 
@@ -175,5 +174,4 @@ public class HomeActivity extends AppCompatActivity  {
     protected void onPause() {
         super.onPause();
     }
-
 }

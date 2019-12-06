@@ -27,7 +27,9 @@ public class Fragment2 extends Fragment {
     List<BarEntry> entries;
     BarDataSet dataSet;
     BarData data;
+    Input input = new Input();
     List<Integer> nums = new ArrayList<>();
+
 
 
     public Fragment2() {
@@ -39,9 +41,9 @@ public class Fragment2 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Input input = new Input();
         input.readFile();
-        int m = 11; // Timeline에서 받아와야함
+
+        int m = TimelineActivity.pickedMonth;
         for(int d = 8; d <= 14; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
@@ -51,8 +53,12 @@ public class Fragment2 extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_2,null);
 
-        chartInit(v, nums);
+        int m = TimelineActivity.pickedMonth;
+        nums.clear();
+        for(int d = 8; d <= 14; d++)
+            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
 
+        chartInit(v, nums);
         return v;
     }
 

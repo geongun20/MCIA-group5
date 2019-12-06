@@ -27,6 +27,7 @@ public class Fragment5 extends Fragment {
     List<BarEntry> entries;
     BarDataSet dataSet;
     BarData data;
+    Input input = new Input();
     List<Integer> nums = new ArrayList<>();
     private static int lastDay;
 
@@ -40,22 +41,25 @@ public class Fragment5 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Input input = new Input();
         input.readFile();
-        int m = 11; // Timeline에서 받아와야함
         lastDay = input.getLastDayOfMonth(m);
-        for(int d = 29; d <= lastDay; d++)
+
+        int m = TimelineActivity.pickedMonth;
+        for(int d = 29; d <= input.getLastDateOfMonth(m); d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_3,null);
+        View v = inflater.inflate(R.layout.fragment_5,null);
+
+        int m = TimelineActivity.pickedMonth;
+        nums.clear();
+        for(int d = 29; d <= input.getLastDateOfMonth(m); d++)
+            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
 
         chartInit(v, nums);
-
         return v;
     }
 

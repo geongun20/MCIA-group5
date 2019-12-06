@@ -50,10 +50,9 @@ public class InfoActivity extends AppCompatActivity {
                         || yearInput.toString().equals("")
                         || priceInput.getText().toString().equals("")
                         || tarInput.getText().toString().equals("")) {
-                    Toast.makeText(InfoActivity.this,
-                            "please enter all info",
-                            Toast.LENGTH_LONG).show();
-                } else {
+                    Toast.makeText(InfoActivity.this, "please enter all info", Toast.LENGTH_LONG).show();
+                }
+                else {
                     // all info are submitted
                     try {
                         info = getSharedPreferences("user_info", MODE_PRIVATE);
