@@ -6,14 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import android.app.Activity;
 import android.widget.NumberPicker;
-import android.widget.NumberPicker.OnValueChangeListener;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.FileOutputStream;
 
 public class InfoActivity extends AppCompatActivity {
     EditText nicknameInput, ageInput, priceInput, tarInput;
@@ -54,10 +50,9 @@ public class InfoActivity extends AppCompatActivity {
                         || yearInput.toString().equals("")
                         || priceInput.getText().toString().equals("")
                         || tarInput.getText().toString().equals("")) {
-                    Toast.makeText(InfoActivity.this,
-                            "please enter all info",
-                            Toast.LENGTH_LONG).show();
-                } else {
+                    Toast.makeText(InfoActivity.this, "please enter all info", Toast.LENGTH_LONG).show();
+                }
+                else {
                     // all info are submitted
                     try {
                         info = getSharedPreferences("user_info", MODE_PRIVATE);

@@ -27,6 +27,7 @@ public class Fragment3 extends Fragment {
     List<BarEntry> entries;
     BarDataSet dataSet;
     BarData data;
+    Input input = new Input();
     List<Integer> nums = new ArrayList<>();
 
 
@@ -39,21 +40,24 @@ public class Fragment3 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Input input = new Input();
         input.readFile("sample_data.txt", getContext());
-        int m = 11; // Timeline에서 받아와야함
-        for(int d = 15; d <= 21; d++)
-                if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
-    }
 
+        int m = TimelineActivity.pickedMonth;
+        for(int d = 15; d <= 21; d++)
+            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_3,null);
 
-        chartInit(v, nums);
+        int m = TimelineActivity.pickedMonth;
+        nums.clear();
+        for(int d = 15; d <= 21; d++)
+            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
 
+        chartInit(v, nums);
         return v;
     }
 
@@ -81,7 +85,7 @@ public class Fragment3 extends Fragment {
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(10, true);
-        String[] values = {"15", "16", "17", "18", "19", "20", "21"}; // "22", "23", "24", "25", "26", "27", "28", "29", "30"
+        String[] values = {"15", "16", "17", "18", "19", "20", "21"};
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();

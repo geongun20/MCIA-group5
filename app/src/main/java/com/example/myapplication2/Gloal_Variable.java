@@ -23,6 +23,7 @@ public class Gloal_Variable extends Application {
         return tar;
     }
 
+
     public void setName(String name){
         this.name = name;
     }

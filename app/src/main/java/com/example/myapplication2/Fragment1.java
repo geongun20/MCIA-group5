@@ -27,7 +27,9 @@ public class Fragment1 extends Fragment {
     List<BarEntry> entries;
     BarDataSet dataSet;
     BarData data;
+    Input input = new Input();
     List<Integer> nums = new ArrayList<>();
+
 
 
     public Fragment1() {
@@ -38,9 +40,11 @@ public class Fragment1 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Input input = new Input();
+        System.out.println("#####onCreate()#####");
+
         input.readFile("sample_data.txt", getContext());
-        int m = 11; // Timeline에서 받아와야함
+
+        int m = TimelineActivity.pickedMonth;
         for(int d = 1; d <= 7; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
@@ -48,17 +52,26 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        System.out.println("#####onCreateView()#####");
+
+        int m = TimelineActivity.pickedMonth;
+        nums.clear();
+        for(int d = 1; d <= 7; d++)
+            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
+
         View v = inflater.inflate(R.layout.fragment_1,null);
-
         chartInit(v, nums);
-
         return v;
     }
 
     private void chartInit(View view, List<Integer> valList) {
+        System.out.println("#####charInit()#####");
 
         barChart = view.findViewById(R.id.barChart);
         barChart.setAutoScaleMinMaxEnabled(true);
+//        barChart.invalidate();
+//        barChart.clear();
 
         entries = new ArrayList<BarEntry>();
         for(int i = 0; i < valList.size(); i++)
