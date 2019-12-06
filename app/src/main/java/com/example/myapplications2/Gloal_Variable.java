@@ -1,4 +1,4 @@
-package com.example.smokare;
+package com.example.myapplications2;
 
 import android.app.Application;
 

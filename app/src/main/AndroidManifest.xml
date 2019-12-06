@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.smokare">
+    package="com.example.myapplications2">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".Gloal_Variable"
+        android:name="com.example.myapplications2.Gloal_Variable"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".getDataService"
+            android:name="com.example.myapplications2.getDataService"
             android:enabled="true"
             android:exported="true"></service>
 
@@ -24,7 +24,7 @@
             android:name="com.google.android.actions"
             android:resource="@menu/main_bottom_navigation" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.myapplications2.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -32,11 +32,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfoActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".TimelineActivity" />
-        <activity android:name=".ReportActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity android:name="com.example.myapplications2.InfoActivity" />
+        <activity android:name="com.example.myapplications2.HomeActivity" />
+        <activity android:name="com.example.myapplications2.TimelineActivity" />
+        <activity android:name="com.example.myapplications2.ReportActivity" />
+        <activity android:name="com.example.myapplications2.SettingsActivity" />
     </application>
 
 </manifest>

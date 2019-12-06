@@ -1,8 +1,6 @@
-package com.example.smokare;
+package com.example.myapplications2;
 
 
-import android.content.Context;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;

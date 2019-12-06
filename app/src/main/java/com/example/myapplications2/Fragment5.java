@@ -1,4 +1,4 @@
-package com.example.smokare;
+package com.example.myapplications2;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,16 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Fragment4 extends Fragment {
+public class Fragment5 extends Fragment {
 
     BarChart barChart;
     List<BarEntry> entries;
     BarDataSet dataSet;
     BarData data;
     List<Integer> nums = new ArrayList<>();
+    private static int lastDay;
 
 
-    public Fragment4() {
+    public Fragment5() {
         // Required empty public constructor
     }
 
@@ -42,7 +43,8 @@ public class Fragment4 extends Fragment {
         Input input = new Input();
         input.readFile();
         int m = 11; // Timeline에서 받아와야함
-        for(int d = 22; d <= 28; d++)
+        lastDay = input.getLastDayOfMonth(m);
+        for(int d = 29; d <= lastDay; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
@@ -81,15 +83,20 @@ public class Fragment4 extends Fragment {
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(10, true);
-        String[] values = {"22", "23", "24", "25", "26", "27", "28"};
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
+        String[] values30 = {"29", "30"};
+        String[] values31 = {"29", "30", "31"};
+
+        if(lastDay == 30)
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(values30));
+        else if(lastDay == 31)
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(values31));
+
 
         YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setTextColor(Color.BLACK);
 
         YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
-
 
 //        Legend legend = barChart.getLegend();
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);

@@ -1,4 +1,4 @@
-package com.example.smokare;
+package com.example.myapplications2;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
