@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity  {
         input.readFile("sample_data.txt", getApplicationContext());
         List<String> list = input.getData()[input.getMonth()][input.getDay()];
         final String last_time = list.get(list.size() - 1);
-        System.out.println(last_time);
+        //System.out.println(last_time);
 
         mHandler = new Handler(){
             @Override
@@ -112,8 +112,8 @@ public class HomeActivity extends AppCompatActivity  {
                     else
                         strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
 
-                    TextView last_smoke = findViewById(R.id.after_last_smoke);
-                    last_smoke.setText("From LAST Smoking\n" + strTime);
+                    TextView last_time = findViewById(R.id.after_last_smoke);
+                    last_time.setText("From LAST Smoking\n" + strTime);
                 } catch (ParseException p){
                     p.printStackTrace();
                 }

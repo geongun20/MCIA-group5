@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/popup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context=".ReportActivity" >
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_gravity="center"
+        android:textSize="15sp"
+        android:text = "USEFUL TIPS for someone who wants to quit smoking\n\n 1.Getting Ready to Quit\n\nFollow these tips to get ready to quit:
+\n\n- Cut down the number of cigarettes you smoke each day.
+\n    -> Smoke only half a cigarette each time.
+\n    -> Smoke only during the even hours of the day.
+\n\n- Clean out ashtrays and start putting them away one by one. Clean the drapes, the car, your office, or anything else that smells of tobacco smoke.
+\n\n- Get a friend or spouse to quit with you.\n- Start exercising before you quit
+\n\n- Switch to a brand of cigarettes you do not like as much.\n- Throw away spare lighters.
+\n\n- Smoke alone if you like to smoke with people.
+\n\n- Become aware of why you smoke each cigarette. Avoid the things that cause you to smoke.
+\n\n- Write down a list of the top 5 reasons you want to quit. Read this list daily.
+\n\n\n The Day You Quit
+\n\n- Throw away your cigarettes, lighters and ashtrays.
+\n\n- Ask for help from family and friends.
+\n\n- Make plans for the day and keep usy. Spend time in places where smoking is not allowed such as a library or the movies. Change your routine.
+\n\n- Drink water, but not more than 2 liters. This will help to remove chemicals from your body.
+\n\n- Keep celery, sugarless gum, hard candy, straws or toothpicks handy to help meet the urge of something in your mouth.
+\n\n- Try deep breathing exercises and listen to relaxation tapes.
+\n\n- Get 30 minutes of exercise.
+\n\n- Eat regular meals.
+\n\n- Start a money jar with the money you save by not buying cigarettes.
+\n\n- Reward yourself at the end of the day for not smoking."
+        android:textStyle="bold"
+        android:typeface="normal" />
+    </LinearLayout>
+
+    </ScrollView>

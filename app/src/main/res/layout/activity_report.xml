@@ -35,9 +35,39 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="\nMY GOAL\nto quit smoking\n3 DAYS"
-            android:textAlignment="center"
+            android:gravity="center"
+            android:text="Please enter your goal\nto quit smoking!"
             android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.3"
+            android:paddingTop="12dp"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:id="@+id/progress" />
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:text="0" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/apply"
+            android:text="Apply" />
 
     </LinearLayout>
 
