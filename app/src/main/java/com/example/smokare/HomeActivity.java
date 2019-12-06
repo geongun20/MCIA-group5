@@ -32,11 +32,10 @@ public class HomeActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
 
         Intent serviceIntent = new Intent(this, getDataService.class);
         startService(serviceIntent);
-
-        setContentView(R.layout.activity_home);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -84,8 +83,10 @@ public class HomeActivity extends AppCompatActivity  {
 
         Input input = new Input();
         input.readFile();
+//        input.readFile2("sample_data.txt", getApplicationContext());
 
-        final String lastTime = input.getLast();
+
+        final String lastTime = input.getLastSmoke();
 
 
             mHandler = new Handler() {
@@ -98,7 +99,7 @@ public class HomeActivity extends AppCompatActivity  {
 
                             if(lastTime==null) {
                                 TextView fromLast = findViewById(R.id.after_last_smoke);
-                                fromLast.setText("No data!");
+                                fromLast.setText("No Data!");
                             }else {
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
                                 Date lsTime = sdf.parse(lastTime);

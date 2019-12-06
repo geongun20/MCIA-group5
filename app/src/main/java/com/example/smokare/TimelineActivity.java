@@ -46,7 +46,8 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Input input = new Input();
-                input.readFile("sample_data.txt", getApplicationContext());
+                input.readFile();
+//                input.readFile2("sample_data.txt", getApplicationContext());
 
                 final Global_Variable global = (Global_Variable) getApplication();
 
@@ -70,7 +71,6 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.addItem(new Fragment4(), "WEEK 4");
                     adapter.addItem(new Fragment5(), "WEEK 5");
                     adapter.addItem(new Fragment6(), "WEEK 6");
-
                 }
                 else {
                     adapter.addItem(new Fragment1(), "WEEK 1");

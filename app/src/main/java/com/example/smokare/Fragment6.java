@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.smokare.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -42,7 +41,8 @@ public class Fragment6 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        input.readFile("sample_data.txt", getContext());
+        input.readFile();
+//        input.readFile2("sample_data.txt", getContext());
 
         int m = TimelineActivity.pickedMonth;
         int firstDay = input.getFirstDayOfMonth(m);

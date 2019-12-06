@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:gravity="center"
-        android:text="Connected to XXX"
+        android:text="Connected to TicWatch Pro"
         android:textSize="30sp" />
     <Button
         android:id="@+id/button1"

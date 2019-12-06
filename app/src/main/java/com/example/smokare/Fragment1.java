@@ -43,7 +43,7 @@ public class Fragment1 extends Fragment {
         System.out.println("#####onCreate()#####");
       
         input.readFile();
-//         input.readFile2("sample_data.txt", getContext());
+//        input.readFile2("sample_data.txt", getContext());
 
         int m = TimelineActivity.pickedMonth;
         int firstDay = input.getFirstDayOfMonth(m);

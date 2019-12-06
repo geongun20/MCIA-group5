@@ -141,7 +141,7 @@ public class ReportActivity extends AppCompatActivity {
 
         Input input = new Input();
         input.readFile();
-        List<String> list = input.getData()[input.getMonth()][input.getDay()];
+        List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
         TextView life_extension = findViewById(R.id.report_text_2_2);
         DecimalFormat form = new DecimalFormat("#.#");
         life_extension.setText(String.format("You could live %s more minutes", (form.format((double) (14 - input.countToday()) * (13.8)))));

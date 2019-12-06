@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_weight="1"
-        android:text="Connected with your smartwatch"
+        android:text="Connected to your smartwatch"
         android:textSize="15sp" />
 
     <TextView
