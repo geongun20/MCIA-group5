@@ -38,19 +38,33 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:paddingLeft="20dp"
-            android:text="$719"
             android:textColor="@android:color/black"
             android:textSize="30sp" />
 
-        <NumberPicker
-            android:id="@+id/monthPicker1"
-            android:layout_width="192dp"
-            android:layout_height="125dp"
-            android:layout_marginRight="2dp"
-            android:backgroundTint="#00FFFFFF"
-            android:orientation="vertical"
-            android:solidColor="#00FFFFFF"
-            android:theme="@style/monthPickerCustomSize" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="194dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+            <NumberPicker
+                android:id="@+id/monthPicker1"
+                android:layout_width="192dp"
+                android:layout_height="125dp"
+                android:layout_marginRight="2dp"
+                android:backgroundTint="#00FFFFFF"
+                android:orientation="vertical"
+                android:solidColor="#00FFFFFF"
+                android:theme="@style/monthPickerCustomSize" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="192dp"
+                android:layout_height="125dp"
+                android:paddingLeft="20dp"
+                android:text="Confirm"
+                android:textSize="10sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
 

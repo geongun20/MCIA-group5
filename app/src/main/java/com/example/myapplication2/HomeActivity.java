@@ -1,7 +1,6 @@
 package com.example.myapplication2;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,8 +33,8 @@ public class HomeActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        AssetManager am = getResources().getAssets();
 
+        System.out.println("Home onCreate()");
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -141,7 +140,6 @@ public class HomeActivity extends AppCompatActivity  {
 
         TextView week = findViewById(R.id.this_week);
         week.setText("THIS WEEK\n" + String.valueOf(input.countThisWeek()));
-
     }
 
 
@@ -163,5 +161,4 @@ public class HomeActivity extends AppCompatActivity  {
     protected void onPause() {
         super.onPause();
     }
-
 }
