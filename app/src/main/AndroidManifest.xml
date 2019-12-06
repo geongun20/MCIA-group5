@@ -15,11 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name="com.example.smokare.getDataService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@menu/main_bottom_navigation" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.smokare.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -27,11 +32,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfoActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".TimelineActivity" />
-        <activity android:name=".ReportActivity" />
-        <activity android:name=".SettingsActivity" />
+
+        <activity android:name="com.example.smokare.InfoActivity" />
+        <activity android:name="com.example.smokare.HomeActivity" />
+        <activity android:name="com.example.smokare.TimelineActivity" />
+        <activity android:name="com.example.smokare.ReportActivity" />
+        <activity android:name="com.example.smokare.SettingsActivity" />
     </application>
 
 </manifest>

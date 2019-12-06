@@ -41,7 +41,6 @@ public class TimelineActivity extends AppCompatActivity {
         monthPicker.setWrapSelectorWheel(false);
         monthPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
-
         Button confirmButton = findViewById(R.id.button1);
         confirmButton.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -60,7 +59,8 @@ public class TimelineActivity extends AppCompatActivity {
                 tv2.setText("Total cigarettes: " + input.countMonth(pickedMonth));
 
                 TextView tv3 = findViewById(R.id.textView11);
-//                tv3.setText("Total money spent: " + Integer.parseInt(global.getPrice()) / 20 * input.countMonth(pickedMonth) + " KRW");
+                tv3.setText("Total money spent: " + Integer.parseInt(global.getPrice()) / 20 * input.countMonth(pickedMonth) + " KRW");
+
 
                 MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
                 if(pickedMonth == 3 || pickedMonth == 6) {
@@ -70,6 +70,7 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.addItem(new Fragment4(), "WEEK 4");
                     adapter.addItem(new Fragment5(), "WEEK 5");
                     adapter.addItem(new Fragment6(), "WEEK 6");
+
                 }
                 else {
                     adapter.addItem(new Fragment1(), "WEEK 1");
@@ -90,6 +91,7 @@ public class TimelineActivity extends AppCompatActivity {
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+        bottomNavigationView.getMenu().getItem(1).setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

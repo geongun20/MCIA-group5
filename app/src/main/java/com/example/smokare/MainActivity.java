@@ -7,8 +7,6 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.smokare.R;
-
 
 public class MainActivity extends AppCompatActivity {
     ImageView welcomeImage;

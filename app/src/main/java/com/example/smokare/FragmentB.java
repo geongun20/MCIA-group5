@@ -10,8 +10,6 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.smokare.R;
-
 import java.util.List;
 
 
@@ -29,8 +27,8 @@ public class FragmentB extends Fragment {
         ListView lv = v.findViewById(R.id.listView1);
 
         Input input = new Input();
-        input.readFile("sample_data.txt", getContext());
-        List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
+        input.readFile();
+        List<String> list = input.getData()[input.getMonth()][input.getDay()];
         String[] arr = list.toArray(new String[0]);
 
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, arr);

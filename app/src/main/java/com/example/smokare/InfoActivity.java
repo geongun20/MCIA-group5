@@ -3,11 +3,12 @@ package com.example.smokare;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.Toast;
+import android.widget.NumberPicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -50,38 +51,36 @@ public class InfoActivity extends AppCompatActivity {
                         || yearInput.toString().equals("")
                         || priceInput.getText().toString().equals("")
                         || tarInput.getText().toString().equals("")) {
-                    Toast.makeText(InfoActivity.this, "please enter all info", Toast.LENGTH_LONG).show();
+                        Toast toast = Toast.makeText(InfoActivity.this, "Please enter all INFO", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
                 }
                 else {
                     // all info are submitted
                     try {
                         info = getSharedPreferences("user_info", MODE_PRIVATE);
-
-                        System.out.println("Success");
+                      
                         nickname = nicknameInput.getText().toString();
                         age = ageInput.getText().toString();
                         year = String.valueOf(yearInput.getValue());
                         price = priceInput.getText().toString();
                         tar = tarInput.getText().toString();
+                      
                         global.setName(nickname);
                         global.setAge(age);
                         global.setYear(year);
                         global.setPrice(price);
                         global.setTar(tar);
-
                         //save();
-
                     } catch(NumberFormatException nfe) {
                         System.out.println("Could not parse " + nfe);
                     }
 
                     // TODO save user info in application
+                    Intent intent = new Intent(InfoActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-
-                // TODO go next activity
-                Intent intent = new Intent(InfoActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
     }

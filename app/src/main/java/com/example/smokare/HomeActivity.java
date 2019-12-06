@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.smokare.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.ParseException;
@@ -33,9 +32,11 @@ public class HomeActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
 
-        System.out.println("Home onCreate()");
+        Intent serviceIntent = new Intent(this, getDataService.class);
+        startService(serviceIntent);
+
+        setContentView(R.layout.activity_home);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -82,40 +83,47 @@ public class HomeActivity extends AppCompatActivity  {
         });
 
         Input input = new Input();
-        input.readFile("sample_data.txt", getApplicationContext());
+        input.readFile();
 
-        final String lastTime = input.getLastSmoke();
+        final String lastTime = input.getLast();
 
-        mHandler = new Handler(){
-            @Override
-            public void handleMessage(Message msg){
-                try{
-                    Calendar cal = Calendar.getInstance();
-                    Date now = cal.getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-                    Date lsTime = sdf.parse(lastTime);
 
-                    long diff = now.getTime() - lsTime.getTime();
-                    long seconds = diff/1000;
-                    long minutes = seconds/60;
-                    long hours = minutes / 60;
-                    long days = hours/24;
+            mHandler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                        try {
+                            Calendar cal = Calendar.getInstance();
+                            Date now = cal.getTime();
 
-                    String strTime = "";
-                    if(days == 0)
-                        strTime = String.format("%dh %dm %ds", hours % 24, minutes % 60, seconds % 60);
-                    else if(days == 1)
-                        strTime = String.format("%d day\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
-                    else
-                        strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
 
-                    TextView fromLast = findViewById(R.id.after_last_smoke);
-                    fromLast.setText("From LAST Smoking\n" + strTime);
-                } catch (ParseException p){
-                    p.printStackTrace();
-                }
-            }
-        };
+                            if(lastTime==null) {
+                                TextView fromLast = findViewById(R.id.after_last_smoke);
+                                fromLast.setText("No data!");
+                            }else {
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+                                Date lsTime = sdf.parse(lastTime);
+
+                                long diff = now.getTime() - lsTime.getTime();
+                                long seconds = diff / 1000;
+                                long minutes = seconds / 60;
+                                long hours = minutes / 60;
+                                long days = hours / 24;
+                                String strTime = "";
+                                if (days == 0)
+                                    strTime = String.format("%dh %dm %ds", hours % 24, minutes % 60, seconds % 60);
+                                else if (days == 1)
+                                    strTime = String.format("%d day\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
+                                else
+                                    strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
+                                TextView fromLast = findViewById(R.id.after_last_smoke);
+                                fromLast.setText("From LAST Smoking\n" + strTime);
+
+                            }
+                        } catch (ParseException p) {
+                            p.printStackTrace();
+                        }
+                    }
+            };
 
         class NewRunnable implements Runnable{
             @Override

@@ -35,25 +35,55 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ReportActivity extends AppCompatActivity{
+
+public class ReportActivity extends AppCompatActivity {
     private static Handler mHandler;
     Button alert;
+    int value;
+    EditText valueEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
-        Button applyButton = (Button) findViewById(R.id.apply) ;
+      
+        ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
+        TextView report_main = findViewById(R.id.report_main_text);
+        Global_Variable global = (Global_Variable) getApplication();
+        value = global.getReport_value();
+
+        if(value == 0){
+            report_main.setText("Please enter your goal\nto quit smoking!");
+            progress.setMax(100);
+            progress.setProgress(0);
+        }
+        else {
+            report_main.setText(String.format("\nMY GOAL\nto quit smoking\n%d DAYS", value));
+            String content = report_main.getText().toString();
+            SpannableString spannableString = new SpannableString(content);
+            int start = 25;
+            int end = content.length();
+
+            spannableString.setSpan(new RelativeSizeSpan(2f), start, end, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new StyleSpan(Typeface.BOLD), start, end, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#26689A")), start, end, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            report_main.setText(spannableString);
+            progress.setMax(86400 * value);
+        }
+
+        Button applyButton = (Button) findViewById(R.id.apply);
         applyButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText valueEditText = (EditText) findViewById(R.id.edit) ;
+                valueEditText = (EditText) findViewById(R.id.edit);
+                ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
 
                 try {
                     // 문자열을 숫자로 변환.
-                    int value = Integer.parseInt(valueEditText.getText().toString());
+                    value = Integer.parseInt(valueEditText.getText().toString());
                     TextView report_main = findViewById(R.id.report_main_text);
-                    report_main.setText(String.format("\nMY GOAL\nto quit smoking\n%d DAYS",value));
+                    report_main.setText(String.format("\nMY GOAL\nto quit smoking\n%d DAYS", value));
 
                     String content = report_main.getText().toString();
                     SpannableString spannableString = new SpannableString(content);
@@ -66,15 +96,7 @@ public class ReportActivity extends AppCompatActivity{
 
                     report_main.setText(spannableString);
 
-                    if (value < 0 || value > 100) {
-                        Toast toast = Toast.makeText(ReportActivity.this, "0 to 100 can be input.",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                    } else {
-                        // 변환된 값을 프로그레스바에 적용.
-                        ProgressBar progress = (ProgressBar) findViewById(R.id.progress) ;
-                        progress.setProgress(value) ;
-                    }
+                    progress.setMax(86400 * value);
                 } catch (Exception e) {
                     // 토스트(Toast) 메시지 표시.
                     Toast toast = Toast.makeText(ReportActivity.this, "Invalid number format",
@@ -83,9 +105,11 @@ public class ReportActivity extends AppCompatActivity{
                 }
 
             }
-        }) ;
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+        bottomNavigationView.getMenu().getItem(2).setChecked(true);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -116,20 +140,19 @@ public class ReportActivity extends AppCompatActivity{
         });
 
         Input input = new Input();
-        input.readFile("sample_data.txt", getApplicationContext());
-        List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
+        input.readFile();
+        List<String> list = input.getData()[input.getMonth()][input.getDay()];
         TextView life_extension = findViewById(R.id.report_text_2_2);
         DecimalFormat form = new DecimalFormat("#.#");
-        life_extension.setText(String.format("You could live %s more minutes", (form.format((double)(14-input.countToday())*(13.8)))));
+        life_extension.setText(String.format("You could live %s more minutes", (form.format((double) (14 - input.countToday()) * (13.8)))));
 
-        Global_Variable global = (Global_Variable) getApplication();
         TextView save_price = findViewById(R.id.report_text_3_2);
-        save_price.setText(String.format("%d won", (14-input.countToday())*Integer.parseInt(global.getPrice())));
+        save_price.setText(String.format("%d won", (14 - input.countToday()) * Integer.parseInt(global.getPrice())));
 
-        alert = (Button)findViewById(R.id.button);
-        alert.setOnClickListener(new Button.OnClickListener(){
-            public void onClick(View view){
-                if(view == alert){
+        alert = (Button) findViewById(R.id.button);
+        alert.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View view) {
+                if (view == alert) {
                     Context mContext = getApplicationContext();
                     LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
                     View layout = inflater.inflate(R.layout.dialog, (ViewGroup) findViewById(R.id.popup));
@@ -151,47 +174,54 @@ public class ReportActivity extends AppCompatActivity{
         });
 
         final String last_time = list.get(list.size() - 1);
-        System.out.println(last_time);
-
-        mHandler = new Handler(){
+        mHandler = new Handler() {
             @Override
-            public void handleMessage(Message msg){
-                try{
+            public void handleMessage(Message msg) {
+                try {
                     Calendar cal = Calendar.getInstance();
                     Date now = cal.getTime();
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
                     Date lsTime = sdf.parse(last_time);
                     //System.out.println(now);
                     //System.out.println(lsTime);
+
+                    //86400초 = 하루
+
+
                     long diff = now.getTime() - lsTime.getTime();
-                    long seconds = diff/1000;
-                    long minutes = seconds/60;
+                    long seconds = diff / 1000;
+                    long minutes = seconds / 60;
                     long hours = minutes / 60;
-                    long days = hours/24;
+                    long days = hours / 24;
 
                     String strTime = "";
-                    if(days == 0)
+                    if (days == 0)
                         strTime = String.format("%dh %dm %ds", hours % 24, minutes % 60, seconds % 60);
-                    else if(days == 1)
+                    else if (days == 1)
                         strTime = String.format("%d day\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
                     else
                         strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
 
                     TextView last_smoke = findViewById(R.id.report_text_1_2);
                     last_smoke.setText("From LAST Smoking\n" + strTime);
-                } catch (ParseException p){
+                    ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
+
+                    // 변환된 값을 프로그레스바에 적용.
+                    progress.setProgress((int) seconds);
+
+                } catch (ParseException p) {
                     p.printStackTrace();
                 }
             }
         };
 
-        class NewRunnable implements Runnable{
+        class NewRunnable implements Runnable {
             @Override
-            public void run(){
-                while(true){
-                    try{
+            public void run() {
+                while (true) {
+                    try {
                         Thread.sleep(1000);
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     mHandler.sendEmptyMessage(0);
@@ -202,5 +232,27 @@ public class ReportActivity extends AppCompatActivity{
         NewRunnable nr = new NewRunnable();
         Thread t = new Thread(nr);
         t.start();
+    }
+  
+    protected void onResume() {
+        super.onResume();
+    }
+
+    protected void onPause() {
+        super.onPause();
+    }
+
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        System.out.println(value);
+        Global_Variable global = (Global_Variable) getApplication();
+        global.setReport(value);
+        savedInstanceState.putInt("value", value);
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }

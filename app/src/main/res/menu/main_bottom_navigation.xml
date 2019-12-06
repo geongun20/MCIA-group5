@@ -3,21 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/navigation_menu1"
+        android:enabled="true"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Home" />
 
     <item
         android:id="@+id/navigation_menu2"
+        android:enabled="true"
         android:icon="@drawable/ic_insert_invitation_black_24dp"
         android:title="Timeline" />
 
     <item
         android:id="@+id/navigation_menu3"
+        android:enabled="true"
         android:icon="@drawable/ic_description_black_24dp"
         android:title="Report" />
 
     <item
         android:id="@+id/navigation_menu4"
+        android:enabled="true"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="Setting" />
 

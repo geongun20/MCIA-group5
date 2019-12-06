@@ -32,6 +32,7 @@ public class Fragment5 extends Fragment {
     List<String> labels = new ArrayList<>();
 
 
+
     public Fragment5() {
         // Required empty public constructor
     }
@@ -40,8 +41,9 @@ public class Fragment5 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        input.readFile("sample_data.txt", getContext());
+      
+        input.readFile();
+//         input.readFile2("sample_data.txt", getContext());
 
         int m = TimelineActivity.pickedMonth;
         int firstDay = input.getFirstDayOfMonth(m);
@@ -98,6 +100,7 @@ public class Fragment5 extends Fragment {
 
     private void chartInit(View view) {
 
+
         barChart = view.findViewById(R.id.barChart);
         barChart.setAutoScaleMinMaxEnabled(true);
 
@@ -122,6 +125,7 @@ public class Fragment5 extends Fragment {
         xAxis.setLabelCount(7, true);
         String[] labels2 = labels.toArray(new String[labels.size()]);
         xAxis.setValueFormatter(new MyXAxisValueFormatter(labels2));
+
 
 
         YAxis yAxisLeft = barChart.getAxisLeft();

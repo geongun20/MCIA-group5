@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,32 +20,37 @@ import java.util.List;
 
 public class Input extends AppCompatActivity {
     private ArrayList<String>[][] data = new ArrayList[13][32];
+    private int[] monthly = new int[12];
     private final Calendar today = Calendar.getInstance();
-    private String lastSmoke;
     private int[] lastDateOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
-    private int[] monthly = new int[12];
+    private String lastSmoke;
+    private File dir = null ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
 
-    public void readFile(String filename, Context context) {
+        dir = getExternalFilesDir(null);
+    }
+    
+    public void readFile() {
         for(int m = 1; m <= 12; m++)
             for(int d = 1; d <= lastDateOfMonth[m]; d++)
                 data[m][d] = new ArrayList<>();
 
-        AssetManager am = null;
+
+        //AssetManager am = null;
         InputStream is = null;
         InputStreamReader isr = null;
         BufferedReader br = null;
         String line = "";
 
         try {
-            am = context.getResources().getAssets();
-            is = am.open("sample_data.txt");
+            //am = context.getResources().getAssets();
+            //is = am.open("sample_data.txt");
+            is = new FileInputStream(dir+"/testfolder/output.txt");
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
@@ -110,7 +117,6 @@ public class Input extends AppCompatActivity {
         return lastDateOfMonth[m];
     }
 
-
     public String getLastSmoke() {
         return lastSmoke;
     }
@@ -119,7 +125,6 @@ public class Input extends AppCompatActivity {
         int month = today.get(Calendar.MONTH) + 1;
         int date = today.get(Calendar.DATE);
         List<String> list = data[month][date];
-
         return list.size();
     }
 
@@ -151,14 +156,68 @@ public class Input extends AppCompatActivity {
         return sum;
     }
 
-
-
     public List<Integer> countMonthly() {
-
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             list.add(i, monthly[i]);
         }
         return list;
+    }
+  
+  
+  
+  
+  
+  
+  
+  public void readFile2(String filename, Context context) {
+        for(int m = 1; m <= 12; m++)
+            for(int d = 1; d <= lastDateOfMonth[m]; d++)
+                data[m][d] = new ArrayList<>();
+
+        AssetManager am = null;
+        InputStream is = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
+        String line = "";
+
+        try {
+            am = context.getResources().getAssets();
+            is = am.open("sample_data.txt");
+            isr = new InputStreamReader(is);
+            br = new BufferedReader(isr);
+
+            while ((line = br.readLine()) != null) {
+                String[] line2 = line.split("\\.");
+                int year = Integer.parseInt(line2[0]);
+                int month = Integer.parseInt(line2[1]);
+                int date = Integer.parseInt(line2[2]);
+                int hour = Integer.parseInt(line2[3]);
+                int minute = Integer.parseInt(line2[4]);
+                int second = Integer.parseInt(line2[5]);
+
+                data[month][date].add(line);
+
+                monthly[month-1]++;
+
+                lastSmoke = line;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try{
+                if (isr != null){
+                    isr.close();
+                }
+                if(is != null){
+                    is.close();
+                }
+                if(br != null){
+                    br.close();
+                }
+            } catch(Exception e2){
+                e2.getMessage();
+            }
+        }
     }
 }

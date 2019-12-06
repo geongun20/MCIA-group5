@@ -41,8 +41,9 @@ public class Fragment1 extends Fragment {
         super.onCreate(savedInstanceState);
 
         System.out.println("#####onCreate()#####");
-
-        input.readFile("sample_data.txt", getContext());
+      
+        input.readFile();
+//         input.readFile2("sample_data.txt", getContext());
 
         int m = TimelineActivity.pickedMonth;
         int firstDay = input.getFirstDayOfMonth(m);
@@ -158,7 +159,4 @@ public class Fragment1 extends Fragment {
     public void chartUpdate() {
         return;
     }
-
-
-
 }
