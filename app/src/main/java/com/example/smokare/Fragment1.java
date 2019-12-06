@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -40,9 +40,10 @@ public class Fragment1 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        input.readFile();
+
         System.out.println("#####onCreate()#####");
 
-        input.readFile("sample_data.txt", getContext());
 
         int m = TimelineActivity.pickedMonth;
         for(int d = 1; d <= 7; d++)

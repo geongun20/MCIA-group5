@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -139,7 +139,7 @@ public class ReportActivity extends AppCompatActivity {
         });
 
         Input input = new Input();
-        input.readFile("sample_data.txt", getApplicationContext());
+        input.readFile();
         List<String> list = input.getData()[input.getMonth()][input.getDay()];
         TextView life_extension = findViewById(R.id.report_text_2_2);
         DecimalFormat form = new DecimalFormat("#.#");

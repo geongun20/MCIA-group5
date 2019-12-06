@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication2">
+    package="com.example.smokare">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,35 +9,36 @@
 
     <application
         android:name = ".Global_Variable"
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name="com.example.smokare.getDataService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@menu/main_bottom_navigation" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.smokare.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            android:configChanges="orientation|keyboard"
         </activity>
-        <activity android:name=".InfoActivity"
-            android:configChanges="orientation|keyboard"/>
-        <activity android:name=".HomeActivity"
-            android:configChanges="orientation|keyboard"/>
-        <activity android:name=".TimelineActivity"
-            android:configChanges="orientation|keyboard"/>
-        <activity android:name=".ReportActivity"
-            android:configChanges="orientation|keyboard"/>
-        <activity android:name=".SettingsActivity"
-            android:configChanges="orientation|keyboard"/>
+
+        <activity android:name="com.example.smokare.InfoActivity" />
+        <activity android:name="com.example.smokare.HomeActivity" />
+        <activity android:name="com.example.smokare.TimelineActivity" />
+        <activity android:name="com.example.smokare.ReportActivity" />
+        <activity android:name="com.example.smokare.SettingsActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,7 +27,7 @@ public class FragmentB extends Fragment {
         ListView lv = v.findViewById(R.id.listView1);
 
         Input input = new Input();
-        input.readFile("sample_data.txt", getContext());
+        input.readFile();
         List<String> list = input.getData()[input.getMonth()][input.getDay()];
         String[] arr = list.toArray(new String[0]);
 

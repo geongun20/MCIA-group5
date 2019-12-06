@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Fragment4 extends Fragment {
+public class Fragment2 extends Fragment {
 
     BarChart barChart;
     List<BarEntry> entries;
@@ -31,7 +31,8 @@ public class Fragment4 extends Fragment {
     List<Integer> nums = new ArrayList<>();
 
 
-    public Fragment4() {
+
+    public Fragment2() {
         // Required empty public constructor
     }
 
@@ -40,21 +41,21 @@ public class Fragment4 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        input.readFile("sample_data.txt", getContext());
+        input.readFile();
 
         int m = TimelineActivity.pickedMonth;
-        for(int d = 22; d <= 28; d++)
+        for(int d = 8; d <= 14; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_4,null);
+        View v = inflater.inflate(R.layout.fragment_2,null);
 
         int m = TimelineActivity.pickedMonth;
         nums.clear();
-        for(int d = 22; d <= 28; d++)
+        for(int d = 8; d <= 14; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
 
         chartInit(v, nums);
@@ -80,12 +81,9 @@ public class Fragment4 extends Fragment {
 
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f);
-        xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(10, true);
-        String[] values = {"22", "23", "24", "25", "26", "27", "28"};
+        String[] values = {"8", "9", "10", "11", "12", "13", "14"};
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
@@ -110,6 +108,10 @@ public class Fragment4 extends Fragment {
     public void chartUpdate() {
         return;
     }
+
+
+
+
 
 
 

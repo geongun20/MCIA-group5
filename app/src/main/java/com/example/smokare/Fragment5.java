@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.smokare;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Fragment2 extends Fragment {
+public class Fragment5 extends Fragment {
 
     BarChart barChart;
     List<BarEntry> entries;
@@ -29,10 +29,10 @@ public class Fragment2 extends Fragment {
     BarData data;
     Input input = new Input();
     List<Integer> nums = new ArrayList<>();
+    private static int lastDay;
 
 
-
-    public Fragment2() {
+    public Fragment5() {
         // Required empty public constructor
     }
 
@@ -41,21 +41,22 @@ public class Fragment2 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        input.readFile("sample_data.txt", getContext());
+        input.readFile();
 
         int m = TimelineActivity.pickedMonth;
-        for(int d = 8; d <= 14; d++)
+        lastDay = input.getLastDateOfMonth(m);
+        for(int d = 29; d <= input.getLastDateOfMonth(m); d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_2,null);
+        View v = inflater.inflate(R.layout.fragment_5,null);
 
         int m = TimelineActivity.pickedMonth;
         nums.clear();
-        for(int d = 8; d <= 14; d++)
+        for(int d = 29; d <= input.getLastDateOfMonth(m); d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
 
         chartInit(v, nums);
@@ -81,17 +82,25 @@ public class Fragment2 extends Fragment {
 
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(10, true);
-        String[] values = {"8", "9", "10", "11", "12", "13", "14"};
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
+        String[] values30 = {"29", "30"};
+        String[] values31 = {"29", "30", "31"};
+
+        if(lastDay == 30)
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(values30));
+        else if(lastDay == 31)
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(values31));
+
 
         YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setTextColor(Color.BLACK);
 
         YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
-
 
 //        Legend legend = barChart.getLegend();
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
@@ -108,10 +117,6 @@ public class Fragment2 extends Fragment {
     public void chartUpdate() {
         return;
     }
-
-
-
-
 
 
 
