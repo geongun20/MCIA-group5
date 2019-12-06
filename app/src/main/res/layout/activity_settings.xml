@@ -63,13 +63,13 @@
         android:gravity="center_horizontal"
         android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textUserPrice"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="2"
-            android:gravity="center_horizontal"
-            android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textUserPrice"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textUserTar"
@@ -89,6 +89,7 @@
         app:itemIconTint="@drawable/bottom_button_selector"
         app:itemTextColor="@drawable/bottom_button_selector"
         android:layout_weight="1" />
+
 
 <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
 <!--        android:id="@+id/navigationView"-->

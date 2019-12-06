@@ -1,6 +1,8 @@
 package com.example.smokare;
 
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,13 +31,15 @@ public class Input extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         dir = getExternalFilesDir(null);
     }
-
+    
     public void readFile() {
         for(int m = 1; m <= 12; m++)
             for(int d = 1; d <= lastDateOfMonth[m]; d++)
                 data[m][d] = new ArrayList<>();
+
 
         //AssetManager am = null;
         InputStream is = null;
@@ -89,23 +93,31 @@ public class Input extends AppCompatActivity {
         return data;
     }
 
-    public int getMonth() {
+    public int getMonthOfToday() {
         return today.get(Calendar.MONTH) + 1; // 0(January) ~ 11
     }
 
-    public int getDate() {
+    public int getDateOfToday() {
         return today.get(Calendar.DATE); // 1 ~ 31
     }
 
-    public int getDay() {
+    public int getDayOfToday() {
         return today.get(Calendar.DAY_OF_WEEK); // 1(Sunday) ~ 7
+    }
+
+    public int getFirstDayOfMonth(int m) {
+        Calendar myCal = Calendar.getInstance();
+        myCal.set(Calendar.YEAR, 2019);
+        myCal.set(Calendar.MONTH, m-1);
+        myCal.set(Calendar.DATE, 1);
+        return myCal.get(Calendar.DAY_OF_WEEK);
     }
 
     public int getLastDateOfMonth(int m) {
         return lastDateOfMonth[m];
     }
 
-    public String getLast() {
+    public String getLastSmoke() {
         return lastSmoke;
     }
 
@@ -113,12 +125,10 @@ public class Input extends AppCompatActivity {
         int month = today.get(Calendar.MONTH) + 1;
         int date = today.get(Calendar.DATE);
         List<String> list = data[month][date];
-
         return list.size();
     }
 
     public int countThisWeek(){
-
         int month = today.get(Calendar.MONTH) + 1;
         int date = today.get(Calendar.DATE);
         int day = today.get(Calendar.DAY_OF_WEEK);
@@ -138,35 +148,76 @@ public class Input extends AppCompatActivity {
         return sum;
     }
 
-    public int countThisMonth(){
-
-        int month = today.get(Calendar.MONTH) + 1;
-        int date = today.get(Calendar.DATE);
-        int day = today.get(Calendar.DAY_OF_WEEK);
-        List<String> list = data[month][date];
-
+    public int countMonth(int m){
         int sum = 0;
-        for(int i = day; i >= 1 ; i--) {
-            sum += list.size();
-            if(date == 1) {
-                month--;
-                date = today.getActualMaximum(Calendar.DATE);
-            }
-            else date--;
-
-            list = data[month][date];
+        for(int i = 1; i <= getLastDateOfMonth(m); i++) {
+            sum += data[m][i].size();
         }
         return sum;
     }
-
-
 
     public List<Integer> countMonthly() {
-
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             list.add(i, monthly[i]);
         }
         return list;
+    }
+  
+  
+  
+  
+  
+  
+  
+  public void readFile2(String filename, Context context) {
+        for(int m = 1; m <= 12; m++)
+            for(int d = 1; d <= lastDateOfMonth[m]; d++)
+                data[m][d] = new ArrayList<>();
+
+        AssetManager am = null;
+        InputStream is = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
+        String line = "";
+
+        try {
+            am = context.getResources().getAssets();
+            is = am.open("sample_data.txt");
+            isr = new InputStreamReader(is);
+            br = new BufferedReader(isr);
+
+            while ((line = br.readLine()) != null) {
+                String[] line2 = line.split("\\.");
+                int year = Integer.parseInt(line2[0]);
+                int month = Integer.parseInt(line2[1]);
+                int date = Integer.parseInt(line2[2]);
+                int hour = Integer.parseInt(line2[3]);
+                int minute = Integer.parseInt(line2[4]);
+                int second = Integer.parseInt(line2[5]);
+
+                data[month][date].add(line);
+
+                monthly[month-1]++;
+
+                lastSmoke = line;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try{
+                if (isr != null){
+                    isr.close();
+                }
+                if(is != null){
+                    is.close();
+                }
+                if(br != null){
+                    br.close();
+                }
+            } catch(Exception e2){
+                e2.getMessage();
+            }
+        }
     }
 }

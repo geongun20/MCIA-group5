@@ -29,7 +29,7 @@ public class Fragment2 extends Fragment {
     BarData data;
     Input input = new Input();
     List<Integer> nums = new ArrayList<>();
-
+    List<String> labels = new ArrayList<>();
 
 
     public Fragment2() {
@@ -42,9 +42,11 @@ public class Fragment2 extends Fragment {
         super.onCreate(savedInstanceState);
 
         input.readFile();
+//         input.readFile2("sample_data.txt", getContext());
 
         int m = TimelineActivity.pickedMonth;
-        for(int d = 8; d <= 14; d++)
+        int firstDay = input.getFirstDayOfMonth(m);
+        for(int d = 9-firstDay; d <= 15-firstDay; d++)
             if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
     }
 
@@ -53,25 +55,27 @@ public class Fragment2 extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_2,null);
 
-        int m = TimelineActivity.pickedMonth;
         nums.clear();
-        for(int d = 8; d <= 14; d++)
-            if(input.getData()[m][d] != null) nums.add(input.getData()[m][d].size());
+        labels.clear();
 
-        chartInit(v, nums);
+        int m = TimelineActivity.pickedMonth;
+        int firstDay = input.getFirstDayOfMonth(m);
+        for(int d = 9-firstDay; d <= 15-firstDay; d++)
+            if(input.getData()[m][d] != null) { nums.add(input.getData()[m][d].size()); labels.add(d+""); }
+
+        chartInit(v);
         return v;
     }
 
-    private void chartInit(View view, List<Integer> valList) {
-
+    private void chartInit(View view) {
         barChart = view.findViewById(R.id.barChart);
         barChart.setAutoScaleMinMaxEnabled(true);
 
         entries = new ArrayList<BarEntry>();
-        for(int i = 0; i < valList.size(); i++)
-            entries.add(new BarEntry(i, valList.get(i)));
+        for(int i = 0; i < nums.size(); i++)
+            entries.add(new BarEntry(i, nums.get(i)));
 
-        dataSet = new BarDataSet(entries, "number of cigarettes");
+        dataSet = new BarDataSet(entries, "Number of cigarettes (SUN - SAT)");
         dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setDrawValues(true);
@@ -82,9 +86,9 @@ public class Fragment2 extends Fragment {
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
-        xAxis.setLabelCount(10, true);
-        String[] values = {"8", "9", "10", "11", "12", "13", "14"};
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
+        xAxis.setLabelCount(7, true);
+        String[] labels2 = labels.toArray(new String[labels.size()]);
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(labels2));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setTextColor(Color.BLACK);
@@ -108,11 +112,5 @@ public class Fragment2 extends Fragment {
     public void chartUpdate() {
         return;
     }
-
-
-
-
-
-
 
 }

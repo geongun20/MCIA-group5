@@ -31,12 +31,10 @@ public class HomeActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         Intent serviceIntent = new Intent(this, getDataService.class);
         startService(serviceIntent);
-
 
         setContentView(R.layout.activity_home);
 

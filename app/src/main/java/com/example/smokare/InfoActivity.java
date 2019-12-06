@@ -59,21 +59,19 @@ public class InfoActivity extends AppCompatActivity {
                     // all info are submitted
                     try {
                         info = getSharedPreferences("user_info", MODE_PRIVATE);
-
-                        //System.out.println("Success");
+                      
                         nickname = nicknameInput.getText().toString();
                         age = ageInput.getText().toString();
                         year = String.valueOf(yearInput.getValue());
                         price = priceInput.getText().toString();
                         tar = tarInput.getText().toString();
+                      
                         global.setName(nickname);
                         global.setAge(age);
                         global.setYear(year);
                         global.setPrice(price);
                         global.setTar(tar);
-
                         //save();
-
                     } catch(NumberFormatException nfe) {
                         System.out.println("Could not parse " + nfe);
                     }

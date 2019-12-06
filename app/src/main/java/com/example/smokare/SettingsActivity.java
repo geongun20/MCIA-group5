@@ -117,5 +117,5 @@ public class SettingsActivity extends AppCompatActivity {
 //        price = info.getInt("price", 0);
 //        tar = info.getFloat("tar", 0);
 //    }
-
 }
+

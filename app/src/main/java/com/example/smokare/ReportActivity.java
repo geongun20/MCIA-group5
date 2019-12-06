@@ -35,17 +35,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+
 public class ReportActivity extends AppCompatActivity {
     private static Handler mHandler;
     Button alert;
     int value;
     EditText valueEditText;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+      
         ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
         TextView report_main = findViewById(R.id.report_main_text);
         Global_Variable global = (Global_Variable) getApplication();
@@ -94,8 +95,8 @@ public class ReportActivity extends AppCompatActivity {
                     spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#26689A")), start, end, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                     report_main.setText(spannableString);
-                    progress.setMax(86400 * value);
 
+                    progress.setMax(86400 * value);
                 } catch (Exception e) {
                     // 토스트(Toast) 메시지 표시.
                     Toast toast = Toast.makeText(ReportActivity.this, "Invalid number format",
@@ -183,6 +184,7 @@ public class ReportActivity extends AppCompatActivity {
                     Date lsTime = sdf.parse(last_time);
                     //System.out.println(now);
                     //System.out.println(lsTime);
+
                     //86400초 = 하루
 
 
@@ -202,7 +204,6 @@ public class ReportActivity extends AppCompatActivity {
 
                     TextView last_smoke = findViewById(R.id.report_text_1_2);
                     last_smoke.setText("From LAST Smoking\n" + strTime);
-
                     ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
 
                     // 변환된 값을 프로그레스바에 적용.
@@ -232,7 +233,7 @@ public class ReportActivity extends AppCompatActivity {
         Thread t = new Thread(nr);
         t.start();
     }
-
+  
     protected void onResume() {
         super.onResume();
     }
@@ -254,5 +255,4 @@ public class ReportActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
     }
-
 }
