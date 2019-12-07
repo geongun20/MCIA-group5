@@ -187,7 +187,7 @@ public class ReportActivity extends AppCompatActivity {
                         TextView last_smoke = findViewById(R.id.report_text_1_2);
                         last_smoke.setText("No data!");
                     }else{
-                        final String last_time = list.get(list.size() - 1);
+                        final String last_time = list.get(0);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
                         Date lsTime = sdf.parse(last_time);
                         //System.out.println(now);

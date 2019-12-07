@@ -1,52 +1,81 @@
 package com.example.smokare;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+
 
 public class Global_Variable extends Application {
-    private String name;
-    private String age, year, price;
-    private String tar;
-    private Integer report_value = 0;
-    private Integer report_progress = 0;
-    private boolean info=false;
 
-    public boolean getInfo() {return info;}
+    public boolean getInfo() {
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getBoolean("info", false);
+    }
     public String getName(){
-        return name;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getString("name", "");
     }
     public String getAge(){
-        return age;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getString("age", "");
     }
     public String getYear(){
-        return year;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getString("year", "");
     }
     public String getPrice(){
-        return price;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getString("price", "");
     }
     public String getTar(){
-        return tar;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getString("tar", "");
     }
-
-    public Integer getReport_value(){return report_value;}
-    public Integer getReport_progress(){return report_progress;}
-
-    public void setInfo(boolean info){this.info = info;}
+    public Integer getReport_value() {
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getInt("report_value", 0);
+    }
+    public void setInfo(boolean info) {
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("info", info);
+        editor.commit();
+    }
     public void setName(String name){
-        this.name = name;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("name", name);
+        editor.commit();
     }
     public void setAge(String age){
-        this.age = age;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("age", age);
+        editor.commit();
     }
     public void setYear(String year){
-        this.year = year;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("year", year);
+        editor.commit();
     }
     public void setPrice(String price){
-        this.price = price;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("price", price);
+        editor.commit();
     }
     public void setTar(String tar){
-        this.tar = tar;
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("tar", tar);
+        editor.commit();
     }
 
-    public void setReport(Integer value) {this.report_value = value;}
-    public void setReport_progress(Integer progress) {this.report_progress = progress;}
+    public void setReport(Integer value) {
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("report_value", value);
+        editor.commit();
+
+    }
 }
