@@ -144,12 +144,10 @@ public class ReportActivity extends AppCompatActivity {
         Input input = new Input();
         input.readFile(getExternalFilesDir(null));
         final List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
+        final float average = input.Calculate_average();
         TextView life_extension = findViewById(R.id.report_text_2_2);
         DecimalFormat form = new DecimalFormat("#.#");
-        life_extension.setText(String.format("You could live %s more minutes", (form.format((double) (14 - input.countToday()) * (13.8)))));
-
-        TextView save_price = findViewById(R.id.report_text_3_2);
-        save_price.setText(String.format("%d won", (14 - input.countToday()) * Integer.parseInt(global.getPrice())));
+        life_extension.setText(String.format("You could live %s more minutes", (form.format((double) (average - input.countToday()) * (13.8)))));
 
         alert = (Button) findViewById(R.id.button);
         alert.setOnClickListener(new Button.OnClickListener() {
@@ -187,7 +185,7 @@ public class ReportActivity extends AppCompatActivity {
                         TextView last_smoke = findViewById(R.id.report_text_1_2);
                         last_smoke.setText("No data!");
                     }else{
-                        final String last_time = list.get(list.size() - 1);
+                        final String last_time = list.get(0);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
                         Date lsTime = sdf.parse(last_time);
                         //System.out.println(now);
@@ -216,6 +214,10 @@ public class ReportActivity extends AppCompatActivity {
 
                         // 변환된 값을 프로그레스바에 적용.
                         progress.setProgress((int) seconds);
+
+                        TextView save_price = findViewById(R.id.report_text_3_2);
+                        save_price.setText(String.format("%f won", seconds * average));
+
                     }
                 } catch (ParseException p) {
                     p.printStackTrace();

@@ -139,7 +139,7 @@ public class HomeActivity extends AppCompatActivity  {
                                 TextView fromLast = findViewById(R.id.after_last_smoke);
                                 fromLast.setText("No Data!");
                             }else {
-                                final String last_time = list.get(list.size() - 1);
+                                final String last_time = list.get(0);
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
                                 Date lsTime = sdf.parse(last_time);
 

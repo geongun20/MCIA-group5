@@ -3,7 +3,6 @@ package com.example.smokare;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +15,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -28,12 +30,14 @@ public class Input extends AppCompatActivity {
     private int[] lastDateOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
     private String lastSmoke;
+    private int total_cigarette = 0;
+    private String first_smokare = "";
 
     
     public void readFile(File dir) {
         for(int m = 1; m <= 12; m++)
-            for(int d = 1; d <= lastDateOfMonth[m]; d++)
-                data[m][d] = new ArrayList<>();
+            for(int d = 1; d <= lastDateOfMonth[m]; d++) data[m][d] = new ArrayList<>();
+
 
         InputStream is = null;
         InputStreamReader isr = null;
@@ -58,6 +62,8 @@ public class Input extends AppCompatActivity {
                 int second = Integer.parseInt(line2[5]);
 
                 data[month][date].add(line);
+
+                total_cigarette++;
 
                 monthly[month-1]++;
 
@@ -98,6 +104,31 @@ public class Input extends AppCompatActivity {
 
     public ArrayList<String>[][] getData() {
         return data;
+    }
+
+    public float Calculate_average(){
+        int total = total_cigarette;
+        float average = 0;
+        if(lastSmoke != null) {
+            String first_smoke = lastSmoke.substring(0, 10);
+            long calDatedays = 0;
+            try {
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy.mm.dd");
+                String today = format.format(currentTime);
+                Date F_date = format.parse(first_smoke);
+                Date L_date = format.parse(today);
+
+                long calDate = F_date.getTime() - L_date.getTime();
+                calDatedays = calDate / (1000); //이렇게 하면 초가 나온다.
+                calDatedays = Math.abs(calDatedays);
+
+                average = (float) (total / calDatedays);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return average;
     }
 
     public int getMonthOfToday() {
@@ -170,12 +201,7 @@ public class Input extends AppCompatActivity {
         }
         return list;
     }
-  
-  
-  
-  
-  
-  
+
   
   public void readFile2(String filename, Context context) {
         for(int m = 1; m <= 12; m++)
