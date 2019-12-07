@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         finish();
     }
-
     @Override
     protected void onStop() {
         super.onStop();

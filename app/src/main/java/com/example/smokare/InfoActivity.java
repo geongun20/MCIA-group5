@@ -99,12 +99,17 @@ public class InfoActivity extends AppCompatActivity {
                     // TODO save user info in application
                     Intent intent = new Intent(InfoActivity.this, HomeActivity.class);
                     startActivity(intent);
-                    finish();
                 }
             }
         });
     }
 
+    public void onPause() {
+        super.onPause();
+
+        // Remove the activity when its off the screen
+        finish();
+    }
 //    private void save(){
 //        SharedPreferences.Editor editor = info.edit();
 //        editor.putString("name", nickname);
