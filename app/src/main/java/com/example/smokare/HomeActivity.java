@@ -172,5 +172,8 @@ public class HomeActivity extends AppCompatActivity  {
 
     protected void onPause() {
         super.onPause();
+
+        // Remove the activity when its off the screen
+        finish();
     }
 }

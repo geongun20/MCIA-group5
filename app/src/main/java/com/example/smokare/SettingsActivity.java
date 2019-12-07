@@ -110,6 +110,13 @@ public class SettingsActivity extends AppCompatActivity {
 //        });
     }
 
+    protected void onPause() {
+        super.onPause();
+
+        // Remove the activity when its off the screen
+        finish();
+    }
+
 //    private void load(){
 //        name = info.getString("name", "");
 //        age = info.getInt("age", 0);
@@ -117,5 +124,8 @@ public class SettingsActivity extends AppCompatActivity {
 //        price = info.getInt("price", 0);
 //        tar = info.getFloat("tar", 0);
 //    }
+
+
 }
+
 
