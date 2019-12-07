@@ -8,7 +8,9 @@ public class Global_Variable extends Application {
     private String tar;
     private Integer report_value = 0;
     private Integer report_progress = 0;
+    private boolean info=false;
 
+    public boolean getInfo() {return info;}
     public String getName(){
         return name;
     }
@@ -28,6 +30,7 @@ public class Global_Variable extends Application {
     public Integer getReport_value(){return report_value;}
     public Integer getReport_progress(){return report_progress;}
 
+    public void setInfo(boolean info){this.info = info;}
     public void setName(String name){
         this.name = name;
     }
