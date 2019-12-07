@@ -14,6 +14,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -78,6 +80,19 @@ public class Input extends AppCompatActivity {
                 e2.getMessage();
             }
         }
+
+    }
+
+    public String readAllBytesJava7(String filePath) {
+        String content = "";
+
+        try {
+            content = new String(Files.readAllBytes(Paths.get(filePath)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return content;
     }
 
 

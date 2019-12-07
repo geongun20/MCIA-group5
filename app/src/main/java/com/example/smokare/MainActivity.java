@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         // get the text view instance
         welcomeImage = (ImageView)findViewById(R.id.welcomeImage);
 
+        Intent serviceIntent = new Intent(this, getDataService.class);
+        startService(serviceIntent);
+
         timer.postDelayed(new Runnable() {
             @Override
             public void run() {
