@@ -27,8 +27,9 @@ public class Input extends AppCompatActivity {
     private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
     private String lastSmoke;
 
-    
+
     public void readFile(File dir) {
+
         for(int m = 1; m <= 12; m++)
             for(int d = 1; d <= lastDateOfMonth[m]; d++)
                 data[m][d] = new ArrayList<>();
