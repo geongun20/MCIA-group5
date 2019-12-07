@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +21,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,7 +37,13 @@ public class HomeActivity extends AppCompatActivity  {
 
     private static Handler mHandler;
 
-    private boolean isFragmentA = true;
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    Button manualButton;
+    Input input;
+    FileOutputStream fos;
+    File file;
+
+    // private boolean isFragmentA = true;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -37,19 +51,47 @@ public class HomeActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Intent serviceIntent = new Intent(this, getDataService.class);
-        startService(serviceIntent);
+        input = new Input();
+        input.readFile(getExternalFilesDir(null));
+//      input.readFile2("sample_data.txt", getApplicationContext());
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.frameLayout, new FragmentA());
-        fragmentTransaction.commit();
+        final List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
 
-        Button buttonTemp = findViewById(R.id.button0) ;
-        buttonTemp.setOnClickListener(new Button.OnClickListener() {
+        ListView lv = findViewById(R.id.listView1);
+        String[] arr = list.toArray(new String[0]);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arr);
+        lv.setAdapter(adapter);
+
+        // no use fragment
+//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//        fragmentTransaction.add(R.id.frameLayout, new FragmentA());
+//        fragmentTransaction.commit();
+
+        // Button buttonTemp = findViewById(R.id.button0) ;
+//        buttonTemp.setOnClickListener(new Button.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switchFragment();
+//            }
+//        });
+
+        manualButton = findViewById(R.id.button1);
+        manualButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchFragment();
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                file = new File(getExternalFilesDir(null)+"/testfolder/output.txt");
+
+                String outstr = input.readAllBytesJava7(getExternalFilesDir(null) + "/testfolder/output.txt");
+                outstr = (sdf.format(timestamp) + "\n") + outstr;
+                Log.d("outstring", outstr);
+
+                writeFile(file, outstr.getBytes());
+
+                Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -84,11 +126,6 @@ public class HomeActivity extends AppCompatActivity  {
             }
         });
 
-        Input input = new Input();
-        input.readFile(getExternalFilesDir(null));
-//        input.readFile2("sample_data.txt", getApplicationContext());
-
-        final List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
 
             mHandler = new Handler() {
                 @Override
@@ -102,7 +139,7 @@ public class HomeActivity extends AppCompatActivity  {
                                 TextView fromLast = findViewById(R.id.after_last_smoke);
                                 fromLast.setText("No Data!");
                             }else {
-                                final String last_time = list.get(list.size() - 1);
+                                final String last_time = list.get(0);
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
                                 Date lsTime = sdf.parse(last_time);
 
@@ -154,16 +191,26 @@ public class HomeActivity extends AppCompatActivity  {
         week.setText("THIS WEEK\n" + String.valueOf(input.countThisWeek()));
     }
 
-
-    public void switchFragment() {
-        Fragment fr;
-        fr = isFragmentA ? new FragmentB() : new FragmentA();
-        isFragmentA = !isFragmentA;
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fr);
-        fragmentTransaction.commit();
+    private boolean writeFile(File file , byte[] file_content){
+        boolean result;
+        if(file!=null&&file.exists()&&file_content!=null){
+            try {
+                fos = new FileOutputStream(file);
+                try {
+                    fos.write(file_content);
+                    fos.flush();
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            result = true;
+        }else{
+            result = false;
+        }
+        return result;
     }
 
     protected void onResume() {
@@ -172,5 +219,8 @@ public class HomeActivity extends AppCompatActivity  {
 
     protected void onPause() {
         super.onPause();
+
+        // Remove the activity when its off the screen
+        finish();
     }
 }

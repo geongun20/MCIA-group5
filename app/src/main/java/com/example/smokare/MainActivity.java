@@ -22,22 +22,34 @@ public class MainActivity extends AppCompatActivity {
         // get the text view instance
         welcomeImage = (ImageView)findViewById(R.id.welcomeImage);
 
+        Intent serviceIntent = new Intent(this, getDataService.class);
+        startService(serviceIntent);
+        final Global_Variable global = (Global_Variable) getApplication();
+
         timer.postDelayed(new Runnable() {
             @Override
             public void run() {
                 // make a intent
-                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                Intent intent;
+                if(global.getInfo()){
+                    intent = new Intent(MainActivity.this, HomeActivity.class);
+                }else {
+                    intent = new Intent(MainActivity.this, InfoActivity.class);
+                }
                 startActivity(intent);
-                finish();
             }
-        }, 2000);
+        }, 1500);
 
 
     }
 
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//    }
+
+    protected void onPause(){
+        super.onPause();
+        finish();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 }

@@ -51,7 +51,7 @@ public class ReportActivity extends AppCompatActivity {
       
         ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
         TextView report_main = findViewById(R.id.report_main_text);
-        Global_Variable global = (Global_Variable) getApplication();
+        final Global_Variable global = (Global_Variable) getApplication();
         value = global.getReport_value();
 
         if(value == 0){
@@ -84,6 +84,7 @@ public class ReportActivity extends AppCompatActivity {
                 try {
                     // 문자열을 숫자로 변환.
                     value = Integer.parseInt(valueEditText.getText().toString());
+                    global.setReport(value);
                     TextView report_main = findViewById(R.id.report_main_text);
                     report_main.setText(String.format("\nMY GOAL\nto quit smoking\n%d DAYS", value));
 
@@ -144,13 +145,8 @@ public class ReportActivity extends AppCompatActivity {
         Input input = new Input();
         input.readFile(getExternalFilesDir(null));
         final List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
-        TextView life_extension = findViewById(R.id.report_text_2_2);
-        DecimalFormat form = new DecimalFormat("#.#");
-        life_extension.setText(String.format("You could live %s more minutes", (form.format((double) (14 - input.countToday()) * (13.8)))));
-
-        TextView save_price = findViewById(R.id.report_text_3_2);
-        save_price.setText(String.format("%d won", (14 - input.countToday()) * Integer.parseInt(global.getPrice())));
-
+        final float average = input.Calculate_average();
+        final int price = Integer.parseInt(global.getPrice());
         alert = (Button) findViewById(R.id.button);
         alert.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
@@ -187,7 +183,7 @@ public class ReportActivity extends AppCompatActivity {
                         TextView last_smoke = findViewById(R.id.report_text_1_2);
                         last_smoke.setText("No data!");
                     }else{
-                        final String last_time = list.get(list.size() - 1);
+                        final String last_time = list.get(0);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
                         Date lsTime = sdf.parse(last_time);
                         //System.out.println(now);
@@ -216,6 +212,14 @@ public class ReportActivity extends AppCompatActivity {
 
                         // 변환된 값을 프로그레스바에 적용.
                         progress.setProgress((int) seconds);
+
+                        TextView save_price = findViewById(R.id.report_text_3_2);
+                        save_price.setText(String.format("%.2f won", seconds * average * price));
+                        TextView life_extension = findViewById(R.id.report_text_2_2);
+                        DecimalFormat form = new DecimalFormat("#.#");
+                        life_extension.setText(String.format("You could live %.2f more minutes", (double) seconds * average * (13.8)));
+
+
                     }
                 } catch (ParseException p) {
                     p.printStackTrace();
@@ -248,16 +252,10 @@ public class ReportActivity extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
-    }
 
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        System.out.println(value);
-        Global_Variable global = (Global_Variable) getApplication();
-        global.setReport(value);
-        savedInstanceState.putInt("value", value);
+        // Remove the activity when its off the screen
+        finish();
     }
-
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
