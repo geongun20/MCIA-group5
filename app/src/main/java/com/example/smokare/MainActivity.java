@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         // get the text view instance
         welcomeImage = (ImageView)findViewById(R.id.welcomeImage);
 
+        Intent serviceIntent = new Intent(this, getDataService.class);
+        startService(serviceIntent);
         final Global_Variable global = (Global_Variable) getApplication();
 
         timer.postDelayed(new Runnable() {
