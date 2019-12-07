@@ -21,6 +21,18 @@ public class InfoActivity extends AppCompatActivity {
     String age, year, price;
     String tar;
 
+    public static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        } catch(NullPointerException e) {
+            return false;
+        }
+        // only got here if we didn't return false
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +43,7 @@ public class InfoActivity extends AppCompatActivity {
         NumberPicker picker = (NumberPicker)findViewById(R.id.picker2);
         picker.setMaxValue(2019);
         picker.setMinValue(1919);
+        picker.setValue(2000);
         //picker.setWrapSelectorWheel(false);
 
         nicknameInput = (EditText)findViewById(R.id.nicknameInput);
@@ -55,6 +68,12 @@ public class InfoActivity extends AppCompatActivity {
                         toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
                 }
+                else if(!isInteger(ageInput.getText().toString())){
+                    Toast toast = Toast.makeText(InfoActivity.this, "Please enter the age in integer format", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
+
                 else {
                     // all info are submitted
                     try {
@@ -65,7 +84,8 @@ public class InfoActivity extends AppCompatActivity {
                         year = String.valueOf(yearInput.getValue());
                         price = priceInput.getText().toString();
                         tar = tarInput.getText().toString();
-                      
+
+                        global.setInfo(true);
                         global.setName(nickname);
                         global.setAge(age);
                         global.setYear(year);
