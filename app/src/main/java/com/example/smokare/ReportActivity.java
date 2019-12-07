@@ -51,7 +51,7 @@ public class ReportActivity extends AppCompatActivity {
       
         ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
         TextView report_main = findViewById(R.id.report_main_text);
-        Global_Variable global = (Global_Variable) getApplication();
+        final Global_Variable global = (Global_Variable) getApplication();
         value = global.getReport_value();
 
         if(value == 0){
@@ -84,6 +84,7 @@ public class ReportActivity extends AppCompatActivity {
                 try {
                     // 문자열을 숫자로 변환.
                     value = Integer.parseInt(valueEditText.getText().toString());
+                    global.setReport(value);
                     TextView report_main = findViewById(R.id.report_main_text);
                     report_main.setText(String.format("\nMY GOAL\nto quit smoking\n%d DAYS", value));
 
@@ -255,15 +256,6 @@ public class ReportActivity extends AppCompatActivity {
         // Remove the activity when its off the screen
         finish();
     }
-
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        System.out.println(value);
-        Global_Variable global = (Global_Variable) getApplication();
-        global.setReport(value);
-        savedInstanceState.putInt("value", value);
-    }
-
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
