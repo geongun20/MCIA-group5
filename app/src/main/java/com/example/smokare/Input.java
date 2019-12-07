@@ -91,9 +91,9 @@ public class Input extends AppCompatActivity {
         return data;
     }
 
-    public int Calculate_average(){
+    public float Calculate_average(){
         int total = total_cigarette;
-        int average = 0;
+        float average = 0;
         if(lastSmoke != null) {
             String first_smoke = lastSmoke.substring(0, 10);
             long calDatedays = 0;
@@ -105,10 +105,10 @@ public class Input extends AppCompatActivity {
                 Date L_date = format.parse(today);
 
                 long calDate = F_date.getTime() - L_date.getTime();
-                calDatedays = calDate / (24 * 60 * 60 * 1000);
+                calDatedays = calDate / (1000); //이렇게 하면 초가 나온다.
                 calDatedays = Math.abs(calDatedays);
 
-                average = (int) (long) (total / calDatedays);
+                average = (float) (total / calDatedays);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
