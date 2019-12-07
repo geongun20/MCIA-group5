@@ -144,14 +144,8 @@ public class ReportActivity extends AppCompatActivity {
         Input input = new Input();
         input.readFile(getExternalFilesDir(null));
         final List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
-        float average = input.Calculate_average();
-        TextView life_extension = findViewById(R.id.report_text_2_2);
-        DecimalFormat form = new DecimalFormat("#.#");
-        life_extension.setText(String.format("You could live %s more minutes", (form.format((double) (average - input.countToday()) * (13.8)))));
-
-        TextView save_price = findViewById(R.id.report_text_3_2);
-        save_price.setText(String.format("%f won", (average - input.countToday()) * (Integer.parseInt(global.getPrice()) / 20)));
-
+        final float average = input.Calculate_average();
+        final int price = Integer.parseInt(global.getPrice());
         alert = (Button) findViewById(R.id.button);
         alert.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
@@ -217,6 +211,14 @@ public class ReportActivity extends AppCompatActivity {
 
                         // 변환된 값을 프로그레스바에 적용.
                         progress.setProgress((int) seconds);
+
+                        TextView save_price = findViewById(R.id.report_text_3_2);
+                        save_price.setText(String.format("%.2f won", seconds * average * price));
+                        TextView life_extension = findViewById(R.id.report_text_2_2);
+                        DecimalFormat form = new DecimalFormat("#.#");
+                        life_extension.setText(String.format("You could live %.2f more minutes", (double) seconds * average * (13.8)));
+
+
                     }
                 } catch (ParseException p) {
                     p.printStackTrace();

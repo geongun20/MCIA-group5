@@ -43,14 +43,12 @@ public class Input extends AppCompatActivity {
         String line = "";
 
         try {
-            Log.d("asd",dir.toString());
             is = new FileInputStream(dir + "/testfolder/output.txt");
 
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
             while ((line = br.readLine()) != null) {
-                Log.d("asd","asd");
                 String[] line2 = line.split("\\.");
                 int year = Integer.parseInt(line2[0]);
                 int month = Integer.parseInt(line2[1]);
@@ -108,7 +106,7 @@ public class Input extends AppCompatActivity {
                 calDatedays = calDate / (1000); //이렇게 하면 초가 나온다.
                 calDatedays = Math.abs(calDatedays);
 
-                average = (float) (total / calDatedays);
+                average = (float) (total) / (calDatedays);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
