@@ -4,6 +4,7 @@ package com.example.smokare;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,17 +26,9 @@ public class Input extends AppCompatActivity {
     private int[] lastDateOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
     private String lastSmoke;
-    private File dir = null ;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        dir = getExternalFilesDir(null);
-    }
     
-    public void readFile() {
+    public void readFile(File dir) {
         for(int m = 1; m <= 12; m++)
             for(int d = 1; d <= lastDateOfMonth[m]; d++)
                 data[m][d] = new ArrayList<>();
@@ -46,11 +39,14 @@ public class Input extends AppCompatActivity {
         String line = "";
 
         try {
+            Log.d("asd",dir.toString());
             is = new FileInputStream(dir + "/testfolder/output.txt");
+
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
             while ((line = br.readLine()) != null) {
+                Log.d("asd","asd");
                 String[] line2 = line.split("\\.");
                 int year = Integer.parseInt(line2[0]);
                 int month = Integer.parseInt(line2[1]);

@@ -44,7 +44,7 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         input = new Input();
-        input.readFile();
+        input.readFile(getExternalFilesDir(null));
 //        input.readFile2("sample_data.txt", getApplicationContext());
 
         global = (Global_Variable) getApplication();

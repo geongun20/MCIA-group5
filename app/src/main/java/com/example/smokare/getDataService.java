@@ -83,8 +83,11 @@ public class getDataService extends Service implements DataClient.OnDataChangedL
         }
 
         boolean isSuccess = false;
+        Log.d("getDataService",getExternalFilesDir(null).toString());
+
         if(dir.isDirectory()){
             System.out.println("debug2:"+getExternalFilesDir(null));
+
             file = new File(getExternalFilesDir(null)+"/testfolder/output.txt");
             if(file!=null&&!file.exists()){
                 Log.i( TAG2 , "!file.exists" );

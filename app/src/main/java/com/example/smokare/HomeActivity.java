@@ -1,5 +1,6 @@
 package com.example.smokare;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class HomeActivity extends AppCompatActivity  {
@@ -29,6 +31,7 @@ public class HomeActivity extends AppCompatActivity  {
 
     private boolean isFragmentA = true;
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,12 +85,10 @@ public class HomeActivity extends AppCompatActivity  {
         });
 
         Input input = new Input();
-        input.readFile();
+        input.readFile(getExternalFilesDir(null));
 //        input.readFile2("sample_data.txt", getApplicationContext());
 
-
-        final String lastTime = input.getLastSmoke();
-
+        final List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
 
             mHandler = new Handler() {
                 @Override
@@ -97,12 +98,13 @@ public class HomeActivity extends AppCompatActivity  {
                             Date now = cal.getTime();
 
 
-                            if(lastTime==null) {
+                            if(list.size()==0) {
                                 TextView fromLast = findViewById(R.id.after_last_smoke);
                                 fromLast.setText("No Data!");
                             }else {
+                                final String last_time = list.get(list.size() - 1);
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-                                Date lsTime = sdf.parse(lastTime);
+                                Date lsTime = sdf.parse(last_time);
 
                                 long diff = now.getTime() - lsTime.getTime();
                                 long seconds = diff / 1000;

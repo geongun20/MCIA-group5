@@ -42,7 +42,7 @@ public class Fragment1 extends Fragment {
         super.onCreate(savedInstanceState);
 
         input = new Input();
-        input.readFile();
+        input.readFile(getActivity().getExternalFilesDir(null));
 //        input.readFile2("sample_data.txt", getContext());
 
         int m = TimelineActivity.pickedMonth;

@@ -1,5 +1,6 @@
 package com.example.smokare;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class ReportActivity extends AppCompatActivity {
     int value;
     EditText valueEditText;
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,8 +142,8 @@ public class ReportActivity extends AppCompatActivity {
         });
 
         Input input = new Input();
-        input.readFile();
-        List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
+        input.readFile(getExternalFilesDir(null));
+        final List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
         TextView life_extension = findViewById(R.id.report_text_2_2);
         DecimalFormat form = new DecimalFormat("#.#");
         life_extension.setText(String.format("You could live %s more minutes", (form.format((double) (14 - input.countToday()) * (13.8)))));
@@ -173,42 +175,48 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        final String last_time = list.get(list.size() - 1);
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 try {
                     Calendar cal = Calendar.getInstance();
                     Date now = cal.getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-                    Date lsTime = sdf.parse(last_time);
-                    //System.out.println(now);
-                    //System.out.println(lsTime);
-
-                    //86400초 = 하루
 
 
-                    long diff = now.getTime() - lsTime.getTime();
-                    long seconds = diff / 1000;
-                    long minutes = seconds / 60;
-                    long hours = minutes / 60;
-                    long days = hours / 24;
+                    if(list.size()==0) {
+                        TextView last_smoke = findViewById(R.id.report_text_1_2);
+                        last_smoke.setText("No data!");
+                    }else{
+                        final String last_time = list.get(list.size() - 1);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+                        Date lsTime = sdf.parse(last_time);
+                        //System.out.println(now);
+                        //System.out.println(lsTime);
 
-                    String strTime = "";
-                    if (days == 0)
-                        strTime = String.format("%dh %dm %ds", hours % 24, minutes % 60, seconds % 60);
-                    else if (days == 1)
-                        strTime = String.format("%d day\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
-                    else
-                        strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
+                        //86400초 = 하루
 
-                    TextView last_smoke = findViewById(R.id.report_text_1_2);
-                    last_smoke.setText("From LAST Smoking\n" + strTime);
-                    ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
 
-                    // 변환된 값을 프로그레스바에 적용.
-                    progress.setProgress((int) seconds);
+                        long diff = now.getTime() - lsTime.getTime();
+                        long seconds = diff / 1000;
+                        long minutes = seconds / 60;
+                        long hours = minutes / 60;
+                        long days = hours / 24;
 
+                        String strTime = "";
+                        if (days == 0)
+                            strTime = String.format("%dh %dm %ds", hours % 24, minutes % 60, seconds % 60);
+                        else if (days == 1)
+                            strTime = String.format("%d day\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
+                        else
+                            strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
+
+                        TextView last_smoke = findViewById(R.id.report_text_1_2);
+                        last_smoke.setText("From LAST Smoking\n" + strTime);
+                        ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
+
+                        // 변환된 값을 프로그레스바에 적용.
+                        progress.setProgress((int) seconds);
+                    }
                 } catch (ParseException p) {
                     p.printStackTrace();
                 }
