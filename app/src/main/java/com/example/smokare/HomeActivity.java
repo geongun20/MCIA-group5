@@ -40,18 +40,19 @@ public class HomeActivity extends AppCompatActivity  {
         Intent serviceIntent = new Intent(this, getDataService.class);
         startService(serviceIntent);
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.frameLayout, new FragmentA());
-        fragmentTransaction.commit();
+        // no use fragment
+//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//        fragmentTransaction.add(R.id.frameLayout, new FragmentA());
+//        fragmentTransaction.commit();
 
-        Button buttonTemp = findViewById(R.id.button0) ;
-        buttonTemp.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchFragment();
-            }
-        });
+        // Button buttonTemp = findViewById(R.id.button0) ;
+//        buttonTemp.setOnClickListener(new Button.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switchFragment();
+//            }
+//        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -154,17 +155,6 @@ public class HomeActivity extends AppCompatActivity  {
         week.setText("THIS WEEK\n" + String.valueOf(input.countThisWeek()));
     }
 
-
-    public void switchFragment() {
-        Fragment fr;
-        fr = isFragmentA ? new FragmentB() : new FragmentA();
-        isFragmentA = !isFragmentA;
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fr);
-        fragmentTransaction.commit();
-    }
 
     protected void onResume() {
         super.onResume();
