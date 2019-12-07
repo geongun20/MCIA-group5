@@ -28,16 +28,16 @@ public class MainActivity extends AppCompatActivity {
                 // make a intent
                 Intent intent = new Intent(MainActivity.this, InfoActivity.class);
                 startActivity(intent);
-                finish();
             }
         }, 2000);
 
 
     }
 
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//    }
+    public void onPause() {
+        super.onPause();
+
+        // Remove the activity when its off the screen
+        finish();
+    }
 }

@@ -248,6 +248,9 @@ public class ReportActivity extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
+
+        // Remove the activity when its off the screen
+        finish();
     }
 
     protected void onSaveInstanceState(Bundle savedInstanceState) {
