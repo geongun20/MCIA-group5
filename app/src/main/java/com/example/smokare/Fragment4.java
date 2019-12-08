@@ -1,6 +1,5 @@
 package com.example.smokare;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -49,6 +49,7 @@ public class Fragment4 extends Fragment {
       
         int m = TimelineActivity.pickedMonth;
         int firstDay = input.getFirstDayOfMonth(m);
+
         for(int d = 23-firstDay; d <= 29-firstDay; d++) {
             nums.add(input.getData()[m][d].size());
             labels.add(d+"");
@@ -79,7 +80,7 @@ public class Fragment4 extends Fragment {
         for(int i = 0; i < 7; i++)
             total += nums.get(i);
         nums.add(total);
-        labels.add("Total");
+        labels.add("Week total");
 
         chartInit(v);
         return v;
@@ -87,7 +88,10 @@ public class Fragment4 extends Fragment {
 
     private void chartInit(View view) {
         barChart = view.findViewById(R.id.barChart);
-        barChart.setAutoScaleMinMaxEnabled(true);
+        barChart.setTouchEnabled(true);
+        barChart.setScaleEnabled(false);
+        barChart.setPinchZoom(false);
+        barChart.setDragEnabled(false);
 
         entries = new ArrayList<BarEntry>();
         for(int i = 0; i < nums.size(); i++)
@@ -97,6 +101,7 @@ public class Fragment4 extends Fragment {
         dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setDrawValues(true);
+        dataSet.setValueTextSize(12f);
 
         data = new BarData(dataSet);
         data.setBarWidth(0.9f);
@@ -105,28 +110,21 @@ public class Fragment4 extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f);
-        xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(8, true);
+        xAxis.setTextSize(12f);
         String[] labels2 = labels.toArray(new String[labels.size()]);
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(labels2));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels2));
 
         YAxis yAxisLeft = barChart.getAxisLeft();
-        yAxisLeft.setTextColor(Color.BLACK);
+        yAxisLeft.setTextSize(12f);
 
         YAxis yAxisRight = barChart.getAxisRight();
         yAxisRight.setEnabled(false);
 
-
-//        Legend legend = barChart.getLegend();
-//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-//        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
-
+        barChart.setData(data);
         barChart.setVisibleXRangeMinimum(8);
         barChart.setVisibleXRangeMaximum(8);
-        barChart.setDescription(null);
         barChart.setFitBars(true);
-        barChart.setData(data);
+        barChart.setDescription(null);
         barChart.invalidate();
     }
 
