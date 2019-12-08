@@ -33,11 +33,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.smokare.InfoActivity" />
-        <activity android:name="com.example.smokare.HomeActivity" />
-        <activity android:name="com.example.smokare.TimelineActivity" />
-        <activity android:name="com.example.smokare.ReportActivity" />
-        <activity android:name="com.example.smokare.SettingsActivity" />
+        <activity android:name="com.example.smokare.InfoActivity"
+            android:configChanges="orientation"
+            >
+        </activity>
+        <activity android:name="com.example.smokare.HomeActivity"
+            android:configChanges="orientation"
+            >
+        </activity>
+        <activity android:name="com.example.smokare.TimelineActivity"
+            android:configChanges="orientation">
+        </activity>
+
+        <activity android:name="com.example.smokare.ReportActivity"
+            android:configChanges="orientation">
+            </activity>
+        <activity android:name="com.example.smokare.SettingsActivity"
+            android:configChanges="orientation">
+        </activity>
     </application>
 
 </manifest>

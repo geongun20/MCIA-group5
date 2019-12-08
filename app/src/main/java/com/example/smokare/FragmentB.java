@@ -27,7 +27,7 @@ public class FragmentB extends Fragment {
         ListView lv = v.findViewById(R.id.listView1);
 
         Input input = new Input();
-        input.readFile();
+        input.readFile(getActivity().getExternalFilesDir(null));
         List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
         String[] arr = list.toArray(new String[0]);
 

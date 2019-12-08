@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
@@ -83,8 +85,11 @@ public class getDataService extends Service implements DataClient.OnDataChangedL
         }
 
         boolean isSuccess = false;
+        Log.d("getDataService",getExternalFilesDir(null).toString());
+
         if(dir.isDirectory()){
             System.out.println("debug2:"+getExternalFilesDir(null));
+
             file = new File(getExternalFilesDir(null)+"/testfolder/output.txt");
             if(file!=null&&!file.exists()){
                 Log.i( TAG2 , "!file.exists" );
@@ -123,10 +128,12 @@ public class getDataService extends Service implements DataClient.OnDataChangedL
     }
 
     // Our method to update the count
-    private void updateCount(String c) {
+    public void updateCount(String c) {
         timestamp = c;
         writeFile(file, c.getBytes());
+
     }
+
 
     public void onDestroy() {
         Wearable.getDataClient(this).removeListener(this);

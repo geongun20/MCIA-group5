@@ -56,7 +56,8 @@
                 android:id="@+id/ageInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="ex. 22" />
+                android:inputType="number" />
+            android:hint="ex. 22" />
         </TableRow>
         <TableRow>
 
@@ -103,7 +104,8 @@
                 android:id="@+id/priceInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="ex. 5000" />
+                android:inputType="number" />
+            android:hint="ex. 5000" />
         </TableRow>
         <TableRow>
             <TextView
@@ -120,6 +122,7 @@
                 android:id="@+id/tarInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
                 android:hint="ex. 4.8" />
         </TableRow>
     </TableLayout>

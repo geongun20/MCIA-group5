@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import android.content.Context;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -42,7 +43,7 @@ public class Fragment6 extends Fragment {
         super.onCreate(savedInstanceState);
 
         input = new Input();
-        input.readFile();
+        input.readFile(getActivity().getExternalFilesDir(null));
 //        input.readFile2("sample_data.txt", getContext());
 
         int m = TimelineActivity.pickedMonth;
