@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ public class Fragment2 extends Fragment {
     List<BarEntry> entries;
     BarDataSet dataSet;
     BarData data;
+    TextView tv;
 
     Input input;
     List<Integer> nums = new ArrayList<>();
@@ -45,21 +47,8 @@ public class Fragment2 extends Fragment {
         input = new Input();
         input.readFile(getActivity().getExternalFilesDir(null));
 //        input.readFile2("sample_data.txt", getContext());
-
-        int m = TimelineActivity.pickedMonth;
-        int firstDay = input.getFirstDayOfMonth(m);
-
-        for(int d = 9-firstDay; d <= 15-firstDay; d++) {
-            nums.add(input.getData()[m][d].size());
-            labels.add(d + "");
-        }
-
-        int total = 0;
-        for(int i = 0; i < 7; i++)
-            total += nums.get(i);
-        nums.add(total);
-        labels.add("Total");
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,15 +64,17 @@ public class Fragment2 extends Fragment {
             labels.add(d+"");
         }
 
-        int total = 0;
-        for(int i = 0; i < 7; i++)
-            total += nums.get(i);
-        nums.add(total);
-        labels.add("Week total");
-
         chartInit(v);
+
+        int weekTotal = 0;
+        for(int i = 0; i < 7; i++)
+            weekTotal += nums.get(i);
+        tv = v.findViewById(R.id.textView1);
+        tv.setText("Week total: " + weekTotal);
+
         return v;
     }
+
 
     private void chartInit(View view) {
         barChart = view.findViewById(R.id.barChart);
@@ -120,12 +111,13 @@ public class Fragment2 extends Fragment {
         yAxisRight.setEnabled(false);
 
         barChart.setData(data);
-        barChart.setVisibleXRangeMinimum(8);
-        barChart.setVisibleXRangeMaximum(8);
+        barChart.setVisibleXRangeMinimum(7);
+        barChart.setVisibleXRangeMaximum(7);
         barChart.setFitBars(true);
         barChart.setDescription(null);
         barChart.invalidate();
     }
+
 
     public void chartUpdate() {
         return;

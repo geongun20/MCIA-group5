@@ -32,6 +32,7 @@ public class Fragment0 extends Fragment {
     List<Integer> nums = new ArrayList<>();
     List<String> labels = new ArrayList<>();
 
+
     public Fragment0() {
         // Required empty public constructor
     }
@@ -44,24 +45,8 @@ public class Fragment0 extends Fragment {
         input = new Input();
         input.readFile(getActivity().getExternalFilesDir(null));
 //        input.readFile2("sample_data.txt", getContext());
-
-        int m = TimelineActivity.pickedMonth;
-        int lastDate = input.getLastDateOfMonth(m);
-        int[] numsTemp = new int[7];
-
-        for (int d = 1; d <= lastDate; d++)
-            numsTemp[input.getDay(m, d) - 1] += input.getData()[m][d].size();
-        for(int num : numsTemp)
-            nums.add(num);
-
-        labels.add("SUN");
-        labels.add("MON");
-        labels.add("TUE");
-        labels.add("WED");
-        labels.add("THU");
-        labels.add("FRI");
-        labels.add("SAT");
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,8 +73,10 @@ public class Fragment0 extends Fragment {
         labels.add("SAT");
 
         chartInit(v);
+
         return v;
     }
+
 
     private void chartInit(View view) {
         barChart = view.findViewById(R.id.barChart);
@@ -132,6 +119,7 @@ public class Fragment0 extends Fragment {
         barChart.setDescription(null);
         barChart.invalidate();
     }
+
 
     public void chartUpdate() {
         return;

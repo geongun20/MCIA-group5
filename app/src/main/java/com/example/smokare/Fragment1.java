@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ public class Fragment1 extends Fragment {
     List<BarEntry> entries;
     BarDataSet dataSet;
     BarData data;
+    TextView tv;
 
     Input input;
     List<Integer> nums = new ArrayList<>();
@@ -44,58 +46,33 @@ public class Fragment1 extends Fragment {
         input = new Input();
         input.readFile(getActivity().getExternalFilesDir(null));
 //        input.readFile2("sample_data.txt", getContext());
-
-        int m = TimelineActivity.pickedMonth;
-        int firstDay = input.getFirstDayOfMonth(m);
-        if(firstDay >= 1) {
-            for (int i = 0; i < firstDay - 1; i++) {
-                nums.add(0);
-                labels.add(" ");
-            }
-            for (int d = 1; d <= 8 - firstDay; d++) {
-                nums.add(input.getData()[m][d].size());
-                labels.add(d+"");
-            }
-        }
-        else {
-            for (int d = 1; d <= 8 - firstDay; d++) {
-                nums.add(input.getData()[m][d].size());
-                labels.add(d+"");
-            }
-        }
-
-        int total = 0;
-        for(int i = 0; i < 7; i++)
-            total += nums.get(i);
-        nums.add(total);
-        labels.add("Total");
-
-        /**
-         * day = 1
-         * d = [1](0개 +)1~7 ... [5]29~말일(+ 35-말일개)
-         *
-         * day = 2
-         * d = [1](1개 +)1~6 ... [5]28~말일(+ 36-말일개)
-         *
-         * day = 3
-         * d = [1](2개 +)1~5 ... [5]27~말일(+ 37-말일개)
-         *
-         * day = 4
-         * d = [1](3개 +)1~4 ... [5]26~말일(+ 38-말일개)
-         *
-         * day = 5
-         * d = [1](4개 +)1~3 ... [5]25~말일(+ 39-말일개)
-         *
-         * day = 6 & 말일 = 30
-         * d = [1](5개 +)1~2 ... [5]24~30(+ 0개)
-         *
-         * day = 6 & 말일 = 31
-         * d = [1](5개 +)1~2 ... [5]24~30(+ 0개), [6]31(+ 6개)
-         *
-         * day = 7
-         * d = [1](6개 +)1~1 ... [5]23~29(+ 0개), [6]~말일(+ 36-말일개)
-         */
     }
+
+    /**
+     * day = 1
+     * d = [1](0개 +)1~7 ... [5]29~말일(+ 35-말일개)
+     *
+     * day = 2
+     * d = [1](1개 +)1~6 ... [5]28~말일(+ 36-말일개)
+     *
+     * day = 3
+     * d = [1](2개 +)1~5 ... [5]27~말일(+ 37-말일개)
+     *
+     * day = 4
+     * d = [1](3개 +)1~4 ... [5]26~말일(+ 38-말일개)
+     *
+     * day = 5
+     * d = [1](4개 +)1~3 ... [5]25~말일(+ 39-말일개)
+     *
+     * day = 6 & 말일 = 30
+     * d = [1](5개 +)1~2 ... [5]24~30(+ 0개)
+     *
+     * day = 6 & 말일 = 31
+     * d = [1](5개 +)1~2 ... [5]24~30(+ 0개), [6]31(+ 6개)
+     *
+     * day = 7
+     * d = [1](6개 +)1~1 ... [5]23~29(+ 0개), [6]~말일(+ 36-말일개)
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -125,15 +102,17 @@ public class Fragment1 extends Fragment {
             }
         }
 
-        int total = 0;
-        for(int i = 0; i < 7; i++)
-            total += nums.get(i);
-        nums.add(total);
-        labels.add("Week total");
-
         chartInit(v);
+
+        int weekTotal = 0;
+        for(int i = 0; i < 7; i++)
+            weekTotal += nums.get(i);
+        tv = v.findViewById(R.id.textView1);
+        tv.setText("Week total: " + weekTotal);
+
         return v;
     }
+
 
     private void chartInit(View view) {
         barChart = view.findViewById(R.id.barChart);
@@ -170,12 +149,13 @@ public class Fragment1 extends Fragment {
         yAxisRight.setEnabled(false);
 
         barChart.setData(data);
-        barChart.setVisibleXRangeMinimum(8); // 최소로 보여질 x축의 데이터 설정
-        barChart.setVisibleXRangeMaximum(8); // 최대로 보여질 x축의 데이터 설정
+        barChart.setVisibleXRangeMinimum(7); // 최소로 보여질 x축의 데이터 설정
+        barChart.setVisibleXRangeMaximum(7); // 최대로 보여질 x축의 데이터 설정
         barChart.setFitBars(true); // make the x-axis fit exactly all bars
         barChart.setDescription(null);
         barChart.invalidate(); // refresh
     }
+
 
     public void chartUpdate() {
         return;
