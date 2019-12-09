@@ -7,8 +7,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -73,7 +73,6 @@ public class InfoActivity extends AppCompatActivity {
                     toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
-
                 else {
                     // all info are submitted
                     try {
@@ -96,13 +95,17 @@ public class InfoActivity extends AppCompatActivity {
                         System.out.println("Could not parse " + nfe);
                     }
 
-                    // TODO save user info in application
+                    // save user info in application
                     Intent intent = new Intent(InfoActivity.this, HomeActivity.class);
                     startActivity(intent);
+                    finish();
                 }
+
             }
         });
+
     }
+
 
     public void onPause() {
         super.onPause();
@@ -110,6 +113,8 @@ public class InfoActivity extends AppCompatActivity {
         // Remove the activity when its off the screen
         finish();
     }
+
+
 //    private void save(){
 //        SharedPreferences.Editor editor = info.edit();
 //        editor.putString("name", nickname);

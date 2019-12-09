@@ -15,9 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,15 +32,19 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity  {
 
+    Button manualButton;
+    ListView lv;
+    TextView tvToday;
+    TextView tvThisWeek;
+    TextView tvSinceLast;
+    BottomNavigationView bottomNavigationView;
     private static Handler mHandler;
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-    Button manualButton;
     Input input;
     FileOutputStream fos;
     File file;
 
-    // private boolean isFragmentA = true;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -55,33 +56,12 @@ public class HomeActivity extends AppCompatActivity  {
         input.readFile(getExternalFilesDir(null));
 //      input.readFile2("sample_data.txt", getApplicationContext());
 
-        final List<String> list = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
-
-        ListView lv = findViewById(R.id.listView1);
-        String[] arr = list.toArray(new String[0]);
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arr);
-        lv.setAdapter(adapter);
-
-        // no use fragment
-//        FragmentManager fm = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//        fragmentTransaction.add(R.id.frameLayout, new FragmentA());
-//        fragmentTransaction.commit();
-
-        // Button buttonTemp = findViewById(R.id.button0) ;
-//        buttonTemp.setOnClickListener(new Button.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                switchFragment();
-//            }
-//        });
-
         manualButton = findViewById(R.id.button1);
         manualButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                file = new File(getExternalFilesDir(null)+"/testfolder/output.txt");
+                file = new File(getExternalFilesDir(null) + "/testfolder/output.txt");
 
                 String outstr = input.readAllBytesJava7(getExternalFilesDir(null) + "/testfolder/output.txt");
                 outstr = (sdf.format(timestamp) + "\n") + outstr;
@@ -95,7 +75,57 @@ public class HomeActivity extends AppCompatActivity  {
             }
         });
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+        lv = findViewById(R.id.listView1);
+        final List<String> todayList = input.getData()[input.getMonthOfToday()][input.getDateOfToday()];
+        String[] todayArr = todayList.toArray(new String[0]);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, todayArr);
+        lv.setAdapter(adapter);
+
+        tvToday = findViewById(R.id.today);
+        tvToday.setText("TODAY\n" + String.valueOf(input.countToday()));
+
+        tvThisWeek = findViewById(R.id.this_week);
+        tvThisWeek.setText("THIS WEEK\n" + String.valueOf(input.countThisWeek()));
+
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                try {
+                    Calendar cal = Calendar.getInstance();
+                    Date now = cal.getTime();
+
+                    if(todayList.size() == 0) {
+                        TextView sinceLast = findViewById(R.id.since_last_smoking);
+                        sinceLast.setText("No Data");
+                    }
+                    else {
+                        final String last_time = todayList.get(0);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+                        Date lsTime = sdf.parse(last_time);
+
+                        long diff = now.getTime() - lsTime.getTime();
+                        long seconds = diff / 1000;
+                        long minutes = seconds / 60;
+                        long hours = minutes / 60;
+                        long days = hours / 24;
+                        String strTime = "";
+                        if (days == 0)
+                            strTime = String.format("%dh %dm %ds", hours % 24, minutes % 60, seconds % 60);
+                        else if (days == 1)
+                            strTime = String.format("%d day\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
+                        else
+                            strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
+
+                        tvSinceLast = findViewById(R.id.since_last_smoking);
+                        tvSinceLast.setText("SINCE LAST SMOKING\n" + strTime);
+                    }
+                } catch (ParseException p) {
+                    p.printStackTrace();
+                }
+            }
+        };
+
+        bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -126,46 +156,7 @@ public class HomeActivity extends AppCompatActivity  {
             }
         });
 
-
-            mHandler = new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                        try {
-                            Calendar cal = Calendar.getInstance();
-                            Date now = cal.getTime();
-
-
-                            if(list.size()==0) {
-                                TextView fromLast = findViewById(R.id.after_last_smoke);
-                                fromLast.setText("No Data!");
-                            }else {
-                                final String last_time = list.get(0);
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-                                Date lsTime = sdf.parse(last_time);
-
-                                long diff = now.getTime() - lsTime.getTime();
-                                long seconds = diff / 1000;
-                                long minutes = seconds / 60;
-                                long hours = minutes / 60;
-                                long days = hours / 24;
-                                String strTime = "";
-                                if (days == 0)
-                                    strTime = String.format("%dh %dm %ds", hours % 24, minutes % 60, seconds % 60);
-                                else if (days == 1)
-                                    strTime = String.format("%d day\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
-                                else
-                                    strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
-                                TextView fromLast = findViewById(R.id.after_last_smoke);
-                                fromLast.setText("From LAST Smoking\n" + strTime);
-
-                            }
-                        } catch (ParseException p) {
-                            p.printStackTrace();
-                        }
-                    }
-            };
-
-        class NewRunnable implements Runnable{
+        class NewRunnable implements Runnable {
             @Override
             public void run(){
                 while(true){
@@ -182,14 +173,8 @@ public class HomeActivity extends AppCompatActivity  {
         NewRunnable nr = new NewRunnable();
         Thread t = new Thread(nr);
         t.start();
+    } // end onCreate()
 
-
-        TextView today = findViewById(R.id.today);
-        today.setText("TODAY\n" + String.valueOf(input.countToday()));
-
-        TextView week = findViewById(R.id.this_week);
-        week.setText("THIS WEEK\n" + String.valueOf(input.countThisWeek()));
-    }
 
     private boolean writeFile(File file , byte[] file_content){
         boolean result;
@@ -213,14 +198,15 @@ public class HomeActivity extends AppCompatActivity  {
         return result;
     }
 
+
     protected void onResume() {
         super.onResume();
     }
 
+
     protected void onPause() {
         super.onPause();
 
-        // Remove the activity when its off the screen
-        finish();
+        finish(); // Remove the activity when it is off the screen
     }
 }

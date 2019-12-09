@@ -3,7 +3,6 @@ package com.example.smokare;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,16 +28,14 @@ public class Input extends AppCompatActivity {
     private final Calendar today = Calendar.getInstance();
     private int[] lastDateOfMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private int[] lastWeekOfMonth = {0, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5};
-    private String lastSmoke;
-    private int total_cigarette = 0;
-    private String first_smokare = "";
+    private String firstSmoke;
+    private int totalCigarettes = 0;
 
 
     public void readFile(File dir) {
 
         for(int m = 1; m <= 12; m++)
             for(int d = 1; d <= lastDateOfMonth[m]; d++) data[m][d] = new ArrayList<>();
-
 
         InputStream is = null;
         InputStreamReader isr = null;
@@ -47,7 +44,6 @@ public class Input extends AppCompatActivity {
 
         try {
             is = new FileInputStream(dir + "/testfolder/output.txt");
-
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
@@ -61,12 +57,9 @@ public class Input extends AppCompatActivity {
                 int second = Integer.parseInt(line2[5]);
 
                 data[month][date].add(line);
-
-                total_cigarette++;
-
+                firstSmoke = line;
+                totalCigarettes++;
                 monthly[month-1]++;
-
-                lastSmoke = line;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,29 +93,27 @@ public class Input extends AppCompatActivity {
         return content;
     }
 
-
     public ArrayList<String>[][] getData() {
         return data;
     }
 
-    public float Calculate_average(){
-        int total = total_cigarette;
+    public float calculateAverage(){
         float average = 0;
-        if(lastSmoke != null) {
-            String first_smoke = lastSmoke.substring(0, 10);
+        if(firstSmoke != null) {
+            String firstSmoke2 = firstSmoke.substring(0, 10);
             long calDatedays = 0;
             try {
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat format = new SimpleDateFormat("yyyy.mm.dd");
                 String today = format.format(currentTime);
-                Date F_date = format.parse(first_smoke);
+                Date F_date = format.parse(firstSmoke2);
                 Date L_date = format.parse(today);
 
                 long calDate = F_date.getTime() - L_date.getTime();
-                calDatedays = calDate / (1000); //이렇게 하면 초가 나온다.
+                calDatedays = calDate / (1000); // 이렇게 하면 초가 나온다.
                 calDatedays = Math.abs(calDatedays);
 
-                average = (float) (total) / (calDatedays);
+                average = (float) totalCigarettes / calDatedays;
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -142,6 +133,14 @@ public class Input extends AppCompatActivity {
         return today.get(Calendar.DAY_OF_WEEK); // 1(Sunday) ~ 7
     }
 
+    public int getDay(int m, int d) {
+        Calendar myCal = Calendar.getInstance();
+        myCal.set(Calendar.YEAR, 2019);
+        myCal.set(Calendar.MONTH, m-1);
+        myCal.set(Calendar.DATE, d);
+        return myCal.get(Calendar.DAY_OF_WEEK);
+    }
+
     public int getFirstDayOfMonth(int m) {
         Calendar myCal = Calendar.getInstance();
         myCal.set(Calendar.YEAR, 2019);
@@ -152,10 +151,6 @@ public class Input extends AppCompatActivity {
 
     public int getLastDateOfMonth(int m) {
         return lastDateOfMonth[m];
-    }
-
-    public String getLastSmoke() {
-        return lastSmoke;
     }
 
     public int countToday() {
@@ -201,7 +196,11 @@ public class Input extends AppCompatActivity {
         return list;
     }
 
-  
+
+
+
+
+  // This is for reading from assets
   public void readFile2(String filename, Context context) {
         for(int m = 1; m <= 12; m++)
             for(int d = 1; d <= lastDateOfMonth[m]; d++)
@@ -229,10 +228,9 @@ public class Input extends AppCompatActivity {
                 int second = Integer.parseInt(line2[5]);
 
                 data[month][date].add(line);
-
+                firstSmoke = line;
+                totalCigarettes++;
                 monthly[month-1]++;
-
-                lastSmoke = line;
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -30,6 +30,7 @@ public class TimelineActivity extends AppCompatActivity {
     TextView tv3;
     ViewPager viewPager;
     TabLayout tabLayout;
+    BottomNavigationView bottomNavigationView;
 
     Input input;
     Global_Variable global;
@@ -61,7 +62,7 @@ public class TimelineActivity extends AppCompatActivity {
         tv1 = findViewById(R.id.textView9);
         tv1.setText("" + months[12 - pickedMonth]);
         tv2 = findViewById(R.id.textView10);
-        tv2.setText("Total cigarettes: " + input.countMonth(pickedMonth));
+        tv2.setText("Total cigarettes smoked: " + input.countMonth(pickedMonth));
         tv3 = findViewById(R.id.textView11);
         tv3.setText("Total money spent: " + Integer.parseInt(global.getPrice()) / 20 * input.countMonth(pickedMonth) + " KRW");
 
@@ -73,6 +74,7 @@ public class TimelineActivity extends AppCompatActivity {
             adapter.addItem(new Fragment4(), "WEEK 4");
             adapter.addItem(new Fragment5(), "WEEK 5");
             adapter.addItem(new Fragment6(), "WEEK 6");
+            adapter.addItem(new Fragment0(), "By Day");
         }
         else {
             adapter.addItem(new Fragment1(), "WEEK 1");
@@ -80,6 +82,7 @@ public class TimelineActivity extends AppCompatActivity {
             adapter.addItem(new Fragment3(), "WEEK 3");
             adapter.addItem(new Fragment4(), "WEEK 4");
             adapter.addItem(new Fragment5(), "WEEK 5");
+            adapter.addItem(new Fragment0(), "By Day");
         }
 
         viewPager = findViewById(R.id.viewPager);
@@ -88,7 +91,6 @@ public class TimelineActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
-
         Button confirmButton = findViewById(R.id.button1);
         confirmButton.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -96,7 +98,7 @@ public class TimelineActivity extends AppCompatActivity {
                 pickedMonth = 12 - monthPicker.getValue();
 
                 tv1.setText("" + months[monthPicker.getValue()]);
-                tv2.setText("Total cigarettes: " + input.countMonth(pickedMonth));
+                tv2.setText("Total cigarettes smoked: " + input.countMonth(pickedMonth));
                 tv3.setText("Total money spent: " + Integer.parseInt(global.getPrice()) / 20 * input.countMonth(pickedMonth) + " KRW");
 
                 MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
@@ -107,6 +109,7 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.addItem(new Fragment4(), "WEEK 4");
                     adapter.addItem(new Fragment5(), "WEEK 5");
                     adapter.addItem(new Fragment6(), "WEEK 6");
+                    adapter.addItem(new Fragment0(), "By Day");
                 }
                 else {
                     adapter.addItem(new Fragment1(), "WEEK 1");
@@ -114,6 +117,7 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.addItem(new Fragment3(), "WEEK 3");
                     adapter.addItem(new Fragment4(), "WEEK 4");
                     adapter.addItem(new Fragment5(), "WEEK 5");
+                    adapter.addItem(new Fragment0(), "By Day");
                 }
 
                 viewPager.setAdapter(adapter);
@@ -122,8 +126,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+        bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -156,10 +159,10 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
+
     protected void onPause() {
         super.onPause();
 
-        // Remove the activity when its off the screen
-        finish();
+        finish(); // Remove the activity when it is off the screen
     }
 }

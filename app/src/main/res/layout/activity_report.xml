@@ -30,16 +30,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@drawable/at_normal" />
-
         <TextView
             android:id="@+id/report_main_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Please enter your goal\nto quit smoking!"
-            android:textSize="30sp" />
-
+            android:text="Please enter\nthe goal number of days\nyou will not smoke!"
+            android:textSize="25sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,21 +52,18 @@
             android:paddingTop="12dp"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:id="@+id/progress" />
-
         <EditText
             android:id="@+id/edit"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="number" />
-
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/apply"
             android:text="Apply" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -79,23 +74,20 @@
 
         <TextView
             android:id="@+id/report_text_1_1"
-            android:layout_width="wrap_content"
+            android:layout_width="6dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="QUIT Smoking..."
-            android:textStyle="bold"
-            android:textSize="20sp" />
+            android:text="Time\nPassed"
+            android:textSize="18sp"
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/report_text_1_2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="2 days 1 hours 12 minutes 45 seconds"
             android:textSize="15sp" />
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -106,21 +98,20 @@
 
         <TextView
             android:id="@+id/report_text_2_1"
-            android:layout_width="0dp"
+            android:layout_width="6dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="LIFE EXTENSION"
-            android:textSize="20sp"
+            android:text="Life\nExtended"
+            android:textSize="18sp"
             android:textStyle="bold" />
-
         <TextView
             android:id="@+id/report_text_2_2"
-            android:layout_width="105dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="You could live 96.6 more minutes" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -131,22 +122,22 @@
 
         <TextView
             android:id="@+id/report_text_3_1"
-            android:layout_width="0dp"
+            android:layout_width="6dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="MONEY you saved"
-            android:textSize="20sp"
+            android:text="Money\nSaved"
+            android:textSize="18sp"
             android:textStyle="bold" />
-
         <TextView
             android:id="@+id/report_text_3_2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="6763.0 won" />
+            android:textSize="15sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="3dp"
@@ -159,17 +150,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TIPS for Quit Smoking"
-            android:textSize="20sp"
+            android:text="Tips to Quit Smoking"
+            android:textSize="18sp"
             android:textStyle="bold" />
-
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="How to Quit Smoking?\nClick HERE!" />
-
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

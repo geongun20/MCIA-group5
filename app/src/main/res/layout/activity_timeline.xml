@@ -28,18 +28,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingLeft="20dp"
-            android:text="Total cigarettes:"
             android:textColor="@android:color/black"
-            android:textSize="25sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="Total money spent:"
             android:textColor="@android:color/black"
-            android:textSize="25sp" />
+            android:textSize="22sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,7 +81,9 @@
             android:layout_height="38dp"
             app:layout_constraintBottom_toTopOf="@+id/viewPager"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabTextAppearance="@style/tab_text"
+            />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
@@ -110,8 +110,7 @@
 
         <FrameLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content" >
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="match_parent"
@@ -124,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="It must be a stressful \n      day these days."
+                android:text="   You must be under stress\n              these days."
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="?attr/actionBarSize">
+    android:orientation="vertical" >
 
 <!--    <Button-->
 <!--        android:id="@+id/button0"-->
@@ -19,8 +18,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="80"
-        android:background="#AAFFAA">
+        android:layout_weight="80" >
 
         <TextView
             android:id="@+id/textView1"
@@ -28,14 +26,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="Connected to TicWatch Pro Watch"
-            android:textSize="30sp" />
+            android:text="Connected to TicWatch Pro"
+            android:textSize="20sp"
+            android:background="#AAFFAA" />
         <Button
             android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:text="Record a cigarette manually"
+            android:text="Record 1 cigarette manually"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="left|center_vertical"
+            android:text="   Today's smoking history"
             android:textSize="20sp" />
         <ListView
             android:id="@+id/listView1"
@@ -57,23 +64,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="25sp" />
-
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/this_week"
             android:layout_width="400dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="25sp" />
-
+            android:textSize="20sp" />
         <TextView
-            android:id="@+id/after_last_smoke"
+            android:id="@+id/since_last_smoking"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 
