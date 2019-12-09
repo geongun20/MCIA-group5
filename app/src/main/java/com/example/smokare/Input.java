@@ -31,8 +31,9 @@ public class Input extends AppCompatActivity {
     private String firstSmoke;
     private int totalCigarettes = 0;
 
-    
+
     public void readFile(File dir) {
+
         for(int m = 1; m <= 12; m++)
             for(int d = 1; d <= lastDateOfMonth[m]; d++) data[m][d] = new ArrayList<>();
 
