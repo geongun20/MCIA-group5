@@ -65,6 +65,7 @@ public class TimelineActivity extends AppCompatActivity {
         tv2.setText("Total cigarettes smoked: " + input.countMonth(pickedMonth));
         tv3 = findViewById(R.id.textView11);
         tv3.setText("Total money spent: " + Integer.parseInt(global.getPrice()) / 20 * input.countMonth(pickedMonth) + " KRW");
+        int count_M = input.countMonth(pickedMonth);
 
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
         if(pickedMonth == 3 || pickedMonth == 6) {
@@ -157,6 +158,10 @@ public class TimelineActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        TextView mushroom_comment = findViewById(R.id.textView8);
+        if(count_M > 20) mushroom_comment.setText("   You must be under stress\n              these days.");
+        else mushroom_comment.setText("   You smoke less than\n           the average!");
     }
 
 

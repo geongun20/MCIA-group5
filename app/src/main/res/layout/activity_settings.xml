@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1"
-        android:text="[User Information]"
-        android:textAlignment="center"
-        android:textSize="30sp" />
+<!--    <TextView-->
+<!--        android:id="@+id/textTitle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:text="[User Information]"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="30sp" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,21 +30,24 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonWatch"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_weight="1"
-        android:text="Connected to your smartwatch"
-        android:textSize="15sp" />
+        android:layout_weight="2"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="[USER INFORMATION]"
+        android:textSize="25sp"
+        android:background="#AAFFAA" />
+
 
     <TextView
         android:id="@+id/textUserName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="2"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textSize="18sp" />
 
     <TextView
@@ -52,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="2"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textSize="18sp" />
 
     <TextView
@@ -60,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="2"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textSize="18sp" />
 
     <TextView
@@ -68,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="2"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textSize="18sp" />
 
     <TextView
@@ -76,17 +79,17 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="2"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textSize="18sp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/navigationView"
-        app:menu="@menu/main_bottom_navigation"
-        app:itemBackground="@color/colorPrimary"
         android:background="?android:attr/windowBackground"
+        app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@drawable/bottom_button_selector"
-        app:itemTextColor="@drawable/bottom_button_selector"/>
+        app:itemTextColor="@drawable/bottom_button_selector"
+        app:menu="@menu/main_bottom_navigation" />
 
 </LinearLayout>

@@ -130,6 +130,7 @@ public class ReportActivity extends AppCompatActivity {
         final int price = Integer.parseInt(global.getPrice());
         buttonAlert = findViewById(R.id.button);
         buttonAlert.setOnClickListener(new Button.OnClickListener() {
+
             public void onClick(View view) {
                 if (view == buttonAlert) {
                     Context mContext = getApplicationContext();

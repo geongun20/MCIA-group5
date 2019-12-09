@@ -113,6 +113,7 @@ public class Input extends AppCompatActivity {
                 calDatedays = Math.abs(calDatedays);
 
                 average = (float) totalCigarettes / calDatedays;
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
