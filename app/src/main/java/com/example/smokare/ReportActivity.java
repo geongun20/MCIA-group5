@@ -252,6 +252,10 @@ public class ReportActivity extends AppCompatActivity {
         NewRunnable nr = new NewRunnable();
         Thread t = new Thread(nr);
         t.start();
+
+
+        TextView report_title = findViewById(R.id.textTitle);
+        report_title.setText(String.format("[%s 's REPORT]", global.getName()));
     }
   
     protected void onResume() {
