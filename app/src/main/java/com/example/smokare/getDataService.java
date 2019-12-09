@@ -102,7 +102,7 @@ public class getDataService extends Service implements DataClient.OnDataChangedL
                 }
             }else{
                 Log.i( TAG2 , "file.exists" );
-
+            }
         }
 
         Wearable.getDataClient(this).addListener(this);
