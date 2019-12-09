@@ -187,14 +187,14 @@ public class ReportActivity extends AppCompatActivity {
                         else
                             strTime = String.format("%d days\n%dh %dm %ds", days, hours % 24, minutes % 60, seconds % 60);
 
-                        textViewLast.setText(strTime + "\nhave passed\nsince the last smoking.");
+                        textViewLast.setText(strTime + " have passed    \nsince the last smoking.    ");
 
                         progress = findViewById(R.id.progress);
                         progress.setProgress((int) seconds); // 변환된 값을 프로그레스바에 적용
 
-                        textViewLife.setText(String.format("You have been getting\n%.2f more minutes of life\nsince the last smoking.", (double) seconds * average * (13.8)));
+                        textViewLife.setText(String.format("You have been getting    \n%.2f more minutes of life    \nsince the last smoking.    ", (double) seconds * average * (13.8)));
 
-                        textViewMoney.setText(String.format("You have been saving\n%.2f KRW\nsince the last smoking.", seconds * average * price));
+                        textViewMoney.setText(String.format("You have been saving    \n%.2f KRW    \nsince the last smoking.    ", seconds * average * price));
 
 //                        DecimalFormat form = new DecimalFormat("#.#");
                     }
@@ -255,7 +255,7 @@ public class ReportActivity extends AppCompatActivity {
 
 
         TextView report_title = findViewById(R.id.textTitle);
-        report_title.setText(String.format("[%s 's REPORT]", global.getName()));
+        report_title.setText(String.format("%s's REPORT", global.getName()));
     }
   
     protected void onResume() {

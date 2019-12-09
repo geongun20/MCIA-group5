@@ -13,8 +13,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="[Personal Report]"
-        android:textAlignment="center"
         android:textSize="35sp"
         android:textStyle="bold" />
 
@@ -74,19 +74,20 @@
 
         <TextView
             android:id="@+id/report_text_1_1"
-            android:layout_width="6dp"
+            android:layout_width="26dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
-            android:text="Time\nPassed"
+            android:text="Time Passed"
             android:textSize="18sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/report_text_1_2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_weight="2"
+            android:gravity="center_vertical|right"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -98,19 +99,19 @@
 
         <TextView
             android:id="@+id/report_text_2_1"
-            android:layout_width="6dp"
+            android:layout_width="26dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="4"
             android:gravity="center"
-            android:text="Life\nExtended"
+            android:text=" Life Extended"
             android:textSize="18sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/report_text_2_2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_weight="2"
+            android:gravity="center_vertical|right"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -122,19 +123,19 @@
 
         <TextView
             android:id="@+id/report_text_3_1"
-            android:layout_width="6dp"
+            android:layout_width="28dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
-            android:text="Money\nSaved"
+            android:text="Money Saved"
             android:textSize="18sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/report_text_3_2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_weight="2"
+            android:gravity="center_vertical|right"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -148,7 +149,7 @@
             android:id="@+id/report_text_4_1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
             android:text="Tips to Quit Smoking"
             android:textSize="18sp"
@@ -157,7 +158,7 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="How to Quit Smoking?\nClick HERE!" />
     </LinearLayout>
 
